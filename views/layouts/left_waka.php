@@ -8,7 +8,7 @@
                 <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>Petugas Sarpras</p>
+                <p>Wakil Kepala Sarpras</p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -34,11 +34,8 @@
                         ['label' => 'Inventaris Barang', 'options' => ['class' => 'header']],
                         ['label' => 'Dashboard', 'icon' => 'fa-dashboard', 'url' => ['/site/index']],
                         ['label' => 'Master Barang', 'icon' => 'fa-table', 'url' => ['/barang/index']],
-                        ['label' => 'Pengajuan', 'icon' => 'fa-edit', 'url' => ['/pengajuan/index']],
-                        ['label' => 'Transaksi Masuk', 'icon' => 'fa-reply', 'url' => ['/transaksi-masuk/index']],
-                        ['label' => 'Transaksi Keluar', 'icon' => 'fa-share', 'url' => ['/transaksi-keluar/index']],
-                        ['label' => 'Peminjaman', 'icon' => 'fa-hand-paper-o', 'url' => ['/transaksi-keluar/index']],
-                        ['label' => 'Data Vendor', 'icon' => 'fa-truck', 'url' => ['/vendor/index']],
+                        ['label' => 'Daftar Pengajuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],                        
+                        ['label' => 'Daftar Persetujuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],
                         ['label' => 'Pengaturan Akun', 'icon' => 'fa-user', 'url' => ['/site/index']],
                         ['label' => 'Keluar', 'icon' => 'fa-sign-out' , 'url' => ['/site/login']],
                         ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],

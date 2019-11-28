@@ -139,7 +139,7 @@ class PengajuanController extends Controller {
             // render view
             return $this->render('create', [
                         'model' => $model,
-                        '$modelDetail' => (empty($modelDetail)) ? [new PengajuanBarang] : $modelDetail,
+                        'modelDetail' => (empty($modelDetail)) ? [new PengajuanBarang] : $modelDetail,
             ]);
         }
     }
