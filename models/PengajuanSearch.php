@@ -9,24 +9,22 @@ use app\models\Pengajuan;
 /**
  * PengajuanSearch represents the model behind the search form of `app\models\Pengajuan`.
  */
-class PengajuanSearch extends Pengajuan
-{
+class PengajuanSearch extends Pengajuan {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'setuju'], 'integer'],
-            [['tgl_pengajuan', 'tgl_spk', 'tgl_persetujuan'], 'safe'],
+            [['tgl_pengajuan', 'tgl_spk', 'tgl_persetujuan', 'keterangan'], 'safe'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,8 +36,7 @@ class PengajuanSearch extends Pengajuan
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Pengajuan::find();
 
         // add conditions that should always apply here
@@ -65,6 +62,9 @@ class PengajuanSearch extends Pengajuan
             'tgl_persetujuan' => $this->tgl_persetujuan,
         ]);
 
+        $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);
+
         return $dataProvider;
     }
+
 }

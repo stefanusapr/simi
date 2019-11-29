@@ -9,24 +9,22 @@ use app\models\TransaksiMasuk;
 /**
  * TransaksiMasukSearch represents the model behind the search form of `app\models\TransaksiMasuk`.
  */
-class TransaksiMasukSearch extends TransaksiMasuk
-{
+class TransaksiMasukSearch extends TransaksiMasuk {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'id_vendor'], 'integer'],
-            [['tgl_spk', 'tgl_masuk', 'no_faktur', 'tgl_faktur', 'no_berita_acara', 'tgl_berita_acara', 'no_pemeriksaan', 'tgl_pemeriksaan'], 'safe'],
+            [['tgl_spk', 'tgl_masuk', 'no_faktur', 'tgl_faktur', 'no_berita_acara', 'tgl_berita_acara', 'no_pemeriksaan', 'tgl_pemeriksaan', 'keterangan'], 'safe'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,8 +36,7 @@ class TransaksiMasukSearch extends TransaksiMasuk
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = TransaksiMasuk::find();
 
         // add conditions that should always apply here
@@ -68,9 +65,11 @@ class TransaksiMasukSearch extends TransaksiMasuk
         ]);
 
         $query->andFilterWhere(['like', 'no_faktur', $this->no_faktur])
-            ->andFilterWhere(['like', 'no_berita_acara', $this->no_berita_acara])
-            ->andFilterWhere(['like', 'no_pemeriksaan', $this->no_pemeriksaan]);
+                ->andFilterWhere(['like', 'no_berita_acara', $this->no_berita_acara])
+                ->andFilterWhere(['like', 'no_pemeriksaan', $this->no_pemeriksaan])
+                ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
         return $dataProvider;
     }
+
 }

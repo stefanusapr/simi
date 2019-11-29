@@ -18,7 +18,7 @@ class TransaksiMasukDetailSearch extends TransaksiMasukDetail
     {
         return [
             [['id', 'id_barang','id_transaksi_masuk'], 'integer'],
-            [['keterangan','jumlah','thn_produksi'],'safe'],
+            [['keterangan','jumlah','thn_produksi', 'harga_satuan'],'safe'],
        ];
     }
 
@@ -65,6 +65,7 @@ class TransaksiMasukDetailSearch extends TransaksiMasukDetail
             'id_transaksi_masuk' => $this->id_transaksi_masuk,
             'thn_produksi' => $this->thn_produksi,
             'jumlah' => $this->jumlah,
+            'harga_satuan' => $this->harga_satuan,
         ]);
 
         $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);

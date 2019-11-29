@@ -8,6 +8,7 @@ use app\models\BarangSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\Pagination;
 
 /**
  * BarangController implements the CRUD actions for Barang model.
@@ -42,6 +43,14 @@ class BarangController extends Controller {
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
+
+//        $query = BarangSearch::find();
+//        $countQuery = clone $query;
+//
+//        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+//
+//        $dataProvider = new ActiveDataProvider(['query' => $query]);
+//        return $this->render('index', ['dataProvider' => $dataProvider, 'pages' => $pages]);
     }
 
     /**

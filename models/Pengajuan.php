@@ -15,46 +15,45 @@ use Yii;
  *
  * @property PengajuanBarang[] $pengajuanBarangs
  */
-class Pengajuan extends \yii\db\ActiveRecord
-{
+class Pengajuan extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'pengajuan';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['tgl_pengajuan', 'tgl_spk', 'tgl_persetujuan'], 'safe'],
             [['setuju'], 'integer'],
+            [['keterangan'], 'string'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'Kode',
             'tgl_pengajuan' => 'Tanggal Pengajuan',
             'tgl_spk' => 'Tanggal SPK',
             'setuju' => 'Setuju',
             'tgl_persetujuan' => 'Tanggal Persetujuan',
+            'keterangan' => 'Catatan'
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPengajuanBarangs()
-    {
+    public function getPengajuanBarangs() {
         return $this->hasMany(PengajuanBarang::className(), ['id_pengajuan' => 'id']);
     }
+
 }

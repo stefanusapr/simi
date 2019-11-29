@@ -32,6 +32,7 @@ class TransaksiKeluar extends \yii\db\ActiveRecord
         return [
             [['tgl_keluar'], 'required'],
             [['tgl_keluar', 'tgl_surat'], 'safe'],
+            [['keterangan'], 'string'],
             [['nama_penerima'], 'string', 'max' => 255],
         ];
     }
@@ -46,6 +47,7 @@ class TransaksiKeluar extends \yii\db\ActiveRecord
             'tgl_keluar' => 'Tanggal Keluar',
             'tgl_surat' => 'Tanggal Surat',
             'nama_penerima' => 'Nama Penerima',
+            'keterangan' => 'Keterangan',
         ];
     }
 

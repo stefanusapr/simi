@@ -17,7 +17,7 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
     public function rules() {
         return [
             [['id', 'id_barang', 'id_transaksi_keluar'], 'integer'],
-            [['keterangan', 'jumlah',], 'safe'],
+            [['keterangan', 'jumlah', 'tgl_kembali'], 'safe'],
         ];
     }
 
@@ -61,6 +61,7 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
             'id_barang' => $this->id_barang,
             'id_transaksi_keluar' => $this->id_transaksi_keluar,
             'jumlah' => $this->jumlah,
+            'tgl_kembali' => $this->tgl_kembali,
         ]);
 
         $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);

@@ -38,6 +38,7 @@ class TransaksiMasuk extends \yii\db\ActiveRecord {
             [['tgl_spk', 'tgl_masuk', 'tgl_faktur', 'tgl_berita_acara', 'tgl_pemeriksaan'], 'safe'],
             [['tgl_masuk', 'id_vendor'], 'required'],
             [['id_vendor'], 'integer'],
+            [['keterangan'], 'string'],
             [['no_faktur', 'no_berita_acara', 'no_pemeriksaan'], 'string', 'max' => 255],
             [['id_vendor'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::className(), 'targetAttribute' => ['id_vendor' => 'id']],
         ];
@@ -58,6 +59,7 @@ class TransaksiMasuk extends \yii\db\ActiveRecord {
             'tgl_berita_acara' => 'Tanggal Berita Acara',
             'no_pemeriksaan' => 'No Pemeriksaan',
             'tgl_pemeriksaan' => 'Tanggal Pemeriksaan',
+            'keterangan' => 'Keterangan',
         ];
     }
 

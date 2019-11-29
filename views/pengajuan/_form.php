@@ -52,6 +52,14 @@ use app\controllers\PengajuanController;
             ?>
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <?= $form->field($model, "keterangan")->textarea() ?>
+            </div>
+        </div>
+    </div>
 
         <?php
         DynamicFormWidget::begin([

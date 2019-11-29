@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-sm-4">
-            <?php // echo $form->field($model, 'cari')->label('Pencarian') ?>
+            <?= $form->field($model, 'cari')->label('Pencarian') ?>
         </div>
     </div>
 

@@ -189,7 +189,7 @@ use yii\helpers\Url;
                             echo Html::activeHiddenInput($detail, "[{$i}]id");
                         }
                         ?>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama'),
@@ -198,6 +198,9 @@ use yii\helpers\Url;
                         </div>
                         <div class="col-md-2">
                             <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <div class="col-md-2">
+                            <?= $form->field($detail, "[{$i}]harga_satuan")->textInput(['maxlength' => true]) ?>
                         </div>
                         <div class="col-md-2">
                             <?= $form->field($detail, "[{$i}]thn_produksi")->textInput(['maxlength' => true]) ?>

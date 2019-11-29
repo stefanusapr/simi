@@ -9,24 +9,22 @@ use app\models\TransaksiKeluar;
 /**
  * TransaksiKeluarSearch represents the model behind the search form of `app\models\TransaksiKeluar`.
  */
-class TransaksiKeluarSearch extends TransaksiKeluar
-{
+class TransaksiKeluarSearch extends TransaksiKeluar {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id'], 'integer'],
-            [['tgl_keluar', 'tgl_surat', 'nama_penerima'], 'safe'],
+            [['tgl_keluar', 'tgl_surat', 'nama_penerima', 'keterangan'], 'safe'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,8 +36,7 @@ class TransaksiKeluarSearch extends TransaksiKeluar
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = TransaksiKeluar::find();
 
         // add conditions that should always apply here
@@ -63,8 +60,10 @@ class TransaksiKeluarSearch extends TransaksiKeluar
             'tgl_surat' => $this->tgl_surat,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_penerima', $this->nama_penerima]);
+        $query->andFilterWhere(['like', 'nama_penerima', $this->nama_penerima])
+              ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
         return $dataProvider;
     }
+
 }

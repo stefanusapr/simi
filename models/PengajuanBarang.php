@@ -2,8 +2,10 @@
 
 namespace app\models;
 
-use Yii;
 
+use Yii;
+use yii\db\Query;
+use yii\db\ActiveRecord;
 /**
  * This is the model class for table "pengajuan_barang".
  *
@@ -22,6 +24,8 @@ class PengajuanBarang extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    
+    
     public static function tableName()
     {
         return 'pengajuan_barang';
@@ -70,4 +74,10 @@ class PengajuanBarang extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Pengajuan::className(), ['id' => 'id_pengajuan']);
     }
+    
+    public function hitungTotal(){
+        $query = new \yii\db\PengajuanBarang();
+        $total = $query->select('jumlah' * 'harga_satuan');
+    }
+    
 }

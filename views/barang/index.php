@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\components\CustomPagination;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BarangSearch */
@@ -18,11 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Tambah Barang', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+       // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -36,6 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    
+<!--    <div id="custom-pagination">
+        <?php
+       // echo CustomPagination::widget([
+           // 'pagination' => $pages,
+       // ]);
+        ?>
+    </div>-->
 
 
 </div>
