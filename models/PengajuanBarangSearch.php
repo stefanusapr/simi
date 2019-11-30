@@ -19,7 +19,7 @@ class PengajuanBarangSearch extends PengajuanBarang {
     public function rules() {
         return [
             [['id', 'id_barang', 'id_pengajuan', 'jumlah', 'harga_satuan', 'status'], 'integer'],
-            [['jumlah', 'harga_satuan'], 'safe'],
+            [['jumlah', 'harga_satuan', 'keterangan'], 'safe'],
         ];
     }
 
@@ -64,6 +64,9 @@ class PengajuanBarangSearch extends PengajuanBarang {
             'harga_satuan' => $this->harga_satuan,
             'status' => $this->status,
         ]);
+
+        $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);
+
         return $dataProvider;
     }
 

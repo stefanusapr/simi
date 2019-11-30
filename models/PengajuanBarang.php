@@ -39,6 +39,7 @@ class PengajuanBarang extends \yii\db\ActiveRecord
         return [
             [['id_barang', 'id_pengajuan', 'jumlah', 'harga_satuan'], 'required'],
             [['id_barang', 'id_pengajuan', 'jumlah', 'harga_satuan', 'status'], 'integer'],
+            [['keterangan'], 'string'],
             [['id_barang'], 'exist', 'skipOnError' => true, 'targetClass' => Barang::className(), 'targetAttribute' => ['id_barang' => 'id']],
             //[['id_pengajuan'], 'exist', 'skipOnError' => true, 'targetClass' => Pengajuan::className(), 'targetAttribute' => ['id_pengajuan' => 'id']],
         ];
@@ -56,6 +57,7 @@ class PengajuanBarang extends \yii\db\ActiveRecord
             'jumlah' => 'Jumlah',
             'harga_satuan' => 'Harga Satuan',
             'status' => 'Status',
+            'keterangan' => 'Keterangan',
         ];
     }
 

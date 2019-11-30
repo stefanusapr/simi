@@ -45,21 +45,4 @@ $this->params['breadcrumbs'][] = $this->title;
     ])
     ?>
 
-    <h3> Detail </h3>
-    <?=
-    GridView::widget([
-        'dataProvider' => $dataProvider,
-        'column' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'tgl_masuk',
-            'kode_barang',
-            'nama',
-            'stok',
-            'jumlah',
-            'total',
-            'keterangan'
-        ],
-    ]);
-    ?>
-
 </div>

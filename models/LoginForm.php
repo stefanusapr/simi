@@ -16,7 +16,6 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
-
     private $_user = false;
 
 
@@ -48,8 +47,9 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'Username atau kata sandi salah.');
             }
+            
         }
     }
 
@@ -78,4 +78,5 @@ class LoginForm extends Model
 
         return $this->_user;
     }
+    
 }

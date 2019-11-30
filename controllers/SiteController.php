@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Users;
 
 class SiteController extends Controller
 {
@@ -77,7 +78,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goHome();
         }
 
         $model->password = '';
@@ -94,8 +95,11 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
-        return $this->goHome();
+       $model = new LoginForm();
+        $model->password = '';
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
     /**

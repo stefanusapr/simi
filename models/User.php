@@ -9,30 +9,31 @@ use yii\web\IdentityInterface;
 
 class User extends \yii\db\ActiveRecord implements IdentityInterface {
 
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
+//    public $id;
+//    public $username;
+//    public $password;
+//    public $authKey;
+//    public $accessToken;
+
+//    private static $users = [
+//        '100' => [
+//            'id' => '100',
+//            'username' => 'admin',
+//            'password' => 'admin',
+//            'authKey' => 'test100key',
+//            'accessToken' => '100-token',
+//        ],
+//        '101' => [
+//            'id' => '101',
+//            'username' => 'waka',
+//            'password' => 'waka',
+//            'authKey' => 'test101key',
+//            'accessToken' => '101-token',
+//        ],
+//    ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName() {
         return 'users';
@@ -53,7 +54,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      */
     public function attributeLabels() {
         return [
-            'id' => 'Userid',
+            'id' => 'ID User',
             'username' => 'Username',
             'password' => 'Password'
         ];
@@ -126,7 +127,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function validatePassword($password) {
         //return $this->password === $password;
 
-        return $this->password === sha1($password);
+        return $this->password === $password;
     }
 
     public function setPassword($password) {

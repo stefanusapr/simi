@@ -49,7 +49,7 @@ class TransaksiMasukController extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
-
+    
     /**
      * Displays a single TransaksiMasuk model.
      * @param integer $id
