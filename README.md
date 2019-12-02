@@ -9,8 +9,7 @@ Pengguna sistem:
 
 Fungsional sistem:
 - CRUD Master Barang
-- CRUD Pengajuan
-<li>(2 aktor, perlu adanya persetujuan)</li>
+- CRUD Pengajuan (CR untuk petugas, dan perlu adanya persetujuan UR dari waka)
 - CRUD Transaksi Masuk
 - CRUD Transaksi Keluar
 - RU Peminjaman (dari Transaksi Keluar melakukan edit pada kolom: tanggal kembali untuk jenis barang: Tidak Habis pakai)
