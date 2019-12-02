@@ -155,8 +155,9 @@ class TransaksiMasukController extends Controller {
         $modelDetail = $model->transaksiMasukDetails;
 
         if ($model->load(Yii::$app->request->post())) {
+            
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
-            $detail = Model::createMultiple(TransaksiMasukDetail::classname(), $modelDetail);
+            $modelDetail = Model::createMultiple(TransaksiMasukDetail::classname(), $modelDetail);
             Model::loadMultiple($modelDetail, Yii::$app->request->post());
             $hapusId = array_diff($idLama, array_filter(ArrayHelper::map($modelDetail, 'id', 'id')));
 

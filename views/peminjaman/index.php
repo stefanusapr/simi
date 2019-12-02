@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-/* 
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,15 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="peminjaman-index">
 <!--    <p>
-        <?php //echo  Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Transaksi Keluar', ['create'], ['class' => 'btn btn-success']) ?>
+<?php //echo  Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Transaksi Keluar', ['create'], ['class' => 'btn btn-success'])  ?>
     </p>-->
     <div class="row">
         <div class="col-md-3">
-            <?= $this->render('_search', ['model' => $searchModel]); ?>
+<?= $this->render('_search', ['model' => $searchModel]); ?>
         </div>
         <!-- <div class="col-md-4">
                     <p>
-        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+<?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info'])  ?>
                     </p>
                 </div>-->
     </div>
@@ -41,10 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'nama_penerima',
             [
                 'attribute' => 'keterangan',
-                'headerOptions' => ['style' => 'width:30%'],
-            ],
-            [
-                'attribute' => 'tgl_kembali',
                 'headerOptions' => ['style' => 'width:30%'],
             ],
             ['class' => 'yii\grid\ActionColumn',

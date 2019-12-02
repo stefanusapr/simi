@@ -69,11 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'jumlah',
                     'keterangan',
-                    [
-                        'attribute' => 'tgl_kembali',
-                        'format' => ['date', 'php: d-M-Y'],
-                        'labelColOptions' => ['style' => 'width:30%; text-align:right;']
-                    ],
                 ],
             ]);
             ?>

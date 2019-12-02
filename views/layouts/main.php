@@ -36,6 +36,7 @@ if (Yii::$app->controller->action->id === 'login') {
             <?= Html::csrfMetaTags() ?>
             <title><?= Html::encode($this->title) ?></title>
             <?php $this->head() ?>
+            <script src="https://kit.fontawesome.com/6ab35eec10.js" crossorigin="anonymous"></script>
         </head>
         <body class="hold-transition skin-blue-light sidebar-mini">
             <?php $this->beginBody() ?>

@@ -77,6 +77,7 @@ use app\models\TransaksiKeluarDetail;
             'id_barang',
             'jumlah',
             'keterangan',
+            'tgl_kembali',
         ],
     ]);
     ?>
@@ -104,7 +105,7 @@ use app\models\TransaksiKeluarDetail;
                             <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama'),
-                                'disabled' => true
+                                'disabled' => true,
                             ]);
                             ?>
                         </div>
@@ -116,7 +117,7 @@ use app\models\TransaksiKeluarDetail;
                         </div>
                         <div class="col-md-3">
                             <?=
-                            $form->field($model, 'tgl_kembali')->widget(DatePicker::className(), [
+                            $form->field($detail, "[{$i}]tgl_kembali")->widget(DatePicker::className(), [
                                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
                                 'value' => date('Y-m-d'),
                                 'pluginOptions' => [

@@ -21,9 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="pull-left col-md-4">
             <?= $this->render('_search', ['model' => $searchModel]); ?>
         </div>
-        <p class="pull-right col-md-3">
-            <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
-        </p>
+<!--        <p class="pull-right col-md-3">
+            <?php //echo Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+        </p>-->
     </div>
     
     <?=

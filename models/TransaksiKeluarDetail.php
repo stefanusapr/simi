@@ -71,4 +71,6 @@ class TransaksiKeluarDetail extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TransaksiKeluar::className(), ['id' => 'id_transaksi_keluar']);
     }
+    
+    $query->from('transaksi_keluar_detail');
 }

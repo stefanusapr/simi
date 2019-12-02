@@ -156,7 +156,7 @@ class TransaksiKeluarController extends Controller {
 
         if ($model->load(Yii::$app->request->post())) {
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
-            $detail = Model::createMultiple(TransaksiKeluarDetail::classname(), $modelDetail);
+            $modelDetail = Model::createMultiple(TransaksiKeluarDetail::classname(), $modelDetail);
             Model::loadMultiple($modelDetail, Yii::$app->request->post());
             $hapusId = array_diff($idLama, array_filter(ArrayHelper::map($modelDetail, 'id', 'id')));
 
