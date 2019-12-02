@@ -11,13 +11,15 @@ use app\models\TransaksiKeluar;
  */
 class TransaksiKeluarSearch extends TransaksiKeluar {
 
+    public $cari;
+
     /**
      * {@inheritdoc}
      */
     public function rules() {
         return [
             [['id'], 'integer'],
-            [['tgl_keluar', 'tgl_surat', 'nama_penerima', 'keterangan'], 'safe'],
+            [['tgl_keluar', 'tgl_surat', 'nama_penerima', 'keterangan', 'cari'], 'safe'],
         ];
     }
 
@@ -60,8 +62,10 @@ class TransaksiKeluarSearch extends TransaksiKeluar {
             'tgl_surat' => $this->tgl_surat,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_penerima', $this->nama_penerima])
-              ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
+        $query->orFilterWhere(['like', 'nama_penerima', $this->cari])
+                ->orFilterWhere(['like', 'keterangan', $this->cari])
+                ->orFilterWhere(['like', 'tgl_keluar', $this->cari])
+                ->orFilterWhere(['like', 'tgl_surat', $this->cari]);
 
         return $dataProvider;
     }

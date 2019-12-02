@@ -7,24 +7,24 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\models\TransaksiMasuk */
 
-$this->title = $model->id;
+$this->title = $model->tgl_masuk;
 $this->params['breadcrumbs'][] = ['label' => 'Transaksi Masuk', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="transaksi-masuk-view">
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?=
-        Html::a('Hapus', ['delete', 'id' => $model->id], [
+        Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Anda yakin ingin menghapus?',
                 'method' => 'post',
             ],
         ])
         ?>
-        <?= Html::a(Yii::t('app', 'List Transaksi Masuk'), ['index'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-eye-open"></span> List Transaksi'), ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?=
@@ -90,6 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'header' => 'Nama Barang',
                     ],
                     'jumlah',
+                    'harga_satuan',
                     'thn_produksi',
                     'keterangan',
                 ],

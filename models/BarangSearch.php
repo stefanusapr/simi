@@ -9,15 +9,14 @@ use app\models\Barang;
 /**
  * BarangSearch represents the model behind the search form of `app\models\Barang`.
  */
-class BarangSearch extends Barang{
+class BarangSearch extends Barang {
 
     public $cari;
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'stok'], 'integer'],
             [['nama', 'merk', 'jenis', 'kode_barang', 'cari'], 'safe'],
@@ -27,8 +26,7 @@ class BarangSearch extends Barang{
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -40,14 +38,14 @@ class BarangSearch extends Barang{
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Barang::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            
         ]);
 
         $this->load($params);
@@ -65,14 +63,15 @@ class BarangSearch extends Barang{
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'merk', $this->merk])
-            ->andFilterWhere(['like', 'jenis', $this->jenis])
-            ->andFilterWhere(['like', 'kode_barang', $this->kode_barang])
-            ->orFilterWhere(['like', 'nama', $this->cari])
-            ->orFilterWhere(['like', 'merk', $this->cari])
-            ->orFilterWhere(['like', 'jenis', $this->cari])
-            ->orFilterWhere(['like', 'kode_barang', $this->cari]);
+                ->andFilterWhere(['like', 'merk', $this->merk])
+                ->andFilterWhere(['like', 'jenis', $this->jenis])
+                ->andFilterWhere(['like', 'kode_barang', $this->kode_barang])
+                ->orFilterWhere(['like', 'nama', $this->cari])
+                ->orFilterWhere(['like', 'merk', $this->cari])
+                ->orFilterWhere(['like', 'jenis', $this->cari])
+                ->orFilterWhere(['like', 'kode_barang', $this->cari]);
 
         return $dataProvider;
     }
+
 }

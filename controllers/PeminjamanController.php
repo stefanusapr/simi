@@ -18,7 +18,7 @@ use yii\helpers\ArrayHelper;
 /**
  * TransaksiKeluarController implements the CRUD actions for TransaksiKeluar model.
  */
-class TransaksiKeluarController extends Controller {
+class PeminjamanController extends Controller {
 
     /**
      * {@inheritdoc}

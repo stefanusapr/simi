@@ -14,14 +14,14 @@ use app\models\TransaksiKeluarDetail;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="transaksi-keluar-form">
+<div class="peminjaman-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div class="row">
         <!-- nama penerima -->
         <div class="col-md-4">
-            <?= $form->field($model, 'nama_penerima')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'nama_penerima')->textInput(['maxlength' => true, 'disabled' => true]) ?>
         </div>
         <!--tgl keluar-->
         <div class="col-md-4">
@@ -29,6 +29,7 @@ use app\models\TransaksiKeluarDetail;
             $form->field($model, 'tgl_keluar')->widget(DatePicker::className(), [
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
                 'value' => date('Y-m-d'),
+                'disabled' => true,
                 'pluginOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd',
@@ -42,13 +43,14 @@ use app\models\TransaksiKeluarDetail;
         <div class="col-md-4">
             <?=
             $form->field($model, 'tgl_surat')->widget(DatePicker::className(), [
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                'value' => date('Y-m-d'),
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true,
-                ]
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'value' => date('Y-m-d'),
+            'disabled' => true,
+            'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            ]
             ]);
             ?>
         </div>
@@ -98,25 +100,39 @@ use app\models\TransaksiKeluarDetail;
                             echo Html::activeHiddenInput($detail, "[{$i}]id");
                         }
                         ?>
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                             <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama'),
+                                'disabled' => true
                             ]);
                             ?>
                         </div>
                         <div class="col-md-3">
-                            <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true, 'disabled' => true]) ?>
                         </div>
                         <div class="col-md-3">
-                            <?= $form->field($detail, "[{$i}]keterangan")->textarea() ?>
+                            <?= $form->field($detail, "[{$i}]keterangan")->textarea(['disabled' => true]) ?>
                         </div>
-                        <div class="col-md-1 item-action">
-                            <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> 
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-                            </div>
+                        <div class="col-md-3">
+                            <?=
+                            $form->field($model, 'tgl_kembali')->widget(DatePicker::className(), [
+                                'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                                'value' => date('Y-m-d'),
+                                'pluginOptions' => [
+                                    'autoclose' => true,
+                                    'format' => 'yyyy-mm-dd',
+                                    'todayHighlight' => true,
+                                ]
+                            ]);
+                            ?>
                         </div>
+                        <!--                        <div class="col-md-1 item-action">
+                                                    <div class="pull-right">
+                                                        <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> 
+                                                        <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                                    </div>
+                                                </div>-->
                     </div>
                     <!-- .row -->
                 <?php endforeach; ?>
@@ -127,7 +143,7 @@ use app\models\TransaksiKeluarDetail;
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Edit'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'List Transaksi Keluar'), ['index'], ['class' => 'btn btn-warning']) ?>     
+        <?= Html::a(Yii::t('app', 'List Peminjaman'), ['index'], ['class' => 'btn btn-warning']) ?>     
     </div>
 
     <?php ActiveForm::end(); ?>

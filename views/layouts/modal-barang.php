@@ -26,6 +26,10 @@ use yii\widgets\ActiveForm;
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
+                                <label for="nama-barang" class="control-label">Kode Barang:</label>
+                                <input type="text" class="form-control" id="nama">
+                            </div>
+                            <div class="form-group">
                                 <label for="nama-barang" class="control-label">Nama Barang:</label>
                                 <input type="text" class="form-control" id="nama">
                             </div>

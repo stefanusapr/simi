@@ -12,39 +12,83 @@ $this->title = 'Barang';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="barang-index">
-
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
-
     <p>
-        <?= Html::a('Tambah Barang', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Barang', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <div class="row">
+        <div class="col-md-3">
+            <?= $this->render('_search', ['model' => $searchModel]); ?>
+        </div>
+        <!-- <div class="col-md-4">
+                    <p>
+        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+                    </p>
+                </div>-->
+    </div>
 
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
+  <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
-       // 'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-           // 'id',
+            // 'id',
             'kode_barang',
-            'nama',
-            'stok',
-            'merk',
-            'jenis',          
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'nama',
+                'headerOptions' => ['style' => 'width:15%'],
+            ],
+            [
+                'attribute' => 'stok',
+                'headerOptions' => ['style' => 'width:10%'],
+            ],
+            [
+                'attribute' => 'merk',
+                'headerOptions' => ['style' => 'width:15%'],
+            ],
+            [
+                'attribute' => 'jenis',
+                'headerOptions' => ['style' => 'width:15%'],
+            ],
+            //s ['class' => 'yii\grid\ActionColumn'],
+//            [
+//                'format' => 'raw',
+//                'value' => function($data) {
+//                    return
+//                            Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $data->id], ['title' => 'view', 'class' => 'btn btn-success']) . ' ' .
+//                            Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $data->id], ['title' => 'edit', 'class' => 'btn btn-info']) . ' ' .
+//                            Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $data->id], [
+//                                'class' => 'btn btn-danger',
+//                                'data' => [
+//                                    'confirm' => 'Anda yakin ingin menghapus?',
+//                                    'method' => 'post',
+//                                ],
+//                    ]);
+//                }
+//            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'widget:100px, align:center;'],
+                'header' => 'Tindakan',
+                'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
+                'buttons' => [
+                    'edit' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-info',]);
+                    },
+                    'lihat' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
+                    },
+                    'hapus' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Anda yakin ingin menghapus?',
+                                        'method' => 'post',
+                                    ],
+                        ]);
+                    }
+                ]
+            ],
         ],
-    ]); ?>
-    
-<!--    <div id="custom-pagination">
-        <?php
-       // echo CustomPagination::widget([
-           // 'pagination' => $pages,
-       // ]);
-        ?>
-    </div>-->
-
-
+    ]);
+    ?>
 </div>

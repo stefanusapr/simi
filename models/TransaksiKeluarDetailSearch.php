@@ -10,6 +10,8 @@ use app\models\TransaksiKeluarDetail;
  * TransaksiKeluarSearch represents the model behind the search form of `app\models\TransaksiKeluar`.
  */
 class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
+    
+    public $cari;
 
     /**
      * {@inheritdoc}
@@ -17,7 +19,7 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
     public function rules() {
         return [
             [['id', 'id_barang', 'id_transaksi_keluar'], 'integer'],
-            [['keterangan', 'jumlah', 'tgl_kembali'], 'safe'],
+            [['keterangan', 'jumlah', 'tgl_kembali', 'cari'], 'safe'],
         ];
     }
 
@@ -64,7 +66,8 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
             'tgl_kembali' => $this->tgl_kembali,
         ]);
 
-        $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);
+        $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
+                ->orFilterWhere(['like', 'keterangan', $this->cari]);
 
         return $dataProvider;
     }

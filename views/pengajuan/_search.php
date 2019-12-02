@@ -15,21 +15,10 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'tgl_pengajuan') ?>
-
-    <?= $form->field($model, 'tgl_spk') ?>
-
-    <?= $form->field($model, 'setuju') ?>
-
-    <?= $form->field($model, 'tgl_persetujuan') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+       <?=
+    $form->field($model, 'cari')->textInput()->input('cari', [
+        'placeholder' => "Pencarian"
+    ])->label(false);
+    ?>
 
 </div>

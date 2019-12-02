@@ -17,16 +17,11 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <?= $form->field($model, 'cariVendor')->label('Pencarian') ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <?= Html::submitButton('Cari', ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Reset', ['index'], ['class' => 'btn btn-default']) ?>
-    </div>
+    <?=
+    $form->field($model, 'cari')->textInput()->input('cari', [
+        'placeholder' => "Pencarian"
+    ])->label(false);
+    ?>
     <?php ActiveForm::end(); ?>
 
 </div>

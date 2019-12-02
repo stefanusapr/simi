@@ -13,38 +13,62 @@ $this->title = 'Transaksi Masuk';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="transaksi-masuk-index">
-
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
-
     <p>
-        <?= Html::a('Tambah Transaksi Masuk', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Transaksi Masuk', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <div class="row">
+        <div class="pull-left col-md-4">
+            <?= $this->render('_search', ['model' => $searchModel]); ?>
+        </div>
+        <p class="pull-right col-md-3">
+            <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+        </p>
+    </div>
+    
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
-       // 'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //  'id',
-            'tgl_spk',
             'tgl_masuk',
+            'tgl_spk',
             [
                 'label' => 'Nama Vendor',
                 'attribute' => 'vendor.nama',
             ],
-            // 'no_faktur',
-            //'tgl_faktur',
+            'no_faktur',
+            'tgl_faktur',
             //'no_berita_acara',
-            //'tgl_berita_acara',
-            //'no_pemeriksaan',
+            //  'tgl_berita_acara',
+            // 'no_pemeriksaan',
             //'tgl_pemeriksaan',
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'widget:100px, align:center;'],
+                'header' => 'Tindakan',
+                'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
+                'buttons' => [
+                    'edit' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-info',]);
+                    },
+                    'lihat' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
+                    },
+                    'hapus' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Anda yakin ingin menghapus?',
+                                        'method' => 'post',
+                                    ],
+                        ]);
+                    }
+                ]
+            ],
         ],
     ]);
     ?>
-
-
 </div>
+

@@ -13,18 +13,18 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="vendor-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Hapus', ['delete', 'id' => $model->id], [
+        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?=
+        Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Anda yakin ingin menghapus?',
                 'method' => 'post',
             ],
-        ]) ?>
-        <?= Html::a(Yii::t('app', 'List Vendor'), ['index'], ['class' => 'btn btn-warning']) ?>
+        ])
+        ?>
+        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-eye-open"></span> List Vendor'), ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?= DetailView::widget([

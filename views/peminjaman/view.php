@@ -2,14 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TransaksiKeluar */
 
 $this->title = $model->tgl_keluar;
-$this->params['breadcrumbs'][] = ['label' => 'Transaksi Keluar', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Peminjaman', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -70,6 +69,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'jumlah',
                     'keterangan',
+                    [
+                        'attribute' => 'tgl_kembali',
+                        'format' => ['date', 'php: d-M-Y'],
+                        'labelColOptions' => ['style' => 'width:30%; text-align:right;']
+                    ],
                 ],
             ]);
             ?>

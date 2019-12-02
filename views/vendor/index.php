@@ -11,31 +11,54 @@ $this->title = 'Vendor';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="vendor-index">
-
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
-
     <p>
-        <?= Html::a('Tambah Vendor', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Vendor', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    
+    <div class="row">
+        <div class="pull-left col-md-4">
+            <?= $this->render('_search', ['model' => $searchModel]); ?>
+        </div>
+        <p class="pull-right col-md-3">
+            <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+        </p>
+    </div>
 
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
-      //  'filterModel' => $searchModel,
+        //  'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             //'id',
             'nama',
             'alamat:ntext',
             'no_hp',
-            //'email:email',
+            'email:email',
             'keterangan:ntext',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'widget:100px, align:center;'],
+                'header' => 'Tindakan',
+                'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
+                'buttons' => [
+                    'edit' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-info',]);
+                    },
+                    'lihat' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
+                    },
+                    'hapus' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Anda yakin ingin menghapus?',
+                                        'method' => 'post',
+                                    ],
+                        ]);
+                    }
+                ]
+            ],
         ],
-    ]); ?>
-
-
+    ]);
+    ?>
 </div>

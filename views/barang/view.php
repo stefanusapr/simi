@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use kidzen\dynamicform\DynamicFormWidget;
-
 use app\models\TransaksiMasuk;
 use app\models\TransaksiMasukDetail;
 
@@ -18,17 +17,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="barang-view">
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?=
-        Html::a('Hapus', ['delete', 'id' => $model->id], [
+        Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Anda yakin ingin menghapus?',
                 'method' => 'post',
             ],
         ])
         ?>
-        <?= Html::a(Yii::t('app', 'List Barang'), ['index'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-eye-open"></span> List Barang'), ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?=
