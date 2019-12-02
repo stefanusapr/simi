@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -69,6 +68,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'header' => 'Nama Barang',
                     ],
                     'jumlah',
+                    [
+                        'attribute' => 'tgl_kembali',
+                        'format' => ['date', 'php: d-M-Y'],
+                        'header' => 'Tanggal Pengembalian',
+                    ],
                     'keterangan',
                 ],
             ]);

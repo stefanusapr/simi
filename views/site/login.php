@@ -4,47 +4,50 @@
 /* @var $model app\models\LoginForm */
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\widgets\ActiveForm;
 
 $this->title = 'Sistem Informasi Manajemen Inventaris Sarana dan Prasarana';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <div class="back">
-        <div class="div-center">
-            <div class="content">
-                <h3><?= Html::encode($this->title) ?></h3>
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
 
-                <?php
-                $form = ActiveForm::begin([
-                            'id' => 'login-form',
-                            'layout' => 'horizontal',
-                            'fieldConfig' => [
-                                'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                                'labelOptions' => ['class' => 'col-lg-1 control-label'],
-                            ],
-                ]);
-                ?>
-
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
-                <?=
-                $form->field($model, 'rememberMe')->checkbox([
-                    'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                ])
-                ?>
-
-                <div class="form-group">
-                    <div class="col-lg-offset-1 col-lg-11">
-                        <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                    </div>
-                </div>
-                
-                <?php ActiveForm::end(); ?>
-                
+            <div class="login-logo">
+                <a href="../../index2.html"><?= Html::encode($this->title) ?></a>
             </div>
+
+            <?php
+            $form = ActiveForm::begin([
+                        'id' => 'login-form',
+            ]);
+            ?>
+            <div class="mb-3">
+                <?= $form->field($model, 'username')->label(false)->input('username', ['placeholder' => 'Nama Pengguna']) ?>
+            </div>
+            <div class="mb-3">
+                <?= $form->field($model, 'password')->label(false)->input('password', ['placeholder' => 'Kata Sandi']) ?>
+            </div>
+            <div class="mb-8">
+                <div class="icheck-primary">
+                    <?=
+                    $form->field($model, 'rememberMe')->checkbox([
+                        'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+                        'label' => "Ingat saya",
+                    ])
+                    ?>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                </div>
+                <!-- /.col -->
+            </div>
+            <?php ActiveForm::end(); ?>
+
         </div>
+        <!-- /.login-card-body -->
     </div>
 </div>
+<!-- /.login-box -->

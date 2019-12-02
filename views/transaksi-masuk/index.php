@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <div class="row">
-        <div class="pull-left col-md-4">
+        <div class="pull-left col-md-3">
             <?= $this->render('_search', ['model' => $searchModel]); ?>
         </div>
 <!--        <p class="pull-right col-md-3">

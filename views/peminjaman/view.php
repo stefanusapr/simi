@@ -8,11 +8,11 @@ use yii\grid\GridView;
 /* @var $model app\models\TransaksiKeluar */
 
 $this->title = $model->tgl_keluar;
-$this->params['breadcrumbs'][] = ['label' => 'Peminjaman', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Transaksi Keluar', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="transaksi-keluar-view">
+<div class="peminjaman-view">
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?=
@@ -68,6 +68,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'header' => 'Nama Barang',
                     ],
                     'jumlah',
+                    [
+                        'attribute' => 'tgl_kembali',
+                        'format' => ['date', 'php: d-M-Y'],
+                        'header' => 'Tanggal Pengembalian',
+                    ],
                     'keterangan',
                 ],
             ]);

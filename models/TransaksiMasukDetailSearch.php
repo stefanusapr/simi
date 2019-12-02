@@ -19,7 +19,7 @@ class TransaksiMasukDetailSearch extends TransaksiMasukDetail
     {
         return [
             [['id', 'id_barang','id_transaksi_masuk'], 'integer'],
-            [['keterangan','jumlah','thn_produksi', 'harga_satuan', 'cari'],'safe'],
+            [['keterangan','jumlah','thn_produksi', 'harga_satuan',],'safe'],
        ];
     }
 

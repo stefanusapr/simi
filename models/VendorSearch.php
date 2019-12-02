@@ -11,7 +11,7 @@ use app\models\Vendor;
  */
 class VendorSearch extends Vendor {
 
-    public $cariVendor;
+    public $cari;
 
     /**
      * {@inheritdoc}
@@ -19,7 +19,7 @@ class VendorSearch extends Vendor {
     public function rules() {
         return [
             [['id'], 'integer'],
-            [['nama', 'alamat', 'no_hp', 'email', 'keterangan', 'cariVendor'], 'safe'],
+            [['nama', 'alamat', 'no_hp', 'email', 'keterangan', 'cari'], 'safe'],
         ];
     }
 
@@ -65,11 +65,11 @@ class VendorSearch extends Vendor {
                 ->andFilterWhere(['like', 'no_hp', $this->no_hp])
                 ->andFilterWhere(['like', 'email', $this->email])
                 ->andFilterWhere(['like', 'keterangan', $this->keterangan])
-                ->orFilterWhere(['like', 'nama', $this->cariVendor])
-                ->orFilterWhere(['like', 'alamat', $this->cariVendor])
-                ->orFilterWhere(['like', 'no_hp', $this->cariVendor])
-                ->orFilterWhere(['like', 'email', $this->cariVendor])
-                ->orFilterWhere(['like', 'keterangan', $this->cariVendor]);
+                ->orFilterWhere(['like', 'nama', $this->cari])
+                ->orFilterWhere(['like', 'alamat', $this->cari])
+                ->orFilterWhere(['like', 'no_hp', $this->cari])
+                ->orFilterWhere(['like', 'email', $this->cari])
+                ->orFilterWhere(['like', 'keterangan', $this->cari]);
 
         return $dataProvider;
     }

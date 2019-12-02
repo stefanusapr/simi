@@ -43,7 +43,7 @@ class Pengajuan extends \yii\db\ActiveRecord {
             'id' => 'Kode',
             'tgl_pengajuan' => 'Tanggal Pengajuan',
             'tgl_spk' => 'Tanggal SPK',
-            'setuju' => 'Setuju',
+            'setuju' => 'Status',
             'tgl_persetujuan' => 'Tanggal Persetujuan',
             'keterangan' => 'Catatan'
         ];

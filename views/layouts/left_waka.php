@@ -9,8 +9,6 @@
             </div>
             <div class="pull-left info">
                 <p>Wakil Kepala Sarpras</p>
-
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
 
@@ -34,10 +32,11 @@
                         ['label' => 'Inventaris Barang', 'options' => ['class' => 'header']],
                         ['label' => 'Dashboard', 'icon' => 'fa-dashboard', 'url' => ['/site/index']],
                         ['label' => 'Master Barang', 'icon' => 'fa-table', 'url' => ['/barang/index']],
-                        ['label' => 'Daftar Pengajuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],                        
+                        ['label' => 'Daftar Pengajuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],
                         ['label' => 'Daftar Persetujuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],
+                        ['label' => 'Laporan', 'icon' => 'fas fa-file', 'url' => ['/#']],
                         ['label' => 'Pengaturan Akun', 'icon' => 'fa-user', 'url' => ['/site/index']],
-                        ['label' => 'Keluar', 'icon' => 'fa-sign-out' , 'url' => ['/site/login']],
+                        ['label' => 'Keluar', 'icon' => 'fa-sign-out', 'url' => ['/site/login']],
                         ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     ],
                 ]

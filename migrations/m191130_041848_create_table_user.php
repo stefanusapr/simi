@@ -11,21 +11,14 @@ class m191130_041848_create_table_user extends Migration
      * {@inheritdoc}
      */
     public function up() {
-        $this->createTable('user', [
-            'id' => $this->primaryKey(),
-            'username' => $this->string()->notNull()->unique(),
-            'authKey' => $this->string(32)->notNull(),
-            'password' => $this->string()->notNull(),
-            'email' => $this->string()->notNull()->unique(),
-            'accessToken' => $this->string(32)->notNull(),
-        ]);
+
     }
 
     /**
      * @inheritdoc
      */
     public function down() {
-        $this->dropTable('user');
+        
     }
 
     /*

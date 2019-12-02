@@ -74,6 +74,7 @@ use app\models\TransaksiKeluarDetail;
         'formFields' => [
             'id_barang',
             'jumlah',
+            'tgl_kembali',
             'keterangan',
         ],
     ]);
@@ -98,7 +99,7 @@ use app\models\TransaksiKeluarDetail;
                             echo Html::activeHiddenInput($detail, "[{$i}]id");
                         }
                         ?>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama'),
@@ -108,7 +109,7 @@ use app\models\TransaksiKeluarDetail;
                         <div class="col-md-3">
                             <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true]) ?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <?= $form->field($detail, "[{$i}]keterangan")->textarea() ?>
                         </div>
                         <div class="col-md-1 item-action">

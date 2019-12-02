@@ -30,7 +30,7 @@ use app\controllers\PengajuanController;
                 'value' => date('Y-m-d'),
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'dd-mm-yyyy',
+                    'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true,
                 ]
             ]);
@@ -108,7 +108,15 @@ use app\controllers\PengajuanController;
     </div> <!-- panel default -->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?=
+        Html::submitButton('Simpan', [
+            'class' => 'btn btn-primary',
+            'data' => [
+                'confirm' => 'Anda yakin ingin mengajukan?',
+                'method' => 'post',
+            ],
+        ]);
+        ?>
         <?= Html::a(Yii::t('app', 'List Pengajuan'), ['index'], ['class' => 'btn btn-warning']) ?>     
     </div>
 

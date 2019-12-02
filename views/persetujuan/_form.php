@@ -28,6 +28,22 @@ use app\controllers\PengajuanController;
             $form->field($model, 'tgl_pengajuan')->widget(DatePicker::className(), [
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
                 'value' => date('Y-m-d'),
+                'disabled' => 'true',
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true,
+                ]
+            ]);
+            ?>
+        </div>
+
+        <!-- tgl persetujuan -->
+        <div class="col-md-4">
+            <?=
+            $form->field($model, 'tgl_persetujuan')->widget(DatePicker::className(), [
+                'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                'value' => date('Y-m-d'),
                 'pluginOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd',
@@ -55,9 +71,10 @@ use app\controllers\PengajuanController;
 
     <div class="row">
         <div class="col-md-12">
-            <?= $form->field($model, "keterangan")->textarea() ?>
+            <?= $form->field($model, 'keterangan')->textarea() ?>
         </div>
     </div>
+
 
     <?php
     DynamicFormWidget::begin([
@@ -98,29 +115,28 @@ use app\controllers\PengajuanController;
                             echo Html::activeHiddenInput($detail, "[{$i}]id");
                         }
                         ?>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama'),
+                                'disabled' => 'true',
                             ]);
                             ?>
                         </div>
                         <div class="col-md-2">
-                            <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true]) ?>
-                        </div>
-                        <div class="col-md-3">
-                            <?= $form->field($detail, "[{$i}]harga_satuan")->textInput(['maxlength' => true]) ?>
-                        </div>
-                        <div class="col-md-3">
-                            <?= $form->field($detail, "[{$i}]keterangan")->textarea() ?>
+                            <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true, 'disabled' => 'true']) ?>
                         </div>
                         <div class="col-md-2">
-                            <?= $form->field($detail, "[{$i}]setuju")->enableAjaxValidation?>
+                            <?= $form->field($detail, "[{$i}]harga_satuan")->textInput(['maxlength' => true, 'disabled' => 'true']) ?>
                         </div>
-<!--                        <div class="col-md-1">
-                            <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> 
-                            <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-                        </div>-->
+                        <div class="col-md-3">
+                            <?= $form->field($detail, "[{$i}]keterangan")->textarea(['disabled' => 'true']) ?>
+                        </div>
+                        <div class="col-md-2">
+                            <?=
+                            $form->field($detail, "[{$i}]status")->radioList(array(0 => ' Setuju ', 1 => ' Tolak '));
+                            ?>
+                        </div>
                     </div>
                     <!-- .row -->
                 <?php endforeach; ?>
@@ -131,10 +147,18 @@ use app\controllers\PengajuanController;
     </div> <!-- panel default -->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?=
+        Html::submitButton('Simpan', [
+            'class' => 'btn btn-primary',
+            'data' => [
+                'confirm' => 'Anda yakin ingin memberikan persetujuan?',
+                'method' => 'post',
+                'setuju' => 'true',
+            ],
+        ]);
+        ?>
         <?= Html::a(Yii::t('app', 'List Pengajuan'), ['index'], ['class' => 'btn btn-warning']) ?>     
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

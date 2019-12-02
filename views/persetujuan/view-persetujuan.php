@@ -14,15 +14,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengajuan-view">
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Cetak', ['#', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-eye-open"></span> Daftar Pengajuan'), ['index'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-eye-open"></span> Daftar Persetujuan'), ['index-persetujuan'], ['class' => 'btn btn-warning']) ?>
     </p>  
 
     <?=
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-                       //'id',
+            //'id',
             [
                 'attribute' => 'tgl_pengajuan',
                 'format' => ['date', 'php: d-M-Y'],

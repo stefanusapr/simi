@@ -12,29 +12,38 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengajuan-index">
 
-<!--    <h1><?= Html::encode($this->title) ?></h1>-->
-
     <p>
-        <?= Html::a('Tambah Pengajuan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Pengajuan', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
+    <div class="row">
+        <div class="col-md-3">
+            <?= $this->render('_search', ['model' => $searchModel]); ?>
+        </div>
+    </div>
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             //'id',
             'tgl_pengajuan',
             'tgl_spk',
-            'setuju',
             'tgl_persetujuan',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            'setuju',
+            ['class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'widget:100px, align:center;'],
+                'header' => 'Tindakan',
+                'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
+                'buttons' => [
+                    'lihat' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
+                    }
+                ]
+            ],
         ],
-    ]); ?>
-
-
+    ]);
+    ?>
 </div>
+

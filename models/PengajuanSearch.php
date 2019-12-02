@@ -11,13 +11,15 @@ use app\models\Pengajuan;
  */
 class PengajuanSearch extends Pengajuan {
 
+    public $cari;
+
     /**
      * {@inheritdoc}
      */
     public function rules() {
         return [
             [['id', 'setuju'], 'integer'],
-            [['tgl_pengajuan', 'tgl_spk', 'tgl_persetujuan', 'keterangan'], 'safe'],
+            [['tgl_pengajuan', 'tgl_spk', 'tgl_persetujuan', 'keterangan', 'cari'], 'safe'],
         ];
     }
 
@@ -62,7 +64,8 @@ class PengajuanSearch extends Pengajuan {
             'tgl_persetujuan' => $this->tgl_persetujuan,
         ]);
 
-        $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);
+        $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
+               ->orFilterWhere(['like', 'keterangan', $this->cari]);
 
         return $dataProvider;
     }

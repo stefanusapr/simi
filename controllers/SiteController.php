@@ -98,9 +98,7 @@ class SiteController extends Controller {
         Yii::$app->user->logout();
         $model = new LoginForm();
         $model->password = '';
-        return $this->render('login', [
-                    'model' => $model,
-        ]);
+        return $this->goHome();
     }
 
     /**

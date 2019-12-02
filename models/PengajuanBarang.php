@@ -41,7 +41,7 @@ class PengajuanBarang extends \yii\db\ActiveRecord
             [['id_barang', 'id_pengajuan', 'jumlah', 'harga_satuan', 'status'], 'integer'],
             [['keterangan'], 'string'],
             [['id_barang'], 'exist', 'skipOnError' => true, 'targetClass' => Barang::className(), 'targetAttribute' => ['id_barang' => 'id']],
-            //[['id_pengajuan'], 'exist', 'skipOnError' => true, 'targetClass' => Pengajuan::className(), 'targetAttribute' => ['id_pengajuan' => 'id']],
+           // [['id_pengajuan'], 'exist', 'skipOnError' => true, 'targetClass' => Pengajuan::className(), 'targetAttribute' => ['id_pengajuan' => 'id']],
         ];
     }
 

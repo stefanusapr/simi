@@ -41,9 +41,10 @@ class PeminjamanController extends Controller {
     public function actionIndex() {
         $searchModel = new TransaksiKeluarSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+                
+             
         $dataProvider->pagination->pageSize=5;
-
+        
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -156,7 +157,7 @@ class PeminjamanController extends Controller {
 
         if ($model->load(Yii::$app->request->post())) {
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
-            $detail = Model::createMultiple(TransaksiKeluarDetail::classname(), $modelDetail);
+            $modelDetail = Model::createMultiple(TransaksiKeluarDetail::classname(), $modelDetail);
             Model::loadMultiple($modelDetail, Yii::$app->request->post());
             $hapusId = array_diff($idLama, array_filter(ArrayHelper::map($modelDetail, 'id', 'id')));
 

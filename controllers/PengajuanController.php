@@ -41,6 +41,8 @@ class PengajuanController extends Controller {
     public function actionIndex() {
         $searchModel = new PengajuanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        $dataProvider->pagination->pageSize = 5;
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
@@ -101,7 +103,7 @@ class PengajuanController extends Controller {
                     // simpan master record                   
                     if ($flag = $model->save(false)) {
                         // simpan details record
-                        foreach ($modelDetail as $detail) {
+                        foreach ($modelDetail as $modelDetail) {
                             $modelDetail->id_pengajuan = $model->id;
                             if (!($flag = $modelDetail->save(false))) {
                                 $transaction->rollBack();
@@ -151,13 +153,14 @@ class PengajuanController extends Controller {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    /**
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         $modelDetail = $model->pengajuanBarangs;
 
         if ($model->load(Yii::$app->request->post())) {
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
-            $detail = Model::createMultiple(PengajuanBarang::classname(), $modelDetail);
+            $modelDetail = Model::createMultiple(PengajuanBarang::classname(), $modelDetail);
             Model::loadMultiple($modelDetail, Yii::$app->request->post());
             $hapusId = array_diff($idLama, array_filter(ArrayHelper::map($modelDetail, 'id', 'id')));
 
@@ -190,7 +193,7 @@ class PengajuanController extends Controller {
                         }
                         //selanjutnya simpan transaksi detail ke record
                         foreach ($modelDetail as $detail) {
-                            $detail->id_transaksi_masuk = $model->id;
+                            $detail->id_pengajuan = $model->id;
                             if (!($flag = $detail->save(false))) {
                                 $transaction->rollBack();
                                 break;
@@ -223,6 +226,7 @@ class PengajuanController extends Controller {
             ]);
         }
     }
+    */
 
     /**
      * Deletes an existing Pengajuan model.
@@ -231,6 +235,7 @@ class PengajuanController extends Controller {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    /** 
     public function actionDelete($id) {
         $model = $this->findModel($id);
         $modelDetail = $model->pengajuanBarangs;
@@ -254,6 +259,7 @@ class PengajuanController extends Controller {
 
         return $this->redirect(['index']);
     }
+    */
 
     /**
      * Finds the Pengajuan model based on its primary key value.

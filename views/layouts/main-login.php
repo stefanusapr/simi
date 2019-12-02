@@ -5,7 +5,7 @@ use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-
+app\assets\AppAsset::register($this);
 dmstr\web\AdminLteAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -18,13 +18,14 @@ dmstr\web\AdminLteAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body class="login-page">
+    <body class="bimg">
+        <div class="bimg-overlay">
+            <?php $this->beginBody() ?>
 
-        <?php $this->beginBody() ?>
+            <?= $content ?>
 
-        <?= $content ?>
-
-        <?php $this->endBody() ?>
+            <?php $this->endBody() ?>
+        </div>
     </body>
 </html>
 <?php $this->endPage() ?>

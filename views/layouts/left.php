@@ -9,8 +9,6 @@
             </div>
             <div class="pull-left info">
                 <p>Petugas Sarpras</p>
-
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
 
@@ -32,19 +30,20 @@
                     'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
                     'items' => [
                         ['label' => 'Inventaris Barang', 'options' => ['class' => 'header']],
-                        ['label' => 'Dashboard', 'icon' => 'fa-dashboard', 'url' => ['site/index']],
-                        ['label' => 'Master Barang', 'icon' => 'fa-table', 'url' => ['barang/index']],
-                        ['label' => 'Pengajuan', 'icon' => 'fa-edit', 'url' => ['#']],
-                        ['label' => 'Transaksi Masuk', 'icon' => 'fa-reply', 'url' => ['transaksi-masuk/index']],
-                        ['label' => 'Transaksi Keluar', 'icon' => 'fa-share', 'url' => ['transaksi-keluar/index']],
-                        ['label' => 'Peminjaman', 'icon' => 'fa-hand-paper-o', 'url' => ['peminjaman/index']],
-                        ['label' => 'Data Vendor', 'icon' => 'fa-truck', 'url' => ['vendor/index']],
-                        ['label' => 'Laporan', 'icon' => 'fa-user', 'url' => ['/#']],
-                        ['label' => 'Pengaturan Akun', 'icon' => 'fa-user', 'url' => ['site/index']],                        
-                        ['label' => 'Keluar', 'icon' => 'fa-sign-out' ,
-                            'url' => ['site/logout'],
-                            'template' => '<a href="{url}" data-method="post">{label}</a>',],
-                        ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                        ['label' => 'Dashboard', 'icon' => 'fas fa-dashboard', 'url' => ['site/index']],
+                        ['label' => 'Master Barang', 'icon' => 'fas fa-table', 'url' => ['barang/index']],
+                        ['label' => 'Pengajuan', 'icon' => 'fas fa-edit', 'url' => ['pengajuan/index']],
+                        ['label' => 'Transaksi Masuk', 'icon' => 'fas fa-share', 'url' => ['transaksi-masuk/index']],
+                        ['label' => 'Transaksi Keluar', 'icon' => 'fas fa-reply', 'url' => ['transaksi-keluar/index']],
+                        ['label' => 'Peminjaman', 'icon' => 'fas fa-hand-paper', 'url' => ['peminjaman/index']],
+                        ['label' => 'Data Vendor', 'icon' => 'fas fa-truck', 'url' => ['vendor/index']],
+                        ['label' => 'Daftar Pengajuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],
+                        ['label' => 'Daftar Persetujuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index-persetujuan']],
+                        ['label' => 'Laporan', 'icon' => 'fas fa-file', 'url' => ['/#']],
+                        ['label' => 'Pengaturan Akun', 'icon' => 'fas fa-user', 'url' => ['site/index']],
+                        ['label' => 'Keluar', 'icon' => 'fas fa-sign-out-alt', 'url' => ['site/logout'],
+                            'template' => '<a href="{url}" data-method="post">{icon}{label}</a>',],
+                        ['label' => 'Login', 'icon' => 'fas fa-sign-in', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     ],
                 ]
         )

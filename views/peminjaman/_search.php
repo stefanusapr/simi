@@ -9,7 +9,7 @@ use yii\widgets\ActiveField;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="transaksi-keluar-search">
+<div class="peminjaman-search">
 
     <?php
     $form = ActiveForm::begin([
