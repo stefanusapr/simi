@@ -74,6 +74,17 @@ class Barang extends \yii\db\ActiveRecord {
         return $this->hasMany(TransaksiMasukDetail::className(), ['id_barang' => 'id']);
     }
 
+    public function getYesNoText() {
+        return $this->yesNoOptions[$this->jenis];
+    }
+
+    public function getYesNoOptions() {
+        return array(
+            0 => 'No',
+            1 => 'Yes',
+        );
+    }
+
     public function hitungBarang() {
         //query kartu stok master barang
         $sql_list = " SELECT t.id AS id_transaksi_masuk, "

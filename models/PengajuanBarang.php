@@ -80,6 +80,7 @@ class PengajuanBarang extends \yii\db\ActiveRecord
     public function hitungTotal(){
         $query = new \yii\db\PengajuanBarang();
         $total = $query->select('jumlah' * 'harga_satuan');
+        return $total;
     }
     
 }

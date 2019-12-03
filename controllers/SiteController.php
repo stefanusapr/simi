@@ -20,7 +20,7 @@ class SiteController extends Controller {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'index'],
+                'only' => ['index', 'create', 'update', 'view'],
                 'rules' => [
                     // deny all POST requests
                     [

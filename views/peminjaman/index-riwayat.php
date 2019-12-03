@@ -34,6 +34,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
+                'attribute' => 'tgl_keluar',
+                'value' => 'transaksiKeluar.tgl_keluar',
+                'format' => ['date', 'php: d-M-Y'],
+                'header' => 'Tanggal Peminjaman',
+            ],
+            [
+                'attribute' => 'tgl_kembali',
+                'format' => ['date', 'php: d-M-Y'],
+                'header' => 'Tanggal Pengembalian',
+            ],
+            [
                 'attribute' => 'id_transaksi_keluar',
                 'value' => 'transaksiKeluar.nama_penerima',
                 'header' => 'Nama Peminjam',
@@ -50,24 +61,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'jumlah',
             'keterangan',
-            [
-                'attribute' => 'tgl_keluar',
-                'value' => 'transaksiKeluar.tgl_keluar',
-                'format' => ['date', 'php: d-M-Y'],
-                'header' => 'Tanggal Peminjaman',
-            ],
-            ['class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'widget:100px, align:center;'],
-                'header' => 'Tindakan',
-                'template' => '{selesai} &nbsp',
-                'buttons' => [
-                    'selesai' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-check"></span> Kembali', ['peminjaman/selesai', 'id' => $model->id
-                                        ], ['class' => 'btn btn-success', 'data-method' => "post"], ['buttonType' => 'submit']);
-                    }
-                ]
-            ],
         ],
     ]);
     ?>
+
+
 </div>

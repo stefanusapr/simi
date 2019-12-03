@@ -124,7 +124,8 @@ use app\models\TransaksiKeluarDetail;
                                         'autoclose' => true,
                                         'format' => 'yyyy-mm-dd',
                                         'todayHighlight' => true,
-                                    ]
+                                    ],
+                                    'disabled' => true,
                                 ]);
                                 ?>
                             <?php } ?>

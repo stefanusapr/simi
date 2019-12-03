@@ -13,13 +13,15 @@ use app\models\PengajuanSearch;
  */
 class PengajuanBarangSearch extends PengajuanBarang {
 
+    public $cari;
+
     /**
      * {@inheritdoc}
      */
     public function rules() {
         return [
             [['id', 'id_barang', 'id_pengajuan', 'jumlah', 'harga_satuan', 'status'], 'integer'],
-            [['jumlah', 'harga_satuan', 'keterangan'], 'safe'],
+            [['jumlah', 'harga_satuan', 'keterangan', 'cari'], 'safe'],
         ];
     }
 

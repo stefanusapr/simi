@@ -41,8 +41,8 @@ class TransaksiKeluarController extends Controller {
     public function actionIndex() {
         $searchModel = new TransaksiKeluarSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
-        $dataProvider->pagination->pageSize=5;
+
+        $dataProvider->pagination->pageSize = 10;
 
         return $this->render('index', [
                     'searchModel' => $searchModel,

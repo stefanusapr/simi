@@ -41,19 +41,19 @@ class PersetujuanController extends Controller {
     public function actionIndex() {
         $searchModel = new PengajuanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
-        $dataProvider->pagination->pageSize = 5;
+
+        $dataProvider->pagination->pageSize = 10;
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
     }
-    
+
     public function actionIndexPersetujuan() {
         $searchModel = new PengajuanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         $dataProvider->pagination->pageSize = 5;
 
         return $this->render('index-persetujuan', [
@@ -81,84 +81,84 @@ class PersetujuanController extends Controller {
      * @return mixed
      */
     /**
-    public function actionCreate() {
-        $model = new Pengajuan();
-        $modelDetail = [new PengajuanBarang];
+      public function actionCreate() {
+      $model = new Pengajuan();
+      $modelDetail = [new PengajuanBarang];
 
-        // proses isi post variable 
-        if ($model->load(Yii::$app->request->post())) {
-            $modelDetail = Model::createMultiple(PengajuanBarang::classname());
-            Model::loadMultiple($modelDetail, Yii::$app->request->post());
+      // proses isi post variable
+      if ($model->load(Yii::$app->request->post())) {
+      $modelDetail = Model::createMultiple(PengajuanBarang::classname());
+      Model::loadMultiple($modelDetail, Yii::$app->request->post());
 
-            // assign default id_pengajuan
-            foreach ($modelDetail as $detail) {
-                $detail->id_pengajuan = 0;
-            }
+      // assign default id_pengajuan
+      foreach ($modelDetail as $detail) {
+      $detail->id_pengajuan = 0;
+      }
 
-            // ajax validation
-            if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return ArrayHelper::merge(
-                                ActiveForm::validateMultiple($modelDetail), ActiveForm::validate($model)
-                );
-            }
+      // ajax validation
+      if (Yii::$app->request->isAjax) {
+      Yii::$app->response->format = Response::FORMAT_JSON;
+      return ArrayHelper::merge(
+      ActiveForm::validateMultiple($modelDetail), ActiveForm::validate($model)
+      );
+      }
 
-            // validate all models
-            $valid1 = $model->validate();
-            $valid2 = Model::validateMultiple($modelDetail);
-            $valid = $valid1 && $valid2;
+      // validate all models
+      $valid1 = $model->validate();
+      $valid2 = Model::validateMultiple($modelDetail);
+      $valid = $valid1 && $valid2;
 
-            // jika valid, mulai proses penyimpanan
-            if ($valid) {
-                // mulai database transaction
-                $transaction = \Yii::$app->db->beginTransaction();
-                try {
-                    // simpan master record                   
-                    if ($flag = $model->save(false)) {
-                        // simpan details record
-                        foreach ($modelDetail as $modelDetail) {
-                            $modelDetail->id_pengajuan = $model->id;
-                            if (!($flag = $modelDetail->save(false))) {
-                                $transaction->rollBack();
-                                break;
-                            }
-                        }
-                    }
-                    if ($flag) {
-                        // sukses, commit database transaction
-                        // kemudian tampilkan hasilnya
-                        $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    } else {
-                        return $this->render('create', [
-                                    'model' => $model,
-                                    'modelDetail' => $modelDetail,
-                        ]);
-                    }
-                } catch (Exception $e) {
-                    // penyimpanan galga, rollback database transaction
-                    $transaction->rollBack();
-                    throw $e;
-                }
-            } else {
-                return $this->render('create', [
-                            'model' => $model,
-                            'modelDetail' => $modelDetail,
-                            'error' => 'valid1: ' . print_r($valid1, true) . ' - valid2: ' . print_r($valid2, true),
-                ]);
-            }
-        } else {
-            // inisialisai id 
-            // diperlukan untuk form master-detail
-            $model->id = 0;
-            // render view
-            return $this->render('create', [
-                        'model' => $model,
-                        'modelDetail' => (empty($modelDetail)) ? [new PengajuanBarang] : $modelDetail,
-            ]);
-        }
-    }
-    */
+      // jika valid, mulai proses penyimpanan
+      if ($valid) {
+      // mulai database transaction
+      $transaction = \Yii::$app->db->beginTransaction();
+      try {
+      // simpan master record
+      if ($flag = $model->save(false)) {
+      // simpan details record
+      foreach ($modelDetail as $modelDetail) {
+      $modelDetail->id_pengajuan = $model->id;
+      if (!($flag = $modelDetail->save(false))) {
+      $transaction->rollBack();
+      break;
+      }
+      }
+      }
+      if ($flag) {
+      // sukses, commit database transaction
+      // kemudian tampilkan hasilnya
+      $transaction->commit();
+      return $this->redirect(['view', 'id' => $model->id]);
+      } else {
+      return $this->render('create', [
+      'model' => $model,
+      'modelDetail' => $modelDetail,
+      ]);
+      }
+      } catch (Exception $e) {
+      // penyimpanan galga, rollback database transaction
+      $transaction->rollBack();
+      throw $e;
+      }
+      } else {
+      return $this->render('create', [
+      'model' => $model,
+      'modelDetail' => $modelDetail,
+      'error' => 'valid1: ' . print_r($valid1, true) . ' - valid2: ' . print_r($valid2, true),
+      ]);
+      }
+      } else {
+      // inisialisai id
+      // diperlukan untuk form master-detail
+      $model->id = 0;
+      // render view
+      return $this->render('create', [
+      'model' => $model,
+      'modelDetail' => (empty($modelDetail)) ? [new PengajuanBarang] : $modelDetail,
+      ]);
+      }
+      }
+     */
 
     /**
      * Updates an existing Pengajuan model.
@@ -208,6 +208,7 @@ class PersetujuanController extends Controller {
                         foreach ($modelDetail as $detail) {
                             $detail->id_pengajuan = $model->id;
                             if (!($flag = $detail->save(false))) {
+                                
                                 $transaction->rollBack();
                                 break;
                             }
@@ -248,30 +249,30 @@ class PersetujuanController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     /**
-    public function actionDelete($id) {
-        $model = $this->findModel($id);
-        $modelDetail = $model->pengajuanBarangs;
+      public function actionDelete($id) {
+      $model = $this->findModel($id);
+      $modelDetail = $model->pengajuanBarangs;
 
-        //mulai db transaksi
-        $transaction = \Yii::$app->db->beginTransaction();
-        try {
-            //hapus dahulu pd transaksi detailnya
-            foreach ($modelDetail as $detail) {
-                $detail->delete();
-            }
-            //kemudian hapus ke transaksi yg besar
-            $model->delete();
+      //mulai db transaksi
+      $transaction = \Yii::$app->db->beginTransaction();
+      try {
+      //hapus dahulu pd transaksi detailnya
+      foreach ($modelDetail as $detail) {
+      $detail->delete();
+      }
+      //kemudian hapus ke transaksi yg besar
+      $model->delete();
 
-            //jika sukses, commit transaksi
-            $transaction->commit();
-        } catch (Exception $ex) {
-            //jika gagal, rollback db transaksi
-            $transaction->rollBack();
-        }
+      //jika sukses, commit transaksi
+      $transaction->commit();
+      } catch (Exception $ex) {
+      //jika gagal, rollback db transaksi
+      $transaction->rollBack();
+      }
 
-        return $this->redirect(['index']);
-    }
-    */
+      return $this->redirect(['index']);
+      }
+     */
 
     /**
      * Finds the Pengajuan model based on its primary key value.
@@ -292,4 +293,5 @@ class PersetujuanController extends Controller {
         $detailModel = new PengajuanBarangSearch();
         return $detailModel->search(['PengajuanBarangSearch' => ['id_pengajuan' => $id]]);
     }
+
 }

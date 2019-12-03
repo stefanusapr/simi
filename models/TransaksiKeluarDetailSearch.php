@@ -10,7 +10,7 @@ use app\models\TransaksiKeluarDetail;
  * TransaksiKeluarSearch represents the model behind the search form of `app\models\TransaksiKeluar`.
  */
 class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
-    
+
     public $cari;
 
     /**
@@ -38,6 +38,82 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
      *
      * @return ActiveDataProvider
      */
+    public function searchPeminjaman($params) {
+        
+        $query = TransaksiKeluarDetail::find()
+                ->joinWith('barang')
+                ->where(['barang.jenis' => 'Tidak Habis Pakai'])
+                ->andWhere(['tgl_kembali' => null])
+                ;
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'id_barang' => $this->id_barang,
+            'id_transaksi_keluar' => $this->id_transaksi_keluar,
+            'jumlah' => $this->jumlah,
+            'tgl_kembali' => $this->tgl_kembali,
+        ]);
+
+        $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
+                ->orFilterWhere(['like', 'keterangan', $this->cari]);
+
+        return $dataProvider;
+    }
+    
+    
+    public function searchRiwayatPeminjaman($params) {
+        
+        $query = TransaksiKeluarDetail::find()
+                ->joinWith('barang')
+                ->where(['barang.jenis' => 'Tidak Habis Pakai'])
+                ->andWhere(['not', ['tgl_kembali' => null]])
+                ;
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'id_barang' => $this->id_barang,
+            'id_transaksi_keluar' => $this->id_transaksi_keluar,
+            'jumlah' => $this->jumlah,
+            'tgl_kembali' => $this->tgl_kembali,
+        ]);
+
+        $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
+                ->orFilterWhere(['like', 'keterangan', $this->cari]);
+
+        return $dataProvider;
+    }
+
+    
     public function search($params) {
         $query = TransaksiKeluarDetail::find();
 
