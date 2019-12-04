@@ -49,6 +49,22 @@ class PengajuanController extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
+    
+        /**
+     * Lists all Pengajuan models.
+     * @return mixed
+     */
+    public function actionRiwayat() {
+        $searchModel = new PengajuanSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $dataProvider->pagination->pageSize = 10;
+
+        return $this->render('index-riwayat', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Pengajuan model.
