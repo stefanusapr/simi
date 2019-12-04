@@ -49,7 +49,6 @@ use dmstr\widgets\Alert;
         <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
         <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
     </ul>
-    
     <!-- Tab panes -->
     <div class="tab-content">
         <!-- Home tab content -->
@@ -155,6 +154,7 @@ use dmstr\widgets\Alert;
                 </li>
             </ul>
             <!-- /.control-sidebar-menu -->
+
         </div>
         <!-- /.tab-pane -->
 

@@ -70,14 +70,20 @@ class PeminjamanController extends Controller {
         ]);
     }
 
+    /**
+     * actionSelesai digunakan untuk tombol pengembalian barang
+     * dg jenis barang tidak habis pakai
+     * di saat pengguna pilih tombol kembali
+     * maka kolom tgl_kembali pada model: transaksi detail masuk
+     * akan diisi dengan tanggal ketika tombol kembali di klik
+     * kemudian tgl tersebut akan di isi ke kolom tgl_kembali
+     * sebagai pengembalian barang
+     */
     public function actionSelesai($id) {
-        $model = $this->findModel($id);
-        
+        $model = $this->findModel($id);        
         $model['tgl_kembali'] = date('Y-m-d');
-        
-        $model->save();              
-        
-        return $this->redirect(['riwayat']);
+                $model->save();              
+                return $this->redirect(['riwayat']);
     }
 
     /**
@@ -91,7 +97,6 @@ class PeminjamanController extends Controller {
         if (($model = TransaksiKeluarDetail::findOne($id)) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
