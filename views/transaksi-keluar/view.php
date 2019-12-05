@@ -33,12 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             [
                 'attribute' => 'tgl_keluar',
-                'format' => ['date', 'php: d-M-Y'],
+                'format' => ['date', 'php: d-m-Y'],
                 'labelColOptions' => ['style' => 'width:30%; text-align:right;']
             ],
             [
                 'attribute' => 'tgl_surat',
-                'format' => ['date', 'php: d-M-Y'],
+                'format' => ['date', 'php: d-m-Y'],
                 'labelColOptions' => ['style' => 'width:30%; text-align:right;']
             ],
             'nama_penerima',
@@ -67,11 +67,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => 'barang.nama',
                         'header' => 'Nama Barang',
                     ],
+                    [
+                        'attribute' => 'id_barang',
+                        'value' => 'barang.jenis',
+                        'header' => 'Jenis Barang',
+                    ],
                     'jumlah',
                     [
                         'attribute' => 'tgl_kembali',
-                        'format' => ['date', 'php: d-M-Y'],
-                        'header' => 'Tanggal Pengembalian',
+                        'format' => ['date', 'php: d-m-Y'],
                     ],
                     'keterangan',
                 ],

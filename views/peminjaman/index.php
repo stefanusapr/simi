@@ -59,8 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'tgl_keluar',
                 'value' => 'transaksiKeluar.tgl_keluar',
-                'format' => ['date', 'php: d-M-Y'],
-                'header' => 'Tanggal Peminjaman',
+                'format' => ['date', 'php: d-m-Y'],
             ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],

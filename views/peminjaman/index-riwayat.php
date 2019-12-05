@@ -36,13 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'tgl_keluar',
                 'value' => 'transaksiKeluar.tgl_keluar',
-                'format' => ['date', 'php: d-M-Y'],
-                'header' => 'Tanggal Peminjaman',
+                'format' => ['date', 'php: d-m-Y'],
             ],
             [
                 'attribute' => 'tgl_kembali',
-                'format' => ['date', 'php: d-M-Y'],
-                'header' => 'Tanggal Pengembalian',
+                'format' => ['date', 'php: d-m-Y'],
             ],
             [
                 'attribute' => 'id_transaksi_keluar',

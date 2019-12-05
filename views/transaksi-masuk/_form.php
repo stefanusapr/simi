@@ -5,7 +5,6 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use kidzen\dynamicform\DynamicFormWidget;
-use kartik\date\DatePicker;
 use app\models\Barang;
 use app\models\Vendor;
 use yii\bootstrap\Modal;
@@ -91,14 +90,19 @@ use kartik\datecontrol\Module;
             <!-- tgl faktur -->
             <div class="col-md-12">
                 <?=
-                $form->field($model, 'tgl_faktur')->widget(DatePicker::className(), [
-                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                    'value' => date('Y-m-d'),
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd',
-                        'todayHighlight' => true,
-                    ]
+                $form->field($model, 'tgl_faktur')->widget(DateControl::classname(), [
+                    'type' => DateControl::FORMAT_DATE,
+                    'ajaxConversion' => true,
+                    'autoWidget' => true,
+                    'language' => 'id',
+                    'displayFormat' => 'php:d-m-Y',
+                    'saveFormat' => 'php:Y-m-d',
+                    'widgetOptions' => [
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'todayHighlight' => true,
+                        ]
+                    ],
                 ]);
                 ?>
             </div> 
@@ -113,14 +117,19 @@ use kartik\datecontrol\Module;
             <!-- tgl berita acara masuk -->
             <div class="col-md-12">
                 <?=
-                $form->field($model, 'tgl_berita_acara')->widget(DatePicker::className(), [
-                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                    'value' => date('Y-m-d'),
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd',
-                        'todayHighlight' => true,
-                    ]
+                $form->field($model, 'tgl_berita_acara')->widget(DateControl::classname(), [
+                    'type' => DateControl::FORMAT_DATE,
+                    'ajaxConversion' => true,
+                    'autoWidget' => true,
+                    'language' => 'id',
+                    'displayFormat' => 'php:d-m-Y',
+                    'saveFormat' => 'php:Y-m-d',
+                    'widgetOptions' => [
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'todayHighlight' => true,
+                        ]
+                    ],
                 ]);
                 ?>
             </div>
@@ -135,14 +144,19 @@ use kartik\datecontrol\Module;
             <!-- tgl pemeriksaan -->
             <div class="col-md-12">
                 <?=
-                $form->field($model, 'tgl_pemeriksaan')->widget(DatePicker::className(), [
-                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                    'value' => date('Y-m-d'),
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd',
-                        'todayHighlight' => true,
-                    ]
+                $form->field($model, 'tgl_pemeriksaan')->widget(DateControl::classname(), [
+                    'type' => DateControl::FORMAT_DATE,
+                    'ajaxConversion' => true,
+                    'autoWidget' => true,
+                    'language' => 'id',
+                    'displayFormat' => 'php:d-m-Y',
+                    'saveFormat' => 'php:Y-m-d',
+                    'widgetOptions' => [
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'todayHighlight' => true,
+                        ]
+                    ],
                 ]);
                 ?>
             </div>

@@ -134,6 +134,10 @@ class TransaksiKeluarController extends Controller {
                 ]);
             }
         } else {
+            //set tanggal
+            $model->tgl_keluar = date('Y-m-d');
+            $model->tgl_surat = date('Y-m-d');
+
             $model->id = 0;
             // render view
             return $this->render('create', [
@@ -215,6 +219,16 @@ class TransaksiKeluarController extends Controller {
                 ]);
             }
         } else {
+            //set tanggal
+            if ($model->tgl_keluar != null) {
+                $model->tgl_keluar = $model->tgl_keluar;
+            } if ($model->tgl_surat != null) {
+                $model->tgl_surat = $model->tgl_surat;
+            } if ($model->tgl_keluar == null) {
+                $model->tgl_keluar = date('Y-m-d');
+            } if ($model->tgl_surat == null) {
+                $model->tgl_surat = date('Y-m-d');
+            }
             // render view
             return $this->render('update', [
                         'model' => $model,

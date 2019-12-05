@@ -36,8 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             // 'id',
-            'tgl_keluar',
-            'tgl_surat',
+            [
+                'attribute' => 'tgl_keluar',
+                'format' => ['date', 'php: d-m-Y'],
+            ],
+            [
+                'attribute' => 'tgl_surat',
+                'format' => ['date', 'php: d-m-Y'],
+            ],
             'nama_penerima',
             [
                 'attribute' => 'keterangan',

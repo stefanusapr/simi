@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             [
                 'attribute' => 'tgl_pengajuan',
-                'header' => 'Tanggal Pengajuan',
+                'format' => ['date', 'php: d-m-Y'],
             ],
             [
                 'attribute' => 'status',

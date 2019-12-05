@@ -10,7 +10,9 @@ use app\models\TransaksiMasuk;
  * TransaksiMasukSearch represents the model behind the search form of `app\models\TransaksiMasuk`.
  */
 class TransaksiMasukSearch extends TransaksiMasuk {
+
     public $cari;
+
     /**
      * {@inheritdoc}
      */
@@ -43,6 +45,58 @@ class TransaksiMasukSearch extends TransaksiMasuk {
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+                //'sort' => ['attributes' => ['vendor.nama']],
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'tgl_spk' => $this->tgl_spk,
+            'tgl_masuk' => $this->tgl_masuk,
+            'id_vendor' => $this->id_vendor,
+            'tgl_faktur' => $this->tgl_faktur,
+            'tgl_berita_acara' => $this->tgl_berita_acara,
+            'tgl_pemeriksaan' => $this->tgl_pemeriksaan,
+        ]);
+
+        $query->andFilterWhere(['like', 'no_faktur', $this->no_faktur])
+                ->andFilterWhere(['like', 'no_berita_acara', $this->no_berita_acara])
+                ->andFilterWhere(['like', 'no_pemeriksaan', $this->no_pemeriksaan])
+                ->andFilterWhere(['like', 'keterangan', $this->keterangan])
+                ->orFilterWhere(['like', 'no_faktur', $this->cari])
+                ->orFilterWhere(['like', 'no_berita_acara', $this->cari])
+                ->orFilterWhere(['like', 'no_pemeriksaan', $this->cari])
+                ->orFilterWhere(['like', 'keterangan', $this->cari]);
+
+        return $dataProvider;
+    }
+
+    public function searchVendor($params) {
+        $query = TransaksiMasuk::find()
+                ->joinWith('vendor')
+                ->where(['not', ['vendor.id' => null]]);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+                //'sort' => ['attributes' => ['vendor.nama']],
         ]);
 
         $this->load($params);

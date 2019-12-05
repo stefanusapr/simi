@@ -45,9 +45,9 @@ class Vendor extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'Kode',
-            'nama' => 'Nama',
+            'nama' => 'Nama Vendor',
             'alamat' => 'Alamat',
-            'no_hp' => 'No Hp',
+            'no_hp' => 'No Telepon',
             'email' => 'Email',
             'keterangan' => 'Keterangan',
         ];

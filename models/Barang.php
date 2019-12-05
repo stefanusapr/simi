@@ -45,9 +45,9 @@ class Barang extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
-            'stok' => 'Stok',
-            'merk' => 'Merk',
+            'nama' => 'Nama Barang',
+            'stok' => 'Stok Barang',
+            'merk' => 'Merk Barang',
             'jenis' => 'Jenis Barang',
             'kode_barang' => 'Kode Barang',
         ];

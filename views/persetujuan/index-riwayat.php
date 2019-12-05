@@ -24,9 +24,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
-            'tgl_pengajuan',
-            'tgl_spk',
-            'tgl_persetujuan',
+            [
+                'attribute' => 'tgl_pengajuan',
+                'format' => ['date', 'php: d-m-Y'],
+            ],
+            [
+                'attribute' => 'tgl_spk',
+                'format' => ['date', 'php: d-m-Y'],
+            ],
+            [
+                'attribute' => 'tgl_persetujuan',
+                'format' => ['date', 'php: d-m-Y'],
+            ],
             [
                 'attribute' => 'status',
                 'value' => 'StatusLabel',

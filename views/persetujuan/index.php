@@ -24,7 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
-            'tgl_pengajuan',
+            [
+                'attribute' => 'tgl_pengajuan',
+                'format' => ['date', 'php: d-m-Y'],
+            ],
             [
                 'attribute' => 'status',
                 'value' => 'StatusLabel',

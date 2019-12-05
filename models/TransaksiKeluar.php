@@ -44,8 +44,8 @@ class TransaksiKeluar extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'Kode',
-            'tgl_keluar' => 'Tanggal Keluar',
-            'tgl_surat' => 'Tanggal Surat',
+            'tgl_keluar' => 'Tanggal Barang Keluar',
+            'tgl_surat' => 'Tanggal SPK',
             'nama_penerima' => 'Nama Penerima',
             'keterangan' => 'Keterangan',
         ];

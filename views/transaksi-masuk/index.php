@@ -22,10 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('_search', ['model' => $searchModel]); ?>
         </div>
 <!--        <p class="pull-right col-md-3">
-            <?php //echo Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+        <?php //echo Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
         </p>-->
     </div>
-    
+
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,14 +33,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //  'id',
-            'tgl_masuk',
-            'tgl_spk',
             [
-                'label' => 'Nama Vendor',
+                'header' => 'Kode',
+                'value' => function ($dataProvider) {
+                    return $dataProvider->id = 'TKM-'.$dataProvider->id;
+                }
+            ],
+            [
+                'attribute' => 'tgl_masuk',
+                'format' => ['date', 'php: d-m-Y'],
+            ],
+            [
+                'attribute' => 'tgl_spk',
+                'format' => ['date', 'php: d-m-Y'],
+            ],
+            [
                 'attribute' => 'vendor.nama',
+                'header' => 'Nama Vendor',
             ],
             'no_faktur',
-            'tgl_faktur',
+            [
+                'attribute' => 'tgl_faktur',
+                'format' => ['date', 'php: d-m-Y'],
+            ],
             //'no_berita_acara',
             //  'tgl_berita_acara',
             // 'no_pemeriksaan',

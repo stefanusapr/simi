@@ -40,10 +40,10 @@ class TransaksiMasukController extends Controller {
      */
     public function actionIndex() {
         $searchModel = new TransaksiMasukSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);        
 
         $dataProvider->pagination->pageSize = 10;
-
+       
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -57,6 +57,8 @@ class TransaksiMasukController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id) {
+       // $model = $this->findModel($id);
+       // $model->id = 'TKM-'.$model->id;
         return $this->render('view', [
                     'model' => $this->findModel($id),
                     'modelDetail' => $this->findDetails($id),
@@ -140,7 +142,7 @@ class TransaksiMasukController extends Controller {
             $model->tgl_masuk = date('Y-m-d');
             $model->tgl_faktur = date('Y-m-d');
             $model->tgl_berita_acara = date('Y-m-d');
-            $model->tgl_pemeriksaan = date('Y-m-d');           
+            $model->tgl_pemeriksaan = date('Y-m-d');
 
             $model->id = 0;
             // render view
@@ -224,6 +226,25 @@ class TransaksiMasukController extends Controller {
                 ]);
             }
         } else {
+            //set tanggal
+            if ($model->tgl_spk != null) {
+                $model->tgl_spk = $model->tgl_spk;
+            } if ($model->tgl_faktur != null) {
+                $model->tgl_faktur = $model->tgl_faktur;
+            } if ($model->tgl_pemeriksaan != null) {
+                $model->tgl_pemeriksaan = $model->tgl_pemeriksaan;
+            } if ($model->tgl_berita_acara != null) {
+                $model->tgl_berita_acara = $model->tgl_berita_acara;
+            } if ($model->tgl_spk == null) {
+                $model->tgl_spk = date('Y-m-d');
+            } if ($model->tgl_faktur == null) {
+                $model->tgl_faktur = date('Y-m-d');
+            } if ($model->tgl_pemeriksaan == null) {
+                $model->tgl_pemeriksaan = date('Y-m-d');
+            } if ($model->tgl_berita_acara == null) {
+                $model->tgl_berita_acara = date('Y-m-d');
+            }
+
             // render view
             return $this->render('update', [
                         'model' => $model,

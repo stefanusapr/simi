@@ -48,7 +48,7 @@ class TransaksiKeluarDetail extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'Kode',
-            'id_barang' => 'Kode Barang',
+            'id_barang' => 'Nama Barang',
             'id_transaksi_keluar' => 'Kode Transaksi Keluar',
             'jumlah' => 'Jumlah',
             'keterangan' => 'Keterangan',
