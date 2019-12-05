@@ -20,10 +20,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'merk')->textInput(['maxlength' => true]) ?> 
 
-    <?php
-    echo $form->field($model, 'jenis')->dropDownList(
-            ['Habis Pakai' => 'Habis Pakai', 'Tidak Habis Pakai' => 'Tidak Habis Pakai']
-    );
+    <?=
+    $form->field($model, 'jenis')->dropDownList([
+        'Habis Pakai' => 'Habis Pakai',
+        'Tidak Habis Pakai' => 'Tidak Habis Pakai',
+    ]);
     ?>
 
     <div class="form-group">

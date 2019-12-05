@@ -134,7 +134,7 @@ use app\controllers\PengajuanController;
                         </div>
                         <div class="col-md-2">
                             <?=
-                            $form->field($detail, "[{$i}]status")->radioList(array(0 => ' Setuju ', 1 => ' Tolak '));
+                            $form->field($detail, "[{$i}]status")->radioList(array(1 => ' Setuju ', 0 => ' Tolak '));
                             ?>
                         </div>
                     </div>

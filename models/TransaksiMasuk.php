@@ -51,7 +51,7 @@ class TransaksiMasuk extends \yii\db\ActiveRecord {
         return [
             'id' => 'Kode',
             'tgl_spk' => 'Tanggal SPK',
-            'tgl_masuk' => 'Tanggal Masuk',
+            'tgl_masuk' => 'Tanggal Barang Masuk',
             'id_vendor' => 'Nama Vendor',
             'no_faktur' => 'No Faktur',
             'tgl_faktur' => 'Tanggal Faktur',

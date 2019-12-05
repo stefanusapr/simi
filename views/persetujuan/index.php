@@ -25,9 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
             'tgl_pengajuan',
-            'tgl_spk',
-            'tgl_persetujuan',
-            'setuju',
+            [
+                'attribute' => 'status',
+                'value' => 'StatusLabel',
+            ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',
@@ -35,9 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'edit' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-info',]);
-                    },
-                    'lihat' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
                     },
                 ]
             ],

@@ -42,6 +42,40 @@ class PengajuanBarangSearch extends PengajuanBarang {
      */
     public function search($params) {
         $query = PengajuanBarang::find();
+        // add conditions that should always apply here
+        
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'id_barang' => $this->id_barang,
+            'id_pengajuan' => $this->id_pengajuan,
+            'jumlah' => $this->jumlah,
+            'harga_satuan' => $this->harga_satuan,
+            'status' => $this->status,
+        ]);
+
+        $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);
+
+        return $dataProvider;
+    }
+
+    public function searchRiwayat($params) {
+        $query = PengajuanBarang::find()
+                ->where(['status' => true])
+                ->orWhere(['status' => false]);
 
         // add conditions that should always apply here
 

@@ -30,7 +30,7 @@ class Pengajuan extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['tgl_pengajuan', 'tgl_spk', 'tgl_persetujuan'], 'safe'],
-            [['setuju'], 'integer'],
+            [['status'], 'integer'],
             [['keterangan'], 'string'],
         ];
     }
@@ -43,7 +43,7 @@ class Pengajuan extends \yii\db\ActiveRecord {
             'id' => 'Kode',
             'tgl_pengajuan' => 'Tanggal Pengajuan',
             'tgl_spk' => 'Tanggal SPK',
-            'setuju' => 'Status',
+            'status' => 'Status',
             'tgl_persetujuan' => 'Tanggal Persetujuan',
             'keterangan' => 'Catatan'
         ];
@@ -54,6 +54,10 @@ class Pengajuan extends \yii\db\ActiveRecord {
      */
     public function getPengajuanBarangs() {
         return $this->hasMany(PengajuanBarang::className(), ['id_pengajuan' => 'id']);
+    }
+
+    public function getStatusLabel() {
+        return $this->status ? 'Selesai diperiksa' : 'Menunggu diperiksa';
     }
 
 }

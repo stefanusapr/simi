@@ -41,7 +41,7 @@ class TransaksiMasukController extends Controller {
     public function actionIndex() {
         $searchModel = new TransaksiMasukSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         $dataProvider->pagination->pageSize = 10;
 
         return $this->render('index', [
@@ -127,6 +127,7 @@ class TransaksiMasukController extends Controller {
                     throw $e;
                 }
             } else {
+
                 return $this->render('create', [
                             'model' => $model,
                             'modelDetail' => $modelDetail,
@@ -134,6 +135,13 @@ class TransaksiMasukController extends Controller {
                 ]);
             }
         } else {
+            //set tanggal
+            $model->tgl_spk = date('Y-m-d');
+            $model->tgl_masuk = date('Y-m-d');
+            $model->tgl_faktur = date('Y-m-d');
+            $model->tgl_berita_acara = date('Y-m-d');
+            $model->tgl_pemeriksaan = date('Y-m-d');           
+
             $model->id = 0;
             // render view
             return $this->render('create', [

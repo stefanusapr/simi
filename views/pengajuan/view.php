@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use yii\i18n\Formatter;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pengajuan */
@@ -65,8 +66,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'jumlah',
                     'harga_satuan',
-                    'keterangan',                    
-                    'status',
+                    [
+                        'header' => 'Total Harga',
+                        'value' => function ($modelDetail) {
+                            return $modelDetail->jumlah * $modelDetail->harga_satuan;
+                        }
+                    ],
+                    'keterangan',
+                    [
+                        'attribute' => 'status',
+                        'value' => 'StatusLabel',
+                    ],
                 ],
             ]);
             ?>

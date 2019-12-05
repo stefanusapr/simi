@@ -77,10 +77,8 @@ class PengajuanBarang extends \yii\db\ActiveRecord
         return $this->hasOne(Pengajuan::className(), ['id' => 'id_pengajuan']);
     }
     
-    public function hitungTotal(){
-        $query = new \yii\db\PengajuanBarang();
-        $total = $query->select('jumlah' * 'harga_satuan');
-        return $total;
+    public function getStatusLabel() {
+        return $this->status ? 'Ok dibeli' : 'Tunda pembelian';
     }
     
 }

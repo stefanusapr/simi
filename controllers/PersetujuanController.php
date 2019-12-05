@@ -25,23 +25,6 @@ class PersetujuanController extends Controller {
      */
     public function behaviors() {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index', 'update', 'view', 'persetujuan'],
-                'rules' => [
-                    // deny all POST requests
-                    [
-                        'allow' => false,
-                        'verbs' => ['POST']
-                    ],
-                    // allow authenticated users
-                    [
-                        'allow' => true,
-                        'roles' => ['waka'],
-                    ],
-                // everything else is denied
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -67,13 +50,13 @@ class PersetujuanController extends Controller {
         ]);
     }
 
-    public function actionPersetujuan() {
+    public function actionRiwayat() {
         $searchModel = new PengajuanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchRiwayat(Yii::$app->request->queryParams);
 
         $dataProvider->pagination->pageSize = 10;
 
-        return $this->render('index-persetujuan', [
+        return $this->render('index-riwayat', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
@@ -102,7 +85,7 @@ class PersetujuanController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         $modelDetail = $model->pengajuanBarangs;
-
+        
         if ($model->load(Yii::$app->request->post())) {
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
             $modelDetail = Model::createMultiple(PengajuanBarang::classname(), $modelDetail);
@@ -149,7 +132,12 @@ class PersetujuanController extends Controller {
                     if ($flag) {
                         //sukses, commit ke db transaksi
                         //kemudian tampilkan hasilnya
+                        
+                        //update nilai setuju
+                        $model->status = 1;
+                        $model->update();                                
                         $transaction->commit();
+                        
                         return $this->redirect(['view', 'id' => $model->id]);
                     }
                 } catch (Exceptation $e) {
@@ -166,6 +154,12 @@ class PersetujuanController extends Controller {
             }
         } else {
             // render view
+            
+            // set default value 0 to status
+            foreach ($modelDetail as $i => $detail):
+                $modelDetail[$i]['status'] = 0;
+            endforeach;
+            
             return $this->render('update', [
                         'model' => $model,
                         'modelDetail' => (empty($modelDetail)) ? [new PengajuanBarang] : $modelDetail,

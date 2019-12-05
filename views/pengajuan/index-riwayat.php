@@ -31,7 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'tgl_pengajuan',
             'tgl_spk',
             'tgl_persetujuan',
-            'setuju',
+            [
+                'attribute' => 'status',
+                'value' => 'StatusLabel',
+            ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',

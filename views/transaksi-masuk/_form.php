@@ -10,6 +10,10 @@ use app\models\Barang;
 use app\models\Vendor;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use kartik\datecontrol\DateControl;
+use kartik\datecontrol\DateControlAsset;
+use kartik\datecontrol\DateFormatterAsset;
+use kartik\datecontrol\Module;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TransaksiMasuk */
@@ -21,37 +25,47 @@ use yii\helpers\Url;
 
     <div class="row">
         <div class="col-md-6">
-            <!--tgl spk-->
+            <!--tgl masuk barang-->
             <div class="col-md-12">
                 <?=
-                $form->field($model, 'tgl_spk')->widget(DatePicker::className(), [
-                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                    'value' => date('Y-m-d'),
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd',
-                        'todayHighlight' => true,
-                    ]
+                $form->field($model, 'tgl_masuk')->widget(DateControl::classname(), [
+                    'type' => DateControl::FORMAT_DATE,
+                    'ajaxConversion' => true,
+                    'autoWidget' => true,
+                    'language' => 'id',
+                    'displayFormat' => 'php:d-m-Y',
+                    'saveFormat' => 'php:Y-m-d',
+                    'widgetOptions' => [
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'todayHighlight' => true,
+                        ]
+                    ],
                 ]);
                 ?>
             </div>
         </div>
         <div class="col-md-6">
-            <!--tgl masuk barang-->
+            <!--tgl spk-->
             <div class="col-md-12">
                 <?=
-                $form->field($model, 'tgl_masuk')->widget(DatePicker::className(), [
-                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                    'value' => date('Y-m-d'),
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd',
-                        'todayHighlight' => true,
-                    ]
+                $form->field($model, 'tgl_spk')->widget(DateControl::classname(), [
+                    'type' => DateControl::FORMAT_DATE,
+                    'ajaxConversion' => true,
+                    'autoWidget' => true,
+                    'language' => 'id',
+                    'displayFormat' => 'php:d-m-Y',
+                    'saveFormat' => 'php:Y-m-d',
+                    'widgetOptions' => [
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'todayHighlight' => true,
+                        ]
+                    ],
                 ]);
                 ?>
             </div>
-        </div>      
+        </div>
     </div>
 
     <div class="row">
@@ -225,7 +239,7 @@ use yii\helpers\Url;
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Edit'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'List Transaksi Masuk'), ['index'], ['class' => 'btn btn-warning']) ?>     
+        <?= Html::a(Yii::t('app', 'List Transaksi Masuk'), ['index'], ['class' => 'btn btn-warning                                            ']) ?>     
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-                       //'id',
+            //'id',
             [
                 'attribute' => 'tgl_pengajuan',
                 'format' => ['date', 'php: d-M-Y'],
@@ -65,8 +65,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'jumlah',
                     'harga_satuan',
+                    [
+                        'header' => 'Total Harga',
+                        'value' => function ($modelDetail) {
+                            return $modelDetail->jumlah * $modelDetail->harga_satuan;
+                        }
+                    ],
                     'keterangan',
-                    'status',
+                    [
+                        'attribute' => 'status',
+                        'value' => 'StatusLabel',
+                    ],
                 ],
             ]);
             ?>

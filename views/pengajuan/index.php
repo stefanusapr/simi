@@ -28,10 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
-            'tgl_pengajuan',
-            'tgl_spk',
-            'tgl_persetujuan',
-            'setuju',
+            [
+                'attribute' => 'tgl_pengajuan',
+                'header' => 'Tanggal Pengajuan',
+            ],
+            [
+                'attribute' => 'status',
+                'value' => 'StatusLabel',
+                'header' => 'Status',
+            ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',

@@ -34,12 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id',
             [
                 'attribute' => 'tgl_spk',
-                'format' => ['date', 'php: d-M-Y'],
+                'format' => ['date', 'php: d-m-Y'],
                 'labelColOptions' => ['style' => 'width:30%; text-align:right;']
             ],
             [
                 'attribute' => 'tgl_masuk',
-                'format' => ['date', 'php: d-M-Y'],
+                'format' => ['date', 'php: d-m-Y'],
                 'labelColOptions' => ['style' => 'width:30%; text-align:right;']
             ],
             [
@@ -49,19 +49,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'no_faktur',
             [
                 'attribute' => 'tgl_faktur',
-                'format' => ['date', 'php: d-M-Y'],
+                'format' => ['date', 'php: d-m-Y'],
                 'labelColOptions' => ['style' => 'width:30%; text-align:right;']
             ],
             'no_berita_acara',
             [
                 'attribute' => 'tgl_berita_acara',
-                'format' => ['date', 'php: d-M-Y'],
+                'format' => ['date', 'php: d-m-Y'],
                 'labelColOptions' => ['style' => 'width:30%; text-align:right;']
             ],
             'no_pemeriksaan',
             [
                 'attribute' => 'tgl_pemeriksaan',
-                'format' => ['date', 'php: d-M-Y'],
+                'format' => ['date', 'php: d-m-Y'],
                 'labelColOptions' => ['style' => 'width:30%; text-align:right;']
             ],
         ],
@@ -91,6 +91,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'jumlah',
                     'harga_satuan',
+                    [
+                        'header' => 'Total Harga',
+                        'value' => function ($modelDetail) {
+                            return $modelDetail->jumlah * $modelDetail->harga_satuan;
+                        }
+                    ],
                     'thn_produksi',
                     'keterangan',
                 ],

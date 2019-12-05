@@ -1,5 +1,7 @@
 <?php
 
+use \kartik\datecontrol\Module;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -13,7 +15,7 @@ $config = [
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+// !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'klD6mZMWvzW6FWyVUl1M7cDj2DEfpzwj',
         ],
         'cache' => [
@@ -29,8 +31,8 @@ $config = [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
+// 'useFileTransport' to false and configure a transport
+// for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -49,8 +51,43 @@ $config = [
             'rules' => [
             ],
         ],
+        'formatter' => [
+            'thousandSeparator' => '.',
+            'currencyCode' => 'IDR',
+        ],
+    ],
+    'modules' => [
+        'datecontrol' => [
+            'class' => 'kartik\datecontrol\Module',
+            // format settings for displaying each date attribute (ICU format example)
+            'displaySettings' => [
+                Module::FORMAT_DATE => 'dd-MM-yyyy',
+            ],
+            // format settings for saving each date attribute (PHP format example)
+            'saveSettings' => [
+                Module::FORMAT_DATE => 'php:U',
+            ],
+            // automatically use kartik\widgets for each of the above formats
+            'autoWidget' => true,
+            // default settings for each widget from kartik\widgets used when autoWidget is true
+            'autoWidgetSettings' => [
+                Module::FORMAT_DATE => ['pluginOptions' => ['autoclose' => true]], // example
+            ],
+            // custom widget settings that will be used to render the date input instead of kartik\widgets,
+            // this will be used when autoWidget is set to false at module or widget level.
+            'widgetSettings' => [
+                Module::FORMAT_DATE => [
+                    'class' => 'yii\jui\DatePicker', // example
+                    'options' => [
+                        'dateFormat' => 'php:d-M-Y',
+                        'options' => ['class' => 'form-control'],
+                    ],
+                ],
+            ],
+        ],
     ],
     'params' => $params,
+    'timeZone' => 'Asia/Jakarta',
 ];
 
 if (YII_ENV_DEV) {

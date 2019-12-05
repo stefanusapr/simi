@@ -48,8 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'barang.nama',
                 'header' => 'Nama Barang',
             ],
-            'jumlah',
-            'keterangan',
+            [
+                'attribute' => 'jumlah',
+                'header' => 'Jumlah',
+            ],
+            [
+                'attribute' => 'keterangan',
+                'header' => 'Keterangan',
+            ],
             [
                 'attribute' => 'tgl_keluar',
                 'value' => 'transaksiKeluar.tgl_keluar',

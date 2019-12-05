@@ -18,7 +18,7 @@ class PengajuanSearch extends Pengajuan {
      */
     public function rules() {
         return [
-            [['id', 'setuju'], 'integer'],
+            [['id', 'status'], 'integer'],
             [['tgl_pengajuan', 'tgl_spk', 'tgl_persetujuan', 'keterangan', 'cari'], 'safe'],
         ];
     }
@@ -39,7 +39,8 @@ class PengajuanSearch extends Pengajuan {
      * @return ActiveDataProvider
      */
     public function search($params) {
-        $query = Pengajuan::find();
+        $query = Pengajuan::find()
+                ->where(['status' => null]);
 
         // add conditions that should always apply here
 
@@ -60,14 +61,47 @@ class PengajuanSearch extends Pengajuan {
             'id' => $this->id,
             'tgl_pengajuan' => $this->tgl_pengajuan,
             'tgl_spk' => $this->tgl_spk,
-            'setuju' => $this->setuju,
+            'status' => $this->status,
             'tgl_persetujuan' => $this->tgl_persetujuan,
         ]);
 
         $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
-               ->orFilterWhere(['like', 'keterangan', $this->cari]);
+                ->orFilterWhere(['like', 'keterangan', $this->cari]);
 
         return $dataProvider;
     }
 
-}
+    public function searchRiwayat($params) {
+
+        $query = Pengajuan::find()
+                ->where(['status' => 1]);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'tgl_pengajuan' => $this->tgl_pengajuan,
+            'tgl_spk' => $this->tgl_spk,
+            'status' => $this->status,
+            'tgl_persetujuan' => $this->tgl_persetujuan,
+        ]);
+
+        $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
+                ->orFilterWhere(['like', 'keterangan', $this->cari]);
+
+        return $dataProvider;
+    }
+  }
