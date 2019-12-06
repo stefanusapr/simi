@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\models\TransaksiKeluar */
 
-$this->title = $model->tgl_keluar;
+$this->title = 'TK-'.$model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Transaksi Keluar', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

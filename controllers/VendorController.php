@@ -8,6 +8,7 @@ use app\models\VendorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * VendorController implements the CRUD actions for Vendor model.
@@ -19,6 +20,26 @@ class VendorController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'index',
+                            'create',
+                            'update',
+                            'view',
+                            'delete',
+                        ],
+                        'allow' => true,
+                        'matchCallback' => function() {
+                            return (
+                                    Yii::$app->user->identity->AuthKey == 'test100key'
+                                    );
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

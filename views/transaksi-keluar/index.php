@@ -37,6 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             // 'id',
             [
+                'header' => 'Kode',
+                'value' => function ($dataProvider) {
+                    return 'TK-' . $dataProvider->id;
+                }
+            ],
+            [
                 'attribute' => 'tgl_keluar',
                 'format' => ['date', 'php: d-m-Y'],
             ],

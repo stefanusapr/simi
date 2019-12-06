@@ -16,36 +16,33 @@ use Yii;
  * @property Barang $barang
  * @property TransaksiKeluar $transaksiKeluar
  */
-class TransaksiKeluarDetail extends \yii\db\ActiveRecord
-{
+class TransaksiKeluarDetail extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'transaksi_keluar_detail';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id_barang', 'id_transaksi_keluar', 'jumlah'], 'required'],
             [['id_barang', 'id_transaksi_keluar', 'jumlah'], 'integer'],
             [['keterangan'], 'string'],
             [['tgl_kembali'], 'safe'],
             [['id_barang'], 'exist', 'skipOnError' => true, 'targetClass' => Barang::className(), 'targetAttribute' => ['id_barang' => 'id']],
-           // [['id_transaksi_keluar'], 'exist', 'skipOnError' => true, 'targetClass' => TransaksiKeluar::className(), 'targetAttribute' => ['id_transaksi_keluar' => 'id']],
+                // [['id_transaksi_keluar'], 'exist', 'skipOnError' => true, 'targetClass' => TransaksiKeluar::className(), 'targetAttribute' => ['id_transaksi_keluar' => 'id']],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'Kode',
             'id_barang' => 'Nama Barang',
@@ -59,23 +56,15 @@ class TransaksiKeluarDetail extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBarang()
-    {
+    public function getBarang() {
         return $this->hasOne(Barang::className(), ['id' => 'id_barang']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTransaksiKeluar()
-    {
+    public function getTransaksiKeluar() {
         return $this->hasOne(TransaksiKeluar::className(), ['id' => 'id_transaksi_keluar']);
     }
-    
-    public function jenisBarang() {
-        $jenis = (new \yii\db\Query())
-                ->select(['id', 'jenis'])
-                ->from('barang')
-                ->where(['jenis' => 'Tidak Habis Pakai']);
-    }
+
 }

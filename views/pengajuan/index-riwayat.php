@@ -7,15 +7,10 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PengajuanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengajuan';
+$this->title = 'Riwayat Pengajuan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengajuan-index">
-
-    <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Pengajuan', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <div class="row">
         <div class="col-md-3">
             <?= $this->render('_search', ['model' => $searchModel]); ?>
@@ -28,6 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
+            [
+                'header' => 'Kode',
+                'value' => function ($dataProvider) {
+                    return 'TP-' . $dataProvider->id;
+                }
+            ],
             [
                 'attribute' => 'tgl_pengajuan',
                 'format' => ['date', 'php: d-m-Y'],
@@ -50,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
                 'buttons' => [
                     'lihat' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view-riwayat', 'id' => $model->id], ['class' => 'btn btn-success',]);
                     }
                 ]
             ],

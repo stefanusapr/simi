@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TransaksiKeluarSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Peminjaman';
+$this->title = 'Riwayat Peminjaman';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="peminjaman-index">
@@ -33,6 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'id_transaksi_keluar',
+                'header' => 'Kode',
+                'value' => function ($dataProvider) {
+                    return 'TK-' . $dataProvider->transaksiKeluar->id;
+                }
+            ],
             [
                 'attribute' => 'tgl_keluar',
                 'value' => 'transaksiKeluar.tgl_keluar',
@@ -64,6 +71,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'keterangan',
                 'header' => 'Keterangan',
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'widget:100px, align:center;'],
+                'header' => 'Tindakan',
+                'template' => '{lihat}',
+                'buttons' => [
+                    'lihat' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id_transaksi_keluar], ['class' => 'btn btn-success',]);
+                    },
+                ]
             ],
         ],
     ]);

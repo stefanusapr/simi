@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
 use kartik\mpdf\Pdf;
+use yii\filters\AccessControl;
 
 /**
  * BarangController implements the CRUD actions for Barang model.
@@ -21,6 +22,40 @@ class BarangController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'index',
+                            'create',
+                            'update',
+                            'view',
+                            'delete',
+                            'report',
+                        ],
+                        'allow' => true,
+                        'matchCallback' => function() {
+                            return (
+                                    Yii::$app->user->identity->AuthKey == 'test100key'
+                                    );
+                        }
+                    ],
+                    [
+                        'actions' => [
+                            'index-waka',
+                            'view-waka',
+                            'report',
+                        ],
+                        'allow' => true,
+                        'matchCallback' => function() {
+                            return (
+                                    Yii::$app->user->identity->AuthKey == 'test101key'
+                                    );
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -39,19 +74,11 @@ class BarangController extends Controller {
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $dataProvider->pagination->pageSize = 10;
-
+        
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
-
-//        $query = BarangSearch::find();
-//        $countQuery = clone $query;
-//
-//        $pages = new Pagination(['totalCount' => $countQuery->count()]);
-//
-//        $dataProvider = new ActiveDataProvider(['query' => $query]);
-//        return $this->render('index', ['dataProvider' => $dataProvider, 'pages' => $pages]);
     }
 
     /**
@@ -62,6 +89,35 @@ class BarangController extends Controller {
      */
     public function actionView($id) {
         return $this->render('view', [
+                    'model' => $this->findModel($id),
+                        //'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+    /**
+     * Lists all Barang models.
+     * @return mixed
+     */
+    public function actionIndexWaka() {
+        $searchModel = new BarangSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $dataProvider->pagination->pageSize = 10;
+        
+        return $this->render('index-waka', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Barang model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewWaka($id) {
+        return $this->render('view-waka', [
                     'model' => $this->findModel($id),
                         //'dataProvider' => $dataProvider,
         ]);

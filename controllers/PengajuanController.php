@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\Pengajuan;
@@ -25,6 +26,26 @@ class PengajuanController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'index',
+                            'create',
+                            'riwayat',
+                            'view',
+                            'view-riwayat'
+                        ],
+                        'allow' => true,
+                        'matchCallback' => function() {
+                            return (
+                                    Yii::$app->user->identity->AuthKey == 'test100key'
+                                    );
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -74,6 +95,13 @@ class PengajuanController extends Controller {
      */
     public function actionView($id) {
         return $this->render('view', [
+                    'model' => $this->findModel($id),
+                    'modelDetail' => $this->findDetails($id),
+        ]);
+    }
+    
+    public function actionViewRiwayat($id) {
+        return $this->render('view-riwayat', [
                     'model' => $this->findModel($id),
                     'modelDetail' => $this->findDetails($id),
         ]);
@@ -131,7 +159,7 @@ class PengajuanController extends Controller {
                         // sukses, commit database transaction
                         // kemudian tampilkan hasilnya
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
+                        return $this->redirect(['index']);
                     } else {
                         return $this->render('create', [
                                     'model' => $model,
@@ -151,6 +179,8 @@ class PengajuanController extends Controller {
                 ]);
             }
         } else {
+            //set tanggal
+            $model->tgl_pengajuan = date('Y-m-d');
             // inisialisai id 
             // diperlukan untuk form master-detail
             $model->id = 0;

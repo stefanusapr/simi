@@ -1,6 +1,6 @@
 <aside class="main-sidebar">
-
-    <section class="sidebar">
+    
+     <section class="sidebar">
 
         <!-- Sidebar user panel -->
         <div class="user-panel">
@@ -12,18 +12,6 @@
             </div>
         </div>
 
-        <!-- search form -->
-        <!-- <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-        </form> -->
-        <!-- /.search form -->
-
         <?=
         dmstr\widgets\Menu::widget(
                 [
@@ -32,6 +20,7 @@
                         ['label' => 'Inventaris Barang', 'options' => ['class' => 'header']],
                         ['label' => 'Dashboard', 'icon' => 'fas fa-dashboard', 'url' => ['site/index']],
                         ['label' => 'Master Barang', 'icon' => 'fas fa-table', 'url' => ['barang/index']],
+                        ['label' => 'Master Barang waka', 'icon' => 'fas fa-table', 'url' => ['barang/index-waka']],                        
                         ['label' => 'Pengajuan',
                             'icon' => 'fas fa-edit',
                             'url' => ['pengajuan/index'],
@@ -53,8 +42,8 @@
                             ],
                         ],
                         ['label' => 'Data Vendor', 'icon' => 'fas fa-truck', 'url' => ['vendor/index']],
-                        //['label' => 'Daftar Pengajuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],
-                        //['label' => 'Daftar Persetujuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/riwayat']],
+                        ['label' => 'Daftar Pengajuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],
+                        ['label' => 'Daftar Persetujuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/riwayat']],
                         ['label' => 'Laporan', 'icon' => 'fas fa-file', 'url' => ['/barang/report']],
                         ['label' => 'Pengaturan Akun', 'icon' => 'fas fa-user', 'url' => ['site/index']],
                         ['label' => 'Keluar', 'icon' => 'fas fa-sign-out-alt', 'url' => ['site/logout'],

@@ -14,6 +14,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\filters\AccessControl;
+
 
 /**
  * TransaksiMasukController implements the CRUD actions for TransaksiMasuk model.
@@ -25,6 +27,26 @@ class TransaksiMasukController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'index',
+                            'create',
+                            'update',
+                            'view',
+                            'delete',
+                        ],
+                        'allow' => true,
+                        'matchCallback' => function() {
+                            return (
+                                    Yii::$app->user->identity->AuthKey == 'test100key'
+                                    );
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -57,8 +79,6 @@ class TransaksiMasukController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id) {
-       // $model = $this->findModel($id);
-       // $model->id = 'TKM-'.$model->id;
         return $this->render('view', [
                     'model' => $this->findModel($id),
                     'modelDetail' => $this->findDetails($id),

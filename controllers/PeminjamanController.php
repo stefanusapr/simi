@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\filters\AccessControl;
 
 /**
  * TransaksiKeluarController implements the CRUD actions for TransaksiKeluar model.
@@ -26,10 +27,29 @@ class PeminjamanController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'index',
+                            'view',
+                            'selesai',
+                            'riwayat',
+                        ],
+                        'allow' => true,
+                        'matchCallback' => function() {
+                            return (
+                                    Yii::$app->user->identity->AuthKey == 'test100key'
+                                    );
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'selesai' => ['POST'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -80,10 +100,10 @@ class PeminjamanController extends Controller {
      * sebagai pengembalian barang
      */
     public function actionSelesai($id) {
-        $model = $this->findModel($id);        
+        $model = $this->findModel($id);
         $model['tgl_kembali'] = date('Y-m-d');
-                $model->save();              
-                return $this->redirect(['riwayat']);
+        $model->save();
+        return $this->redirect(['riwayat']);
     }
 
     /**
@@ -103,6 +123,27 @@ class PeminjamanController extends Controller {
     protected function findDetails($id) {
         $detailModel = new TransaksiKeluarDetailSearch();
         return $detailModel->search(['TransaksiKeluarDetailSearch' => ['id_transaksi_keluar' => $id]]);
+    }
+
+    protected function findModelKeluar($id) {
+        if (($model = TransaksiKeluar::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Displays a single TransaksiKeluar model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id) {
+        return $this->render('view', [
+                    'model' => $this->findModelKeluar($id),
+                    'modelDetail' => $this->findDetails($id),
+        ]);
     }
 
 }

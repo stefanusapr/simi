@@ -39,13 +39,13 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
      * @return ActiveDataProvider
      */
     public function searchPeminjaman($params) {
-        
+
         $query = TransaksiKeluarDetail::find()
                 ->joinWith('barang')
                 ->where(['barang.jenis' => 'Tidak Habis Pakai'])
                 ->andWhere(['tgl_kembali' => null])
-                ;
-        
+        ;
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -74,16 +74,15 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
 
         return $dataProvider;
     }
-    
-    
+
     public function searchRiwayatPeminjaman($params) {
-        
+
         $query = TransaksiKeluarDetail::find()
                 ->joinWith('barang')
                 ->where(['barang.jenis' => 'Tidak Habis Pakai'])
                 ->andWhere(['not', ['tgl_kembali' => null]])
-                ;
-        
+        ;
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -113,7 +112,6 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
         return $dataProvider;
     }
 
-    
     public function search($params) {
         $query = TransaksiKeluarDetail::find();
 

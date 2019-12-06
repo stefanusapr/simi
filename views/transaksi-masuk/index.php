@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'header' => 'Kode',
                 'value' => function ($dataProvider) {
-                    return $dataProvider->id = 'TKM-'.$dataProvider->id;
+                    return 'TM-'.$dataProvider->id;
                 }
             ],
             [

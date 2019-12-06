@@ -35,6 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'id_transaksi_keluar',
+                'header' => 'Kode',
+                'value' => function ($dataProvider) {
+                    return 'TK-' . $dataProvider->transaksiKeluar->id;
+                }
+            ],
+            [
+                'attribute' => 'id_transaksi_keluar',
                 'value' => 'transaksiKeluar.nama_penerima',
                 'header' => 'Nama Peminjam',
             ],
@@ -64,12 +71,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',
-                'template' => '{selesai} &nbsp',
+                'template' => '{selesai}',
                 'buttons' => [
                     'selesai' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-check"></span> Kembali', ['peminjaman/selesai', 'id' => $model->id
                                         ], ['class' => 'btn btn-success', 'data-method' => "post"], ['buttonType' => 'submit']);
-                    }
+                    },
                 ]
             ],
         ],

@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -25,6 +26,26 @@ class PersetujuanController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'index',
+                            'riwayat',
+                            'update',
+                            'view',
+                            'view-riwayat'
+                        ],
+                        'allow' => true,
+                        'matchCallback' => function() {
+                            return (
+                                    Yii::$app->user->identity->AuthKey == 'test101key'
+                                    );
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -76,6 +97,19 @@ class PersetujuanController extends Controller {
     }
 
     /**
+     * Displays a single Pengajuan model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewRiwayat($id) {
+        return $this->render('view-riwayat', [
+                    'model' => $this->findModel($id),
+                    'modelDetail' => $this->findDetails($id),
+        ]);
+    }
+
+    /**
      * Updates an existing Pengajuan model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -85,7 +119,7 @@ class PersetujuanController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         $modelDetail = $model->pengajuanBarangs;
-        
+
         if ($model->load(Yii::$app->request->post())) {
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
             $modelDetail = Model::createMultiple(PengajuanBarang::classname(), $modelDetail);
@@ -132,13 +166,12 @@ class PersetujuanController extends Controller {
                     if ($flag) {
                         //sukses, commit ke db transaksi
                         //kemudian tampilkan hasilnya
-                        
                         //update nilai setuju
                         $model->status = 1;
-                        $model->update();                                
+                        $model->update();
                         $transaction->commit();
-                        
-                        return $this->redirect(['view', 'id' => $model->id]);
+
+                        return $this->redirect(['index']);
                     }
                 } catch (Exceptation $e) {
                     //penyimpannan gagal, maka rollback db transaksi
@@ -153,13 +186,16 @@ class PersetujuanController extends Controller {
                 ]);
             }
         } else {
-            // render view
-            
+            //set tanggal
+            $model->tgl_spk = date('Y-m-d');
+            $model->tgl_persetujuan = date('Y-m-d');
+
             // set default value 0 to status
             foreach ($modelDetail as $i => $detail):
                 $modelDetail[$i]['status'] = 0;
             endforeach;
-            
+
+            // render view
             return $this->render('update', [
                         'model' => $model,
                         'modelDetail' => (empty($modelDetail)) ? [new PengajuanBarang] : $modelDetail,

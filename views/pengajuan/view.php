@@ -8,14 +8,13 @@ use yii\i18n\Formatter;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pengajuan */
 
-$this->title = $model->tgl_pengajuan;
+$this->title = 'TP-' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Pengajuan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="pengajuan-view">
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-eye-open"></span> List Pengajuan'), ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
 
@@ -26,20 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             [
                 'attribute' => 'tgl_pengajuan',
-                'format' => ['date', 'php: d-M-Y'],
+                'format' => ['date', 'php: d-m-Y'],
                 'labelColOptions' => ['style' => 'width:30%; text-align:right;']
             ],
-            [
-                'attribute' => 'tgl_spk',
-                'format' => ['date', 'php: d-M-Y'],
-                'labelColOptions' => ['style' => 'width:30%; text-align:right;']
-            ],
-            [
-                'attribute' => 'tgl_persetujuan',
-                'format' => ['date', 'php: d-M-Y'],
-                'labelColOptions' => ['style' => 'width:30%; text-align:right;']
-            ],
-            'keterangan',
         ],
     ])
     ?>
@@ -73,10 +61,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     ],
                     'keterangan',
-                    [
-                        'attribute' => 'status',
-                        'value' => 'StatusLabel',
-                    ],
                 ],
             ]);
             ?>

@@ -31,9 +31,9 @@
                     'items' => [
                         ['label' => 'Inventaris Barang', 'options' => ['class' => 'header']],
                         ['label' => 'Dashboard', 'icon' => 'fas fa-dashboard', 'url' => ['/site/index']],
-                        ['label' => 'Master Barang', 'icon' => 'fas fa-table', 'url' => ['/barang/index']],
-                        ['label' => 'Daftar Pengajuan', 'icon' => 'fas fa-edit', 'url' => ['/persetujuan/index']],
-                        ['label' => 'Daftar Persetujuan', 'icon' => 'fas fa-edit', 'url' => ['/persetujuan/persetujuan']],
+                        ['label' => 'Master Barang Waka', 'icon' => 'fas fa-table', 'url' => ['barang/indexWaka']],
+                        ['label' => 'Daftar Pengajuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],
+                        ['label' => 'Daftar Persetujuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/riwayat']],
                         ['label' => 'Laporan', 'icon' => 'fas fa-file', 'url' => ['/#']],
                         ['label' => 'Pengaturan Akun', 'icon' => 'fas fa-user', 'url' => ['/site/index']],
                         ['label' => 'Keluar', 'icon' => 'fas fa-sign-out-alt', 'url' => ['/site/login']],

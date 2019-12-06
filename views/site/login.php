@@ -30,14 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'password')->label(false)->input('password', ['placeholder' => 'Kata Sandi']) ?>
             </div>
             <div class="mb-8">
-                <div class="icheck-primary">
-                    <?=
+<!--                <div class="icheck-primary">
+                    <?pjp //echo 
                     $form->field($model, 'rememberMe')->checkbox([
                         'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
                         'label' => "Ingat saya",
                     ])
                     ?>
-                </div>
+                </div>-->
                 <!-- /.col -->
                 <div class="col-4">
                     <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>

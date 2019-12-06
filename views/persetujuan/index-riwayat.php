@@ -25,6 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
             [
+                'header' => 'Kode',
+                'value' => function ($dataProvider) {
+                    return 'TP-' . $dataProvider->id;
+                }
+            ],
+            [
                 'attribute' => 'tgl_pengajuan',
                 'format' => ['date', 'php: d-m-Y'],
             ],
@@ -46,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{lihat} &nbsp',
                 'buttons' => [
                     'lihat' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view-riwayat', 'id' => $model->id], ['class' => 'btn btn-success',]);
                     },
                 ]
             ],

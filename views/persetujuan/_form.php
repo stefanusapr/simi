@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use kidzen\dynamicform\DynamicFormWidget;
-use kartik\date\DatePicker;
+use kartik\datecontrol\DateControl;
 use app\models\Barang;
 use app\models\Pengajuan;
 use app\models\PengajuanBarang;
@@ -25,15 +25,20 @@ use app\controllers\PengajuanController;
         <!-- tgl pengajuan -->
         <div class="col-md-4">
             <?=
-            $form->field($model, 'tgl_pengajuan')->widget(DatePicker::className(), [
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                'value' => date('Y-m-d'),
-                'disabled' => 'true',
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true,
-                ]
+            $form->field($model, 'tgl_pengajuan')->widget(DateControl::classname(), [
+                'type' => DateControl::FORMAT_DATE,
+                'ajaxConversion' => true,
+                'autoWidget' => true,
+                'disabled' => true,
+                'language' => 'id',
+                'displayFormat' => 'php:d-m-Y',
+                'saveFormat' => 'php:Y-m-d',
+                'widgetOptions' => [
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                    ]
+                ],
             ]);
             ?>
         </div>
@@ -41,14 +46,19 @@ use app\controllers\PengajuanController;
         <!-- tgl persetujuan -->
         <div class="col-md-4">
             <?=
-            $form->field($model, 'tgl_persetujuan')->widget(DatePicker::className(), [
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                'value' => date('Y-m-d'),
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true,
-                ]
+            $form->field($model, 'tgl_persetujuan')->widget(DateControl::classname(), [
+                'type' => DateControl::FORMAT_DATE,
+                'ajaxConversion' => true,
+                'autoWidget' => true,
+                'language' => 'id',
+                'displayFormat' => 'php:d-m-Y',
+                'saveFormat' => 'php:Y-m-d',
+                'widgetOptions' => [
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                    ]
+                ],
             ]);
             ?>
         </div>
@@ -56,14 +66,19 @@ use app\controllers\PengajuanController;
         <!-- tgl spk -->
         <div class="col-md-4">
             <?=
-            $form->field($model, 'tgl_spk')->widget(DatePicker::className(), [
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                'value' => date('Y-m-d'),
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true,
-                ]
+            $form->field($model, 'tgl_spk')->widget(DateControl::classname(), [
+                'type' => DateControl::FORMAT_DATE,
+                'ajaxConversion' => true,
+                'autoWidget' => true,
+                'language' => 'id',
+                'displayFormat' => 'php:d-m-Y',
+                'saveFormat' => 'php:Y-m-d',
+                'widgetOptions' => [
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                    ]
+                ],
             ]);
             ?>
         </div>
