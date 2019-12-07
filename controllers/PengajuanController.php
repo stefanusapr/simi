@@ -159,6 +159,9 @@ class PengajuanController extends Controller {
                         // sukses, commit database transaction
                         // kemudian tampilkan hasilnya
                         $transaction->commit();
+                        Yii::$app->getSession()->setFlash(
+                                    'success', 'Berhasil mengajukan, menunggu persetujuan...'
+                            );
                         return $this->redirect(['index']);
                     } else {
                         return $this->render('create', [

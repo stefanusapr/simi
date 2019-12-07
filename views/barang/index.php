@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <!-- <div class="col-md-4">
                     <p>
-        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-primary']) ?>
                     </p>
                 </div>-->
     </div>
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                'value' => function($data) {
 //                    return
 //                            Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $data->id], ['title' => 'view', 'class' => 'btn btn-success']) . ' ' .
-//                            Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $data->id], ['title' => 'edit', 'class' => 'btn btn-info']) . ' ' .
+//                            Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $data->id], ['title' => 'edit', 'class' => 'btn btn-primary']) . ' ' .
 //                            Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $data->id], [
 //                                'class' => 'btn btn-danger',
 //                                'data' => [
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
                 'buttons' => [
                     'edit' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-info',]);
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary',]);
                     },
                     'lihat' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);

@@ -30,6 +30,7 @@ class VendorController extends Controller {
                             'update',
                             'view',
                             'delete',
+                            'email',
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
@@ -139,6 +140,31 @@ class VendorController extends Controller {
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Creates a new Vendor model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionEmail($id) {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            Yii::$app->mailer->compose()
+                    ->setFrom('dharmaanugrah97@gmail.com')
+                    ->setTo($model->email)
+                    ->setSubject($model->judul)
+                    ->setHtmlBody($model->isi)
+                    ->send();
+            Yii::$app->getSession()->setFlash(
+                    'success', 'Berhasil mengirim pesan ke Vendor '.$model->nama
+            );
+            return $this->redirect(['index']);
+        } else {
+            return $this->render('create-email', [
+                        'model' => $model,
+            ]);
+        }
     }
 
 }

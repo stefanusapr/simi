@@ -13,6 +13,14 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
+    'language' => 'id',
+    'on beforeRequest' => function ($event) {
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->identity->AuthKey == 'test101key') {
+                Yii::$app->layout = '@app/views/layouts/main-waka.php';
+            }
+        }
+    },
     'components' => [
         'request' => [
 // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -30,10 +38,15 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-// 'useFileTransport' to false and configure a transport
-// for the mailer to send real emails.
             'useFileTransport' => true,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'dharmaanugrah97@gmail.com',
+                'password' => 'stefanus1997',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -74,7 +87,7 @@ $config = [
                 Module::FORMAT_DATE => ['pluginOptions' => ['autoclose' => true]], // example
             ],
             // custom widget settings that will be used to render the date input instead of kartik\widgets,
-            // this will be used when autoWidget is set to false at module or widget level.
+// this will be used when autoWidget is set to false at module or widget level.
             'widgetSettings' => [
                 Module::FORMAT_DATE => [
                     'class' => 'yii\jui\DatePicker', // example
@@ -91,19 +104,19 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
+// configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
             // uncomment the following to add your IP if you are not connecting from localhost.
-            //'allowedIPs' => ['127.0.0.1', '::1'],
+//'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
             // uncomment the following to add your IP if you are not connecting from localhost.
-            //'allowedIPs' => ['127.0.0.1', '::1'],
+//'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

@@ -34,7 +34,7 @@ class Barang extends \yii\db\ActiveRecord {
         return [
             [['nama', 'merk', 'jenis', 'kode_barang'], 'required'],
             [['stok'], 'integer'],
-            [['nama', 'merk', 'jenis', 'kode_barang'], 'string', 'max' => 255],
+            [['nama', 'merk', 'jenis', 'kode_barang', 'keterangan'], 'string', 'max' => 255],
             [['kode_barang'], 'unique'],
         ];
     }
@@ -50,6 +50,7 @@ class Barang extends \yii\db\ActiveRecord {
             'merk' => 'Merk Barang',
             'jenis' => 'Jenis Barang',
             'kode_barang' => 'Kode Barang',
+            'keterangan' => 'Keterangan',
         ];
     }
 
@@ -72,17 +73,6 @@ class Barang extends \yii\db\ActiveRecord {
      */
     public function getTransaksiMasukDetails() {
         return $this->hasMany(TransaksiMasukDetail::className(), ['id_barang' => 'id']);
-    }
-
-    public function getYesNoText() {
-        return $this->yesNoOptions[$this->jenis];
-    }
-
-    public function getYesNoOptions() {
-        return array(
-            0 => 'No',
-            1 => 'Yes',
-        );
     }
 
     public function hitungBarang() {

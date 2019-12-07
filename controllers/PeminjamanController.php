@@ -101,8 +101,12 @@ class PeminjamanController extends Controller {
      */
     public function actionSelesai($id) {
         $model = $this->findModel($id);
+        
         $model['tgl_kembali'] = date('Y-m-d');
         $model->save();
+        Yii::$app->getSession()->setFlash(
+                'success', 'Berhasil mengembalikan barang'
+        );
         return $this->redirect(['riwayat']);
     }
 

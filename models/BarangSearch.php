@@ -19,7 +19,7 @@ class BarangSearch extends Barang {
     public function rules() {
         return [
             [['id', 'stok'], 'integer'],
-            [['nama', 'merk', 'jenis', 'kode_barang', 'cari'], 'safe'],
+            [['nama', 'merk', 'jenis', 'kode_barang', 'keterangan', 'cari'], 'safe'],
         ];
     }
 
@@ -45,7 +45,6 @@ class BarangSearch extends Barang {
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            
         ]);
 
         $this->load($params);
@@ -66,10 +65,13 @@ class BarangSearch extends Barang {
                 ->andFilterWhere(['like', 'merk', $this->merk])
                 ->andFilterWhere(['like', 'jenis', $this->jenis])
                 ->andFilterWhere(['like', 'kode_barang', $this->kode_barang])
+                ->andFilterWhere(['like', 'keterangan', $this->keterangan])
                 ->orFilterWhere(['like', 'nama', $this->cari])
                 ->orFilterWhere(['like', 'merk', $this->cari])
                 ->orFilterWhere(['like', 'jenis', $this->cari])
-                ->orFilterWhere(['like', 'kode_barang', $this->cari]);
+                ->orFilterWhere(['like', 'kode_barang', $this->cari])
+                ->orFilterWhere(['like', 'keterangan', $this->cari]);
+        ;
 
         return $dataProvider;
     }

@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="peminjaman-view">
     <p>
-        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-eye-open"></span> List Riwayat Peminjaman'), ['index'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> List Riwayat Peminjaman'), ['riwayat'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?=
@@ -56,6 +56,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'id_barang',
                         'value' => 'barang.nama',
                         'header' => 'Nama Barang',
+                    ],
+                    [
+                        'attribute' => 'id_barang',
+                        'value' => 'barang.jenis',
+                        'header' => 'Jenis Barang',
                     ],
                     'jumlah',
                     [

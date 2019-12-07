@@ -33,7 +33,7 @@ class Vendor extends \yii\db\ActiveRecord
     {
         return [
             [['nama'], 'required'],
-            [['alamat', 'keterangan'], 'string'],
+            [['alamat', 'keterangan', 'isi', 'judul'], 'string'],
             [['nama', 'no_hp', 'email'], 'string', 'max' => 255],
         ];
     }
@@ -50,6 +50,8 @@ class Vendor extends \yii\db\ActiveRecord
             'no_hp' => 'No Telepon',
             'email' => 'Email',
             'keterangan' => 'Keterangan',
+            'judul' => 'Judul Pesan',
+            'isi' => 'Isi Pesan',
         ];
     }
 

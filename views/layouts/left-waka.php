@@ -31,13 +31,14 @@
                     'items' => [
                         ['label' => 'Inventaris Barang', 'options' => ['class' => 'header']],
                         ['label' => 'Dashboard', 'icon' => 'fas fa-dashboard', 'url' => ['/site/index']],
-                        ['label' => 'Master Barang Waka', 'icon' => 'fas fa-table', 'url' => ['barang/indexWaka']],
-                        ['label' => 'Daftar Pengajuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/index']],
-                        ['label' => 'Daftar Persetujuan', 'icon' => 'fa-edit', 'url' => ['/persetujuan/riwayat']],
+                        ['label' => 'Master Barang', 'icon' => 'fas fa-table', 'url' => ['barang/index-waka']],
+                        ['label' => 'Daftar Pengajuan', 'icon' => 'fas fa-edit', 'url' => ['/persetujuan/index']],
+                        ['label' => 'Daftar Persetujuan', 'icon' => 'fas fa-check-square-o', 'url' => ['/persetujuan/riwayat']],
                         ['label' => 'Laporan', 'icon' => 'fas fa-file', 'url' => ['/#']],
-                        ['label' => 'Pengaturan Akun', 'icon' => 'fas fa-user', 'url' => ['/site/index']],
-                        ['label' => 'Keluar', 'icon' => 'fas fa-sign-out-alt', 'url' => ['/site/login']],
-                        ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                        ['label' => 'Pengaturan Akun', 'icon' => 'fas fa-user', 'url' => ['/site/akun']],
+                        ['label' => 'Keluar', 'icon' => 'fas fa-sign-out-alt', 'url' => ['site/logout'],
+                            'template' => '<a href="{url}" data-method="post">{icon}{label}</a>',],
+                        ['label' => 'Login', 'icon' => 'fas fa-sign-in', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     ],
                 ]
         )

@@ -18,13 +18,19 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <!-- <div class="col-md-4">
                     <p>
-        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-primary']) ?>
                     </p>
                 </div>-->
     </div>
 
     <?=
     GridView::widget([
+        'tableOptions' => [
+            'class' => 'table table-striped',
+        ],
+        'options' => [
+            'class' => 'table-responsive',
+        ],
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,
         'columns' => [
@@ -53,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{lihat}',
                 'buttons' => [
                     'lihat' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view-waka', 'id' => $model->id], ['class' => 'btn btn-success',]);
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view-waka', 'id' => $model->id], ['class' => 'btn btn-warning',]);
                     }
                 ]
             ],

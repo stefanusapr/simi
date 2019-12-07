@@ -19,6 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?=
     GridView::widget([
+        'tableOptions' => [
+            'class' => 'table table-striped',
+        ],
+        'options' => [
+            'class' => 'table-responsive',
+        ],
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
@@ -47,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
                     },
                     'edit' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-info',]);
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary',]);
                     },
                 ]
             ],

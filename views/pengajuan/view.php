@@ -15,7 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengajuan-view">
     <p>
-        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-eye-open"></span> List Pengajuan'), ['index'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> List Pengajuan'), ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?=

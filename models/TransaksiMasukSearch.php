@@ -47,11 +47,6 @@ class TransaksiMasukSearch extends TransaksiMasuk {
             'query' => $query,
         ]);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-                //'sort' => ['attributes' => ['vendor.nama']],
-        ]);
-
         $this->load($params);
 
         if (!$this->validate()) {
@@ -90,13 +85,18 @@ class TransaksiMasukSearch extends TransaksiMasuk {
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+//        $dataProvider = new ActiveDataProvider([
+//            'query' => $query,
+//        ]);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-                //'sort' => ['attributes' => ['vendor.nama']],
+        $dataProvider->setSort([
+            'attributes' => [
+                'vendor' => [
+                    'asc' => ['vendor.nama' => SORT_ASC],
+                    'desc' => ['vendor.nama' => SORT_DESC],
+                    'default' => SORT_ASC
+                ],
+            ],
         ]);
 
         $this->load($params);

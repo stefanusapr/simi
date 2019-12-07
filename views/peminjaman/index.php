@@ -26,10 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?=
     GridView::widget([
-        'dataProvider' => $dataProvider,
         'tableOptions' => [
-            'class' => 'table table-striped table-bordered'
+            'class' => 'table table-striped',
         ],
+        'options' => [
+            'class' => 'table-responsive',
+        ],
+        'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -75,7 +78,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'selesai' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-check"></span> Kembali', ['peminjaman/selesai', 'id' => $model->id
-                                        ], ['class' => 'btn btn-success', 'data-method' => "post"], ['buttonType' => 'submit']);
+                                        ], ['class' => 'btn btn-primary', 'data-method' => "post",
+                                    'data' => [
+                                        'confirm' => 'Anda yakin ingin mengembalikan barang?',
+                                        'method' => 'post',
+                                    ],
+                                        ], ['buttonType' => 'submit']);
                     },
                 ]
             ],

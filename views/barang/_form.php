@@ -27,6 +27,8 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
 
+    <?= $form->field($model, 'keterangan')->textarea() ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Edit'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'List Barang'), ['index'], ['class' => 'btn btn-warning']) ?>     

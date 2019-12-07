@@ -3,26 +3,22 @@
 namespace app\models;
 
 use Yii;
-use yii\base\NotSupportedException;
-use yii\db\ActiveRecord;
-use yii\helpers\Security;
-use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "user".
  *
  * @property int $id
- * @property string $username
+ * @property string $nama_pengguna
  * @property string $authKey
- * @property string $password
+ * @property string $kata_sandi
  * @property string $email
  * @property string $accessToken
  * @property string $role
- * @property string $password_old
- * @property string $password_new
- * @property string $password_repeat
+ * @property string $kata_sandi_lama
+ * @property string $kata_sandi_baru
+ * @property string $ulangi_kata_sandi
  */
-class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
+class User extends \yii\db\ActiveRecord {
 
     /**
      * {@inheritdoc}
@@ -36,30 +32,29 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
      */
     public function rules() {
         return [
-            [['password_old', 'password_new', 'password_repeat'], 'required'],
-            [['username', 'password', 'email', 'role', 'password_old', 'password_new', 'password_repeat'], 'string', 'max' => 255],
+            [['nama_pengguna', 'authKey', 'kata_sandi', 'email', 'accessToken', 'role', 'kata_sandi_lama', 'kata_sandi_baru', 'ulangi_kata_sandi'], 'required'],
+            [['nama_pengguna', 'kata_sandi', 'email', 'role', 'kata_sandi_lama', 'kata_sandi_baru', 'ulangi_kata_sandi'], 'string', 'max' => 255],
             [['authKey', 'accessToken'], 'string', 'max' => 32],
-            [['username'], 'unique'],
+            [['nama_pengguna'], 'unique'],
             [['email'], 'unique'],
         ];
     }
 
-    
     /**
      * {@inheritdoc}
      */
     public function attributeLabels() {
         return [
             'id' => 'ID',
-            'username' => 'Nama pengguna',
+            'nama_pengguna' => 'Nama Pengguna',
             'authKey' => 'Auth Key',
-            'password' => 'Kata sandi',
+            'kata_sandi' => 'Kata Sandi',
             'email' => 'Email',
             'accessToken' => 'Access Token',
             'role' => 'Role',
-            'password_old' => 'Kata sandi lama',
-            'password_new' => 'Kata sandi baru',
-            'password_repeat' => 'Ulangi kata sandi baru',
+            'kata_sandi_lama' => 'Kata Sandi Lama',
+            'kata_sandi_baru' => 'Kata Sandi Baru',
+            'ulangi_kata_sandi' => 'Ulangi Kata Sandi',
         ];
     }
 
@@ -160,10 +155,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
 
     public function findPasswords($attribute, $params) {
         $user = User::find()->where([
-                    'username' => Yii::$app->user->identity->username
+                    'username' => Yii::$app->user->identity->nama_pengguna
                 ])->one();
-        $password = $user->password;
-        if ($password != $this->password_old)
+        $password = $user->kata_sandi;
+        if ($password != $this->kata_sandi_baru)
             $this->addError($attribute, 'Kata sandi lama salah');
     }
 
@@ -174,7 +169,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
      */
     public function changePassword() {
         $user = $this->_user;
-        $user->setPassword($this->password);
+        $user->setPassword($this->kata_sandi);
 
         return $user->save(false);
     }

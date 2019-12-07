@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <!-- <div class="col-md-4">
                     <p>
-        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-primary']) ?>
                     </p>
                 </div>-->
     </div>
@@ -37,7 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             // 'id',
             [
-                'header' => 'Kode',
+                'header' => 'Kode',                   
+                'headerOptions' => ['style' => 'width:10%'],
                 'value' => function ($dataProvider) {
                     return 'TK-' . $dataProvider->id;
                 }
@@ -49,19 +50,23 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'tgl_surat',
                 'format' => ['date', 'php: d-m-Y'],
+                'headerOptions' => ['style' => 'width:15%'],
             ],
-            'nama_penerima',
             [
-                'attribute' => 'keterangan',
-                'headerOptions' => ['style' => 'width:30%'],
+                'attribute' => 'nama_penerima',
+                'headerOptions' => ['style' => 'width:15%'],
             ],
+//            [
+//                'attribute' => 'keterangan',
+//                'headerOptions' => ['style' => 'width:30%'],
+//            ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',
                 'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
                 'buttons' => [
                     'edit' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-info',]);
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary',]);
                     },
                     'lihat' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);

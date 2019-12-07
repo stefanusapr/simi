@@ -114,7 +114,7 @@ use app\controllers\PengajuanController;
 
     <div class="form-group">
         <?=
-        Html::submitButton('Simpan', [
+        Html::submitButton('Ajukan', [
             'class' => 'btn btn-primary',
             'data' => [
                 'confirm' => 'Anda yakin ingin mengajukan?',

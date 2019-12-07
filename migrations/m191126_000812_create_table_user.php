@@ -25,7 +25,7 @@ class m191126_000812_create_table_user extends Migration {
      * @inheritdoc
      */
     public function down() {
-        $this->dropTable('users');
+        $this->dropTable('user');
     }
 
     /*

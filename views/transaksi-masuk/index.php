@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('_search', ['model' => $searchModel]); ?>
         </div>
 <!--        <p class="pull-right col-md-3">
-        <?php //echo Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
+        <?php //echo Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-primary']) ?>
         </p>-->
     </div>
 
@@ -35,8 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
             //  'id',
             [
                 'header' => 'Kode',
+                'headerOptions' => ['style' => 'width:8%'],
                 'value' => function ($dataProvider) {
-                    return 'TM-'.$dataProvider->id;
+                    return 'TM-' . $dataProvider->id;
                 }
             ],
             [
@@ -66,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
                 'buttons' => [
                     'edit' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-info',]);
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary',]);
                     },
                     'lihat' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);

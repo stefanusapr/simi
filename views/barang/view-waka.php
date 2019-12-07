@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="barang-view">
 
     <p>
-        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-eye-open"></span> List Barang'), ['index-waka'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> List Barang'), ['index-waka'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?=
@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'stok',
             'merk',
             'jenis',
+            'keterangan',
         ],
     ])
     ?>

@@ -2,64 +2,61 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\helpers\Security;
 use yii\web\IdentityInterface;
 
-/**
- * This is the model class for table "user".
- *
- * @property int $id
- * @property string $username
- * @property string $authKey
- * @property string $password
- * @property string $email
- * @property string $accessToken
- * @property string $role
- * @property string $password_old
- * @property string $password_new
- * @property string $password_repeat
- */
-class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
+class User extends \yii\db\ActiveRecord implements IdentityInterface {
+
+//    public $id;
+//    public $username;
+//    public $password;
+//    public $authKey;
+//    public $accessToken;
+
+//    private static $users = [
+//        '100' => [
+//            'id' => '100',
+//            'username' => 'admin',
+//            'password' => 'admin',
+//            'authKey' => 'test100key',
+//            'accessToken' => '100-token',
+//        ],
+//        '101' => [
+//            'id' => '101',
+//            'username' => 'waka',
+//            'password' => 'waka',
+//            'authKey' => 'test101key',
+//            'accessToken' => '101-token',
+//        ],
+//    ];
 
     /**
      * {@inheritdoc}
      */
     public static function tableName() {
-        return 'user';
+        return 'users';
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules() {
         return [
-            [['password_old', 'password_new', 'password_repeat'], 'required'],
-            [['username', 'password', 'email', 'role', 'password_old', 'password_new', 'password_repeat'], 'string', 'max' => 255],
-            [['authKey', 'accessToken'], 'string', 'max' => 32],
-            [['username'], 'unique'],
-            [['email'], 'unique'],
+            [['username', 'password'], 'required'],
+            [['username', 'password'], 'string', 'max' => 100]
         ];
     }
 
-    
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function attributeLabels() {
         return [
-            'id' => 'ID',
-            'username' => 'Nama pengguna',
-            'authKey' => 'Auth Key',
-            'password' => 'Kata sandi',
-            'email' => 'Email',
-            'accessToken' => 'Access Token',
-            'role' => 'Role',
-            'password_old' => 'Kata sandi lama',
-            'password_new' => 'Kata sandi baru',
-            'password_repeat' => 'Ulangi kata sandi baru',
+            'id' => 'ID User',
+            'username' => 'Username',
+            'password' => 'Password'
         ];
     }
 
@@ -157,26 +154,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
     public function removePasswordResetToken() {
         $this->password_reset_token = null;
     }
-
-    public function findPasswords($attribute, $params) {
-        $user = User::find()->where([
-                    'username' => Yii::$app->user->identity->username
-                ])->one();
-        $password = $user->password;
-        if ($password != $this->password_old)
-            $this->addError($attribute, 'Kata sandi lama salah');
-    }
-
-    /**
-     * Changes password.
-     *
-     * @return boolean if password was changed.
-     */
-    public function changePassword() {
-        $user = $this->_user;
-        $user->setPassword($this->password);
-
-        return $user->save(false);
-    }
-
+    
+    
+    
 }

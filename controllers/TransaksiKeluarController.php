@@ -15,6 +15,7 @@ use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\filters\AccessControl;
+use kartik\mpdf\Pdf;
 
 
 /**
@@ -37,6 +38,7 @@ class TransaksiKeluarController extends Controller {
                             'update',
                             'view',
                             'delete',
+                            'report',
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
@@ -308,6 +310,44 @@ class TransaksiKeluarController extends Controller {
     protected function findDetails($id) {
         $detailModel = new TransaksiKeluarDetailSearch();
         return $detailModel->search(['TransaksiKeluarDetailSearch' => ['id_transaksi_keluar' => $id]]);
+    }
+    
+    public function actionReport(){
+         // get your HTML raw content without any layouts or scripts
+        $content = $this->renderPartial('report');
+
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_CORE,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // Folio paper format
+            'format' => Pdf::FORMAT_FOLIO,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'Krajee Report Title'],
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetHeader' => ['Laporan Inventaris Barang Sarana dan Prasarana'],
+                'SetFooter' => ['{PAGENO}'],
+                'SetTitle' => 'SMAN 2 MALANG',
+                'SetSubject' => 'Laporan Inventaris',
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
     }
 
 }

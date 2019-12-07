@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Class m191202_061905_alter_table_user
+ * Class m191206_104621_alter_tabel_vendor
  */
-class m191202_061905_alter_table_user extends Migration
+class m191206_104621_alter_tabel_vendor extends Migration
 {
     /**
      * {@inheritdoc}
      */
-     public function safeUp()
+    public function safeUp()
     {
-        $this->addColumn('user', 'role', $this->string()->notNull());
+        $this->addColumn('vendor', 'keterangan', $this->text());
     }
 
     /**
@@ -20,7 +20,7 @@ class m191202_061905_alter_table_user extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('role');
+        $this->dropColumn('keterangan');
     }
 
     /*
@@ -32,7 +32,7 @@ class m191202_061905_alter_table_user extends Migration
 
     public function down()
     {
-        echo "m191202_061905_alter_table_user cannot be reverted.\n";
+        echo "m191206_104621_alter_tabel_vendor cannot be reverted.\n";
 
         return false;
     }
