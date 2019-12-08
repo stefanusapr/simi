@@ -5,9 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Vendor */
 
-$this->title = 'Tambah Vendor';
-$this->params['breadcrumbs'][] = ['label' => 'Vendors', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Kirim Pesan: ' . $model->nama;
+$this->params['breadcrumbs'][] = ['label' => 'Vendor', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->nama, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Kirim Pesan';
 ?>
 <div class="vendor-create">
 <!-- 

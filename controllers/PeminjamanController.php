@@ -35,7 +35,7 @@ class PeminjamanController extends Controller {
                             'index',
                             'view',
                             'selesai',
-                            'riwayat',
+                            'index-riwayat',
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
@@ -78,7 +78,7 @@ class PeminjamanController extends Controller {
      * yang pelu di kembalikan barangnya
      * dengan menampilkan riwayat pengembalian barang
      */
-    public function actionRiwayat() {
+    public function actionIndexRiwayat() {
         $searchModel = new TransaksiKeluarDetailSearch();
         $dataProvider = $searchModel->searchRiwayatPeminjaman(Yii::$app->request->queryParams);
 
@@ -107,7 +107,7 @@ class PeminjamanController extends Controller {
         Yii::$app->getSession()->setFlash(
                 'success', 'Berhasil mengembalikan barang'
         );
-        return $this->redirect(['riwayat']);
+        return $this->redirect(['index']);
     }
 
     /**

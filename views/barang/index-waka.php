@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=
     GridView::widget([
         'tableOptions' => [
-            'class' => 'table table-striped',
+            'class' => 'table table-striped table-bordered',
         ],
         'options' => [
             'class' => 'table-responsive',
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{lihat}',
                 'buttons' => [
                     'lihat' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view-waka', 'id' => $model->id], ['class' => 'btn btn-warning',]);
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view-waka', 'id' => $model->id], ['class' => 'btn btn-success',]);
                     }
                 ]
             ],

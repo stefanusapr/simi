@@ -33,7 +33,7 @@ class PengajuanController extends Controller {
                         'actions' => [
                             'index',
                             'create',
-                            'riwayat',
+                            'index-riwayat',
                             'view',
                             'view-riwayat'
                         ],
@@ -75,7 +75,7 @@ class PengajuanController extends Controller {
      * Lists all Pengajuan models.
      * @return mixed
      */
-    public function actionRiwayat() {
+    public function actionIndexRiwayat() {
         $searchModel = new PengajuanSearch();
         $dataProvider = $searchModel->searchRiwayat(Yii::$app->request->queryParams);
 

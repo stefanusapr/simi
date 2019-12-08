@@ -27,7 +27,7 @@
                             'template' => '<a href="{url}" >{icon}{label}<i class="fas fa-angle-left pull-right"></i></a>',
                             'items' => [
                                 ['label' => 'Pengajuan', 'icon' => 'fas fa-edit', 'url' => ['pengajuan/index']],
-                                ['label' => 'Riwayat Pengajuan', 'icon' => 'fas fa-history', 'url' => ['pengajuan/riwayat']],
+                                ['label' => 'Riwayat Pengajuan', 'icon' => 'fas fa-history', 'url' => ['pengajuan/index-riwayat']],
                             ],
                         ],
                         ['label' => 'Transaksi Masuk', 'icon' => 'fas fa-share', 'url' => ['transaksi-masuk/index']],
@@ -38,7 +38,7 @@
                             'template' => '<a href="{url}" >{icon}{label}<i class="fas fa-angle-left pull-right"></i></a>',
                             'items' => [
                                 ['label' => 'Peminjaman', 'icon' => 'fas fa-hand-paper', 'url' => ['peminjaman/index']],
-                                ['label' => 'Riwayat Peminjaman', 'icon' => 'fas fa-history', 'url' => ['peminjaman/riwayat']],
+                                ['label' => 'Riwayat Peminjaman', 'icon' => 'fas fa-history', 'url' => ['peminjaman/index-riwayat']],
                             ],
                         ],
                         ['label' => 'Data Vendor', 'icon' => 'fas fa-truck', 'url' => ['vendor/index']],

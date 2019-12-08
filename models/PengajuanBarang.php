@@ -78,7 +78,7 @@ class PengajuanBarang extends \yii\db\ActiveRecord
     }
     
     public function getStatusLabel() {
-        return $this->status ? 'Ok dibeli' : 'Tunda pembelian';
+        return $this->status ? 'Setuju pembelian' : 'Tunda pembelian';
     }
     
 }

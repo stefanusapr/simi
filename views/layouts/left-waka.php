@@ -33,7 +33,7 @@
                         ['label' => 'Dashboard', 'icon' => 'fas fa-dashboard', 'url' => ['/site/index']],
                         ['label' => 'Master Barang', 'icon' => 'fas fa-table', 'url' => ['barang/index-waka']],
                         ['label' => 'Daftar Pengajuan', 'icon' => 'fas fa-edit', 'url' => ['/persetujuan/index']],
-                        ['label' => 'Daftar Persetujuan', 'icon' => 'fas fa-check-square-o', 'url' => ['/persetujuan/riwayat']],
+                        ['label' => 'Daftar Persetujuan', 'icon' => 'fas fa-check-square-o', 'url' => ['/persetujuan/index-riwayat']],
                         ['label' => 'Laporan', 'icon' => 'fas fa-file', 'url' => ['/#']],
                         ['label' => 'Pengaturan Akun', 'icon' => 'fas fa-user', 'url' => ['/site/akun']],
                         ['label' => 'Keluar', 'icon' => 'fas fa-sign-out-alt', 'url' => ['site/logout'],

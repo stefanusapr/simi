@@ -19,6 +19,9 @@ $config = [
             if (Yii::$app->user->identity->AuthKey == 'test101key') {
                 Yii::$app->layout = '@app/views/layouts/main-waka.php';
             }
+            if (Yii::$app->user->identity->AuthKey == 'test100key') {
+                Yii::$app->layout = '@app/views/layouts/main.php';
+            }
         }
     },
     'components' => [

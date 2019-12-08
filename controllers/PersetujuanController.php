@@ -32,7 +32,7 @@ class PersetujuanController extends Controller {
                     [
                         'actions' => [
                             'index',
-                            'riwayat',
+                            'index-riwayat',
                             'update',
                             'view',
                             'view-riwayat'
@@ -71,7 +71,7 @@ class PersetujuanController extends Controller {
         ]);
     }
 
-    public function actionRiwayat() {
+    public function actionIndexRiwayat() {
         $searchModel = new PengajuanSearch();
         $dataProvider = $searchModel->searchRiwayat(Yii::$app->request->queryParams);
 
