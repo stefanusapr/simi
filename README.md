@@ -25,3 +25,4 @@ yg belum:
 - sort by gridview (ada yg tidak bisa)
 - cetak laporan (filter berdasrkan waktu, filter berdasarkan jenis barang, filter berdasarkan pilihan kertas =A4/F4)
 - menampilkan modal (yii2 dan admin lte)
+- filter data berdasarkan range date
