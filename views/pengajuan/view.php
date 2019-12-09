@@ -38,34 +38,46 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
-            <?=
-            GridView::widget([
-                'dataProvider' => $modelDetail,
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    [
-                        'attribute' => 'id_barang',
-                        'value' => 'barang.kode_barang',
-                        'header' => 'Kode Barang',
+
+            <div class="table-responsive">
+                <?=
+                GridView::widget([
+                    'dataProvider' => $modelDetail,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'attribute' => 'id_barang',
+                            'value' => 'barang.kode_barang',
+                            'header' => 'Kode Barang',
+                        ],
+                        [
+                            'attribute' => 'id_barang',
+                            'value' => 'barang.nama',
+                            'header' => 'Nama Barang',
+                        ],
+                        [
+                            'attribute' => 'id_barang',
+                            'value' => 'barang.merk',
+                            'header' => 'Merk Barang',
+                        ],
+                        'jumlah',
+                        [
+                            'attribute' => 'harga_satuan',
+                            'value' => function ($modelDetail) {
+                                return Yii::$app->formatter->asCurrency($modelDetail->harga_satuan);
+                            }
+                        ], [
+                            'header' => 'Total Harga',
+                            'value' => function ($modelDetail) {
+                                $temp = $modelDetail->jumlah * $modelDetail->harga_satuan;
+                                return Yii::$app->formatter->asCurrency($temp);
+                            }
+                        ],
+                        'keterangan',
                     ],
-                    [
-                        'attribute' => 'id_barang',
-                        'value' => 'barang.nama',
-                        'header' => 'Nama Barang',
-                    ],
-                    'jumlah',
-                    'harga_satuan',
-                    [
-                        'header' => 'Total Harga',
-                        'value' => function ($modelDetail) {
-                            return $modelDetail->jumlah * $modelDetail->harga_satuan;
-                        }
-                    ],
-                    'keterangan',
-                ],
-            ]);
-            ?>
+                ]);
+                ?>
+            </div>
         </div>
     </div>
-
 </div>

@@ -6,11 +6,8 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use kidzen\dynamicform\DynamicFormWidget;
 use kartik\datecontrol\DateControl;
+
 use app\models\Barang;
-use app\models\Pengajuan;
-use app\models\PengajuanBarang;
-use app\models\PengajuanBarangSearch;
-use app\controllers\PengajuanController;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pengajuan */
@@ -94,7 +91,14 @@ use app\controllers\PengajuanController;
                             <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true]) ?>
                         </div>
                         <div class="col-md-3">
-                            <?= $form->field($detail, "[{$i}]harga_satuan")->textInput(['maxlength' => true]) ?>
+                            <?=
+                            $form->field($detail, "[{$i}]harga_satuan")->widget(NumberControl::classname(), [
+                                'attribute' => 'currency',
+                                'maskedInputOptions' => [
+                                    'prefix' => 'Rp ',
+                                ],
+                            ]);
+                            ?>
                         </div>
                         <div class="col-md-3">
                             <?= $form->field($detail, "[{$i}]keterangan")->textarea() ?>

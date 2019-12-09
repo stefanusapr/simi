@@ -75,6 +75,19 @@ class Barang extends \yii\db\ActiveRecord {
         return $this->hasMany(TransaksiMasukDetail::className(), ['id_barang' => 'id']);
     }
 
+    public function getBarangAvailable() {
+        return $query = Barang::find()
+                ->where(['>', 'stok', '0'])
+                ->all();
+    }
+    
+    public function getCountStock(){
+        $query = Barang::find()
+                ->joinWith('transaksiMasukDetail')
+                ->joinWith('transaksiKeluarDetail')
+               ;
+    }
+    
     public function hitungBarang() {
         //query kartu stok master barang
         $sql_list = " SELECT t.id AS id_transaksi_masuk, "

@@ -34,7 +34,7 @@ class TransaksiMasukDetail extends \yii\db\ActiveRecord {
             [['id_barang', 'id_transaksi_masuk', 'jumlah'], 'required'],
             [['id_barang', 'id_transaksi_masuk', 'jumlah', 'harga_satuan'], 'integer'],
             [['keterangan'], 'string'],
-            [['thn_produksi'], 'string', 'max' => 255],
+            [['thn_produksi'], 'integer'],
             [['id_barang'], 'exist', 'skipOnError' => true, 'targetClass' => Barang::className(), 'targetAttribute' => ['id_barang' => 'id']],
 //            [['id_transaksi_masuk'], 'exist', 'skipOnError' => true, 'targetClass' => TransaksiMasuk::className(), 'targetAttribute' => ['id_transaksi_masuk' => 'id']],
         ];
@@ -49,7 +49,7 @@ class TransaksiMasukDetail extends \yii\db\ActiveRecord {
             'id_barang' => 'Nama Barang',
             'id_transaksi_masuk' => 'Kode Transaksi Masuk',
             'thn_produksi' => 'Tahun Produksi',
-            'jumlah' => 'Jumlah',
+            'jumlah' => 'Jumlah (satuan)',
             'harga_satuan' => 'Harga Satuan',
             'keterangan' => 'Keterangan',
         ];

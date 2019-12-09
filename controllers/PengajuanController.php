@@ -15,6 +15,7 @@ use app\models\PengajuanSearch;
 use app\models\PengajuanBarang;
 use app\models\PengajuanBarangSearch;
 use app\models\Model;
+use kartik\mpdf\Pdf;
 
 /**
  * PengajuanController implements the CRUD actions for Pengajuan model.
@@ -33,9 +34,10 @@ class PengajuanController extends Controller {
                         'actions' => [
                             'index',
                             'create',
-                            'index-riwayat',
+                            'index-persetujuan',
                             'view',
-                            'view-riwayat'
+                            'view-persetujuan',
+                            'report',
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
@@ -75,13 +77,13 @@ class PengajuanController extends Controller {
      * Lists all Pengajuan models.
      * @return mixed
      */
-    public function actionIndexRiwayat() {
+    public function actionIndexPersetujuan() {
         $searchModel = new PengajuanSearch();
         $dataProvider = $searchModel->searchRiwayat(Yii::$app->request->queryParams);
 
         $dataProvider->pagination->pageSize = 10;
 
-        return $this->render('index-riwayat', [
+        return $this->render('index-persetujuan', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
@@ -99,9 +101,9 @@ class PengajuanController extends Controller {
                     'modelDetail' => $this->findDetails($id),
         ]);
     }
-    
-    public function actionViewRiwayat($id) {
-        return $this->render('view-riwayat', [
+
+    public function actionViewPersetujuan($id) {
+        return $this->render('view-persetujuan', [
                     'model' => $this->findModel($id),
                     'modelDetail' => $this->findDetails($id),
         ]);
@@ -160,8 +162,8 @@ class PengajuanController extends Controller {
                         // kemudian tampilkan hasilnya
                         $transaction->commit();
                         Yii::$app->getSession()->setFlash(
-                                    'success', 'Berhasil mengajukan, menunggu persetujuan...'
-                            );
+                                'success', 'Berhasil mengajukan, menunggu persetujuan...'
+                        );
                         return $this->redirect(['index']);
                     } else {
                         return $this->render('create', [
@@ -221,6 +223,51 @@ class PengajuanController extends Controller {
     protected function findDetails($id) {
         $detailModel = new PengajuanBarangSearch();
         return $detailModel->search(['PengajuanBarangSearch' => ['id_pengajuan' => $id]]);
+    }
+
+    protected function findDetailsReport($id) {
+        $detailModel = new PengajuanBarangSearch();
+        return $detailModel->searchReport(['PengajuanBarangSearch' => ['id_pengajuan' => $id]]);
+    }
+
+    public function actionReport($id) {
+        $pengajuan = $this->findModel($id);
+        $details = $this->findDetailsReport($id);
+
+        $content = $this->renderPartial('report', [
+            'pengajuan' => $pengajuan,
+            'details' => $details,
+        ]);
+//        Yii::$app->response->headers->set($name, $value)
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+            //Name for the file
+            'filename' => 'Pengajuan',
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            'marginTop' => 5,
+            'marginLeft' => 5,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'Customer Invoice'],
+            // call mPDF methods on the fly
+            'methods' => [
+                //   'SetHeader'=>['Krajee Report Header'], 
+                'SetFooter' => ['Halaman {PAGENO}'],
+            ]
+        ]);
+        return $pdf->render();
     }
 
 }

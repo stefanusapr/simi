@@ -15,7 +15,9 @@ use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\filters\AccessControl;
-
+use kartik\mpdf\Pdf;
+use app\models\Vendor;
+use app\models\Barang;
 
 /**
  * TransaksiMasukController implements the CRUD actions for TransaksiMasuk model.
@@ -37,6 +39,9 @@ class TransaksiMasukController extends Controller {
                             'update',
                             'view',
                             'delete',
+                            'report',
+                            'create-vendor',
+                            'create-barang'
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
@@ -62,10 +67,10 @@ class TransaksiMasukController extends Controller {
      */
     public function actionIndex() {
         $searchModel = new TransaksiMasukSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);        
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $dataProvider->pagination->pageSize = 10;
-       
+
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -322,6 +327,76 @@ class TransaksiMasukController extends Controller {
     protected function findDetails($id) {
         $detailModel = new TransaksiMasukDetailSearch();
         return $detailModel->search(['TransaksiMasukDetailSearch' => ['id_transaksi_masuk' => $id]]);
+    }
+
+    public function actionReport() {
+        $searchModel = new TransaksiMasukDetailSearch();
+        $details = $searchModel->search(Yii::$app->request->queryParams);
+
+        $content = $this->renderPartial('report', [
+            'modelDetails' => $details,
+        ]);
+        
+//        Yii::$app->response->headers->set($name, $value)
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+            //Name for the file
+            'filename' => 'Laporan_Transaksi_Masuk',
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_LANDSCAPE,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            'marginTop' => 5,
+            'marginLeft' => 5,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            // set mPDF properties on the fly
+            //'options' => ['title' => 'Customer Invoice'],
+            // call mPDF methods on the fly
+            'methods' => [
+                //   'SetHeader'=>['Krajee Report Header'], 
+                'SetFooter' => ['Halaman {PAGENO}'],
+            ]
+        ]);
+        return $pdf->render();
+    }
+
+    public function actionCreateVendor() {
+        $modelVendor = new Vendor();
+        
+        if ($modelVendor->load(Yii::$app->request->post()) && $modelVendor->save()) {
+            Yii::$app->getSession()->setFlash(
+                                    'success', 'Berhasil tambah vendor'
+                            );
+            return $this->redirect(['create']);
+        }
+
+        return $this->render('create-vendor', [
+                    'modelVendor' => $modelVendor,
+        ]);
+    }
+    
+    public function actionCreateBarang() {
+        $modelBarang = new Barang();
+        
+        if ($modelBarang->load(Yii::$app->request->post()) && $modelBarang->save()) {
+            Yii::$app->getSession()->setFlash(
+                                    'success', 'Berhasil tambah vendor'
+                            );
+            return $this->redirect(['create']);
+        }
+
+        return $this->render('create-barang', [
+                    'modelBarang' => $modelBarang,
+        ]);
     }
 
 }

@@ -39,5 +39,25 @@ class Model extends \yii\base\Model {
 
         return $models;
     }
+    
+    public static function validateMultipleQty($models, $attributeNames = null)
+    {
+        $valid = true;
+        $validQty = true;
+        /* @var $model Model */
+        
+        foreach ($models as $model) {
+            $stok = Barang::findOne($model->id_barang)->stok;
+            if ($stok < $model->jumlah) {
+                $validQty = false;
+            }
+            
+            $valid = $model->validate($attributeNames) && $valid && $validQty;
+        }
+
+        return $valid;
+    }
+    
+    
 
 }

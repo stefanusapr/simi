@@ -11,11 +11,14 @@ $this->params['breadcrumbs'][] = ['label' => $model->nama, 'url' => ['view', 'id
 $this->params['breadcrumbs'][] = 'Kirim Pesan';
 ?>
 <div class="vendor-create">
-<!-- 
-    <h1><?= Html::encode($this->title) ?></h1> -->
+    <!-- 
+        <h1><?= Html::encode($this->title) ?></h1> -->
 
-    <?= $this->render('_formemail', [
+    <?=
+    $this->render('_formemail', [
         'model' => $model,
-    ]) ?>
+        'kirimPesan' => $kirimPesan,
+    ])
+    ?>
 
 </div>

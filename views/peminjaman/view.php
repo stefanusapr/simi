@@ -42,37 +42,39 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
-            <?=
-            GridView::widget([
-                'dataProvider' => $modelDetail,
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    [
-                        'attribute' => 'id_barang',
-                        'value' => 'barang.kode_barang',
-                        'header' => 'Kode Barang',
+
+            <div class="table-responsive">
+                <?=
+                GridView::widget([
+                    'dataProvider' => $modelDetail,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'attribute' => 'id_barang',
+                            'value' => 'barang.kode_barang',
+                            'header' => 'Kode Barang',
+                        ],
+                        [
+                            'attribute' => 'id_barang',
+                            'value' => 'barang.nama',
+                            'header' => 'Nama Barang',
+                        ],
+                        [
+                            'attribute' => 'id_barang',
+                            'value' => 'barang.jenis',
+                            'header' => 'Jenis Barang',
+                        ],
+                        'jumlah',
+                        [
+                            'attribute' => 'tgl_kembali',
+                            'format' => ['date', 'php: d-m-Y'],
+                            'header' => 'Tanggal Pengembalian',
+                        ],
+                        'keterangan',
                     ],
-                    [
-                        'attribute' => 'id_barang',
-                        'value' => 'barang.nama',
-                        'header' => 'Nama Barang',
-                    ],
-                    [
-                        'attribute' => 'id_barang',
-                        'value' => 'barang.jenis',
-                        'header' => 'Jenis Barang',
-                    ],
-                    'jumlah',
-                    [
-                        'attribute' => 'tgl_kembali',
-                        'format' => ['date', 'php: d-m-Y'],
-                        'header' => 'Tanggal Pengembalian',
-                    ],
-                    'keterangan',
-                ],
-            ]);
-            ?>
+                ]);
+                ?>
+            </div>
         </div>
     </div>
-
 </div>

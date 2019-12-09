@@ -7,16 +7,23 @@ use kartik\select2\Select2;
 use kidzen\dynamicform\DynamicFormWidget;
 use app\models\Barang;
 use app\models\Vendor;
-use yii\bootstrap\Modal;
 use yii\helpers\Url;
 use kartik\datecontrol\DateControl;
-use kartik\datecontrol\DateControlAsset;
-use kartik\datecontrol\DateFormatterAsset;
-use kartik\datecontrol\Module;
+use kartik\number\NumberControl;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TransaksiMasuk */
 /* @var $form yii\widgets\ActiveForm */
+$dispOptions = ['class' => 'form-control kv-monospace'];
+
+$saveOptions = [
+    'type' => 'text',
+    'label' => '<label>Saved Value: </label>',
+    'class' => 'kv-saved',
+    'readonly' => true,
+    'tabindex' => 1000
+];
+$saveCont = ['class' => 'kv-saved-cont'];
 ?>
 
 <div class="transaksi-masuk-form">
@@ -80,9 +87,8 @@ use kartik\datecontrol\Module;
 
             <!--btn nama vendor baru-->
             <div class="col-md-12" >
-                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalVendor" id="myModalVendor">
-                    Tambah Vendor Baru
-                </button> 
+                <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Vendor', ['create-vendor'], ['class' => 'btn btn-primary']) ?>
+
             </div>
         </div>
 
@@ -200,9 +206,11 @@ use kartik\datecontrol\Module;
             <h4 class="panel-title pull-left" style="padding-top: 7.5px;"><i class="glyphicon glyphicon-th-list"></i> Detail Transaksi</h4>
             <div class="btn-group pull-right">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalBarang" id="myModalBarang">
-                    Tambah Barang Baru
-                </button>
+                <!--                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalBarang" id="myModalBarang">
+                                    Tambah Barang Baru
+                                </button>-->
+                <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Barang', ['create-barang'], ['class' => 'btn btn-primary']) ?>
+
             </div>
         </div>
         <!-- panel body -->
@@ -228,7 +236,14 @@ use kartik\datecontrol\Module;
                             <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true]) ?>
                         </div>
                         <div class="col-md-2">
-                            <?= $form->field($detail, "[{$i}]harga_satuan")->textInput(['maxlength' => true]) ?>
+                            <?=
+                            $form->field($detail, "[{$i}]harga_satuan")->widget(NumberControl::classname(), [
+                                'maskedInputOptions' => [
+                                    'prefix' => 'Rp ',
+                                    'allowMinus' => false,
+                                ],
+                            ]);
+                            ?>
                         </div>
                         <div class="col-md-2">
                             <?= $form->field($detail, "[{$i}]thn_produksi")->textInput(['maxlength' => true]) ?>
@@ -252,7 +267,7 @@ use kartik\datecontrol\Module;
     </div> <!-- panel default -->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Edit'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Simpan'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'List Transaksi Masuk'), ['index'], ['class' => 'btn btn-warning']) ?>     
     </div>
 

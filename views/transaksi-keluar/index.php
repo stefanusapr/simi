@@ -15,16 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="transaksi-keluar-index">
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Transaksi Keluar', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-primary']) ?>
     </p>
+
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-12">
             <?= $this->render('_search', ['model' => $searchModel]); ?>
-        </div>
-        <!-- <div class="col-md-4">
-                    <p>
-        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-primary']) ?>
-                    </p>
-                </div>-->
+        </div>        
     </div>
 
     <?=
@@ -43,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             // 'id',
             [
-                'header' => 'Kode',                   
+                'header' => 'Kode',
                 'headerOptions' => ['style' => 'width:10%'],
                 'value' => function ($dataProvider) {
                     return 'TK-' . $dataProvider->id;
@@ -62,10 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'nama_penerima',
                 'headerOptions' => ['style' => 'width:15%'],
             ],
-//            [
-//                'attribute' => 'keterangan',
-//                'headerOptions' => ['style' => 'width:30%'],
-//            ],
+           
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',

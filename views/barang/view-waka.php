@@ -20,19 +20,20 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> List Barang'), ['index-waka'], ['class' => 'btn btn-warning']) ?>
     </p>
 
-    <?=
-    DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            // 'id',
-            'kode_barang',
-            'nama',
-            'stok',
-            'merk',
-            'jenis',
-            'keterangan',
-        ],
-    ])
-    ?>
-
+    <div class="table-responsive">
+        <?=
+        DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                // 'id',
+                'kode_barang',
+                'nama',
+                'stok',
+                'merk',
+                'jenis',
+                'keterangan',
+            ],
+        ])
+        ?>
+    </div>
 </div>

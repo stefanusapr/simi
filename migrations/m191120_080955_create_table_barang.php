@@ -6,13 +6,12 @@ use yii\db\Schema;
 /**
  * Class m191120_080955_create_table_barang
  */
-class m191120_080955_create_table_barang extends Migration
-{
+class m191120_080955_create_table_barang extends Migration {
+
     /**
      * {@inheritdoc}
      */
-    public function safeUp()
-    {
+    public function safeUp() {
         $this->createTable('barang', [
             'id' => $this->primaryKey(),
             'nama' => $this->string()->notNull(),
@@ -25,23 +24,22 @@ class m191120_080955_create_table_barang extends Migration
     /**
      * {@inheritdoc}
      */
-    public function safeDown()
-    {
+    public function safeDown() {
         $this->dropTable('barang');
     }
 
     /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
+      // Use up()/down() to run migration code without a transaction.
+      public function up()
+      {
 
-    }
+      }
 
-    public function down()
-    {
-        echo "m191120_080955_create_table_barang cannot be reverted.\n";
+      public function down()
+      {
+      echo "m191120_080955_create_table_barang cannot be reverted.\n";
 
-        return false;
-    }
-    */
+      return false;
+      }
+     */
 }

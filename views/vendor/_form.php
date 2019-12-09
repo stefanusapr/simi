@@ -12,18 +12,18 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nama')->textInput(['maxlength' => true, 'placeholder' => 'Toko ABC'])?>
 
-    <?= $form->field($model, 'no_hp')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'no_hp')->textInput(['maxlength' => true, 'placeholder' => '0341123456789']) ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'placeholder' => 'contoh@gmail.com']) ?>
 
-    <?= $form->field($model, 'alamat')->textarea(['rows' => 4]) ?>
+    <?= $form->field($model, 'alamat')->textarea(['rows' => 2, 'placeholder' => "Jalan Raya Indonesia" ]) ?>
 
-    <?= $form->field($model, 'keterangan')->textarea(['rows' => 4]) ?>
+    <?= $form->field($model, 'keterangan')->textarea(['rows' => 2, 'placeholder' => "Keterangan Toko"]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Edit'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Simpan'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'List Vendor'), ['index'], ['class' => 'btn btn-warning']) ?>
     </div>
 

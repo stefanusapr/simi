@@ -93,9 +93,9 @@ use app\models\TransaksiKeluarDetail;
     <div class="panel panel-default">    <!-- panel default  -->
         <div class="panel-heading clearfix">
             <h4 class="panel-title pull-left" style="padding-top: 7.5px;"><i class="glyphicon glyphicon-th-list"></i> Detail Transaksi</h4>
-            <div class="btn-group pull-right">
+<!--            <div class="btn-group pull-right">
                 <a href="#" class="btn btn-primary btn-sm"> Tambah Barang</a>
-            </div>
+            </div>-->
         </div>
         <!-- panel body -->
         <div class="panel-body"> 
@@ -110,9 +110,9 @@ use app\models\TransaksiKeluarDetail;
                         }
                         ?>
                         <div class="col-md-4">
-                           <?=
+                            <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
-                                'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama'),
+                                'data' => ArrayHelper::map(Barang::getBarangAvailable(), 'id', 'nama'),
                             ]);
                             ?>
                         </div>
@@ -137,7 +137,7 @@ use app\models\TransaksiKeluarDetail;
     </div> <!-- panel default -->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Edit'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Simpan'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'List Transaksi Keluar'), ['index'], ['class' => 'btn btn-warning']) ?>     
     </div>
 

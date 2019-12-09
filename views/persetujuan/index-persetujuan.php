@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PengajuanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Riwayat Pengajuan';
+$this->title = 'Daftar Persetujuan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengajuan-index">
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('_search', ['model' => $searchModel]); ?>
         </div>
     </div>
+
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
@@ -54,15 +55,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',
-                'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
+                'template' => '{lihat} &nbsp',
                 'buttons' => [
                     'lihat' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view-riwayat', 'id' => $model->id], ['class' => 'btn btn-success',]);
-                    }
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view-persetujuan', 'id' => $model->id], ['class' => 'btn btn-success',]);
+                    },
                 ]
             ],
         ],
     ]);
     ?>
-</div>
 
+
+</div>

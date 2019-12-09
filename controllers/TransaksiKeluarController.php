@@ -17,7 +17,6 @@ use yii\helpers\ArrayHelper;
 use yii\filters\AccessControl;
 use kartik\mpdf\Pdf;
 
-
 /**
  * TransaksiKeluarController implements the CRUD actions for TransaksiKeluar model.
  */
@@ -117,7 +116,9 @@ class TransaksiKeluarController extends Controller {
             //validasi semua model
             $valid1 = $model->validate();
             $valid2 = Model::validateMultiple($modelDetail);
-            $valid = $valid1 && $valid2;
+            $validQty = Model::validateMultipleQty($modelDetail);
+
+            $valid = $valid1 && $valid2 && $validQty;
 
             //jika valid, mulai proses menyimpan
             if ($valid) {
@@ -151,6 +152,11 @@ class TransaksiKeluarController extends Controller {
                     throw $e;
                 }
             } else {
+                if (!$validQty) {
+                    Yii::$app->getSession()->setFlash(
+                            'error', 'Jumlah barang yang diminta melebihi stok barang'
+                    );
+                }
                 return $this->render('create', [
                             'model' => $model,
                             'modelDetail' => $modelDetail,
@@ -311,42 +317,44 @@ class TransaksiKeluarController extends Controller {
         $detailModel = new TransaksiKeluarDetailSearch();
         return $detailModel->search(['TransaksiKeluarDetailSearch' => ['id_transaksi_keluar' => $id]]);
     }
-    
-    public function actionReport(){
-         // get your HTML raw content without any layouts or scripts
-        $content = $this->renderPartial('report');
 
-        // setup kartik\mpdf\Pdf component
+    public function actionReport() {
+        $searchModel = new TransaksiKeluarDetailSearch();
+        $details = $searchModel->search(Yii::$app->request->queryParams);
+
+        $content = $this->renderPartial('report', [
+            'modelDetails' => $details,
+        ]);
+
+//        Yii::$app->response->headers->set($name, $value)
         $pdf = new Pdf([
             // set to use core fonts only
-            'mode' => Pdf::MODE_CORE,
+            'mode' => Pdf::MODE_UTF8,
+            //Name for the file
+            'filename' => 'Laporan_Transaksi_Keluar',
             // A4 paper format
             'format' => Pdf::FORMAT_A4,
-            // Folio paper format
-            'format' => Pdf::FORMAT_FOLIO,
             // portrait orientation
-            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'orientation' => Pdf::ORIENT_LANDSCAPE,
             // stream to browser inline
             'destination' => Pdf::DEST_BROWSER,
+            'marginTop' => 5,
+            'marginLeft' => 5,
             // your html content input
             'content' => $content,
             // format content from your own css file if needed or use the
             // enhanced bootstrap css built by Krajee for mPDF formatting 
-            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
             // any css to be embedded if required
             'cssInline' => '.kv-heading-1{font-size:18px}',
             // set mPDF properties on the fly
-            'options' => ['title' => 'Krajee Report Title'],
+            //'options' => ['title' => 'Customer Invoice'],
             // call mPDF methods on the fly
             'methods' => [
-                'SetHeader' => ['Laporan Inventaris Barang Sarana dan Prasarana'],
-                'SetFooter' => ['{PAGENO}'],
-                'SetTitle' => 'SMAN 2 MALANG',
-                'SetSubject' => 'Laporan Inventaris',
+                //   'SetHeader'=>['Krajee Report Header'], 
+                'SetFooter' => ['Halaman {PAGENO}'],
             ]
         ]);
-
-        // return the pdf output as per the destination setting
         return $pdf->render();
     }
 

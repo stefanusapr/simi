@@ -13,20 +13,20 @@ class m191122_025917_create_table_jenis_barang extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('jenis_barang', [
-            'id' => $this->primaryKey(),
-            'nama' => $this->string(),
-        ]);
-
-        // default data
-    $this->insert('jenis_barang', [
-        'id' => 1,
-        'nama' => 'Barang Habis Pakai',
-    ]);
-    $this->insert('jenis_barang', [
-        'id' => 2,
-        'nama' => 'Barang Tidak Habis Pakai',
-    ]);
+//        $this->createTable('jenis_barang', [
+//            'id' => $this->primaryKey(),
+//            'nama' => $this->string(),
+//        ]);
+//
+//        // default data
+//    $this->insert('jenis_barang', [
+//        'id' => 1,
+//        'nama' => 'Barang Habis Pakai',
+//    ]);
+//    $this->insert('jenis_barang', [
+//        'id' => 2,
+//        'nama' => 'Barang Tidak Habis Pakai',
+//    ]);
     }
 
     /**
@@ -34,7 +34,7 @@ class m191122_025917_create_table_jenis_barang extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('jenis_barang');
+        //$this->dropTable('jenis_barang');
     }
 
     /*

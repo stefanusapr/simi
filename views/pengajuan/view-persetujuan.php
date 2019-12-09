@@ -8,14 +8,14 @@ use yii\grid\GridView;
 /* @var $model app\models\Pengajuan */
 
 $this->title = 'TP-' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Daftar Pengajuan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Daftar Persetujuan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="pengajuan-view">
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> Daftar Pengajuan'), ['index'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> Daftar Persetujuan'), ['index-persetujuan'], ['class' => 'btn btn-warning']) ?>
     </p>  
 
     <?=
@@ -28,6 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => ['date', 'php: d-m-Y'],
                 'labelColOptions' => ['style' => 'width:30%; text-align:right;']
             ],
+            [
+                'attribute' => 'tgl_spk',
+                'format' => ['date', 'php: d-m-Y'],
+                'labelColOptions' => ['style' => 'width:30%; text-align:right;']
+            ],
+            [
+                'attribute' => 'tgl_persetujuan',
+                'format' => ['date', 'php: d-m-Y'],
+                'labelColOptions' => ['style' => 'width:30%; text-align:right;']
+            ],
+            'keterangan',
         ],
     ])
     ?>
@@ -54,6 +65,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => 'barang.nama',
                             'header' => 'Nama Barang',
                         ],
+                        [
+                            'attribute' => 'id_barang',
+                            'value' => 'barang.merk',
+                            'header' => 'Merk Barang',
+                        ],
                         'jumlah',
                         [
                             'attribute' => 'harga_satuan',
@@ -69,11 +85,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         ],
                         'keterangan',
+                        [
+                            'attribute' => 'status',
+                            'value' => 'StatusLabel',
+                        ],
                     ],
                 ]);
                 ?>
             </div>
         </div>
     </div>
-
 </div>

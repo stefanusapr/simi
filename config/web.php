@@ -41,14 +41,14 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => true,
+            'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
                 'username' => 'dharmaanugrah97@gmail.com',
-                'password' => 'stefanus1997',
-                'port' => '587',
-                'encryption' => 'tls',
+                'password' => "",
+                'port' => '465',
+                'encryption' => 'ssl',
             ],
         ],
         'log' => [
@@ -69,7 +69,8 @@ $config = [
         ],
         'formatter' => [
             'thousandSeparator' => '.',
-            'currencyCode' => 'IDR',
+            'currencyCode' => 'Rp',
+            'dateFormat' => 'dd-MM-yyyy',
         ],
     ],
     'modules' => [

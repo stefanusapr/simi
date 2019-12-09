@@ -54,7 +54,7 @@ class PengajuanBarang extends \yii\db\ActiveRecord
             'id' => 'Kode',
             'id_barang' => 'Kode Barang',
             'id_pengajuan' => 'Kode Pengajuan',
-            'jumlah' => 'Jumlah',
+            'jumlah' => 'Jumlah (satuan)',
             'harga_satuan' => 'Harga Satuan',
             'status' => 'Status',
             'keterangan' => 'Keterangan',

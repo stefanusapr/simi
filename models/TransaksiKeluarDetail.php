@@ -47,7 +47,7 @@ class TransaksiKeluarDetail extends \yii\db\ActiveRecord {
             'id' => 'Kode',
             'id_barang' => 'Nama Barang',
             'id_transaksi_keluar' => 'Kode Transaksi Keluar',
-            'jumlah' => 'Jumlah',
+            'jumlah' => 'Jumlah (satuan)',
             'keterangan' => 'Keterangan',
             'tgl_kembali' => 'Tanggal Kembali',
         ];
@@ -65,6 +65,6 @@ class TransaksiKeluarDetail extends \yii\db\ActiveRecord {
      */
     public function getTransaksiKeluar() {
         return $this->hasOne(TransaksiKeluar::className(), ['id' => 'id_transaksi_keluar']);
-    }
+    }  
 
 }

@@ -5,13 +5,27 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\TransaksiMasuk;
-
+use kartik\daterange\DateRangeBehavior;
 /**
  * TransaksiMasukSearch represents the model behind the search form of `app\models\TransaksiMasuk`.
  */
 class TransaksiMasukSearch extends TransaksiMasuk {
 
     public $cari;
+    public $createTimeRange;
+    public $createTimeStart;
+    public $createTimeEnd;
+
+    public function behaviors() {
+        return [
+            [
+                'class' => DateRangeBehavior::className(),
+                'attribute' => 'createTimeRange',
+                'dateStartAttribute' => 'createTimeStart',
+                'dateEndAttribute' => 'createTimeEnd',
+            ]
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -20,6 +34,7 @@ class TransaksiMasukSearch extends TransaksiMasuk {
         return [
             [['id', 'id_vendor'], 'integer'],
             [['tgl_spk', 'tgl_masuk', 'no_faktur', 'tgl_faktur', 'no_berita_acara', 'tgl_berita_acara', 'no_pemeriksaan', 'tgl_pemeriksaan', 'keterangan', 'cari'], 'safe'],
+            [['createTimeRange'], 'match', 'pattern' => '/^.+\s\-\s.+$/'],
         ];
     }
 
@@ -48,10 +63,8 @@ class TransaksiMasukSearch extends TransaksiMasuk {
         ]);
 
         $this->load($params);
-
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            $query->where('0=1');
             return $dataProvider;
         }
 
@@ -59,7 +72,7 @@ class TransaksiMasukSearch extends TransaksiMasuk {
         $query->andFilterWhere([
             'id' => $this->id,
             'tgl_spk' => $this->tgl_spk,
-            'tgl_masuk' => $this->tgl_masuk,
+            //'tgl_masuk' => $this->tgl_masuk,
             'id_vendor' => $this->id_vendor,
             'tgl_faktur' => $this->tgl_faktur,
             'tgl_berita_acara' => $this->tgl_berita_acara,
@@ -73,59 +86,9 @@ class TransaksiMasukSearch extends TransaksiMasuk {
                 ->orFilterWhere(['like', 'no_faktur', $this->cari])
                 ->orFilterWhere(['like', 'no_berita_acara', $this->cari])
                 ->orFilterWhere(['like', 'no_pemeriksaan', $this->cari])
-                ->orFilterWhere(['like', 'keterangan', $this->cari]);
-
-        return $dataProvider;
-    }
-
-    public function searchVendor($params) {
-        $query = TransaksiMasuk::find()
-                ->joinWith('vendor')
-                ->where(['not', ['vendor.id' => null]]);
-
-        // add conditions that should always apply here
-
-//        $dataProvider = new ActiveDataProvider([
-//            'query' => $query,
-//        ]);
-
-        $dataProvider->setSort([
-            'attributes' => [
-                'vendor' => [
-                    'asc' => ['vendor.nama' => SORT_ASC],
-                    'desc' => ['vendor.nama' => SORT_DESC],
-                    'default' => SORT_ASC
-                ],
-            ],
-        ]);
-
-        $this->load($params);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'tgl_spk' => $this->tgl_spk,
-            'tgl_masuk' => $this->tgl_masuk,
-            'id_vendor' => $this->id_vendor,
-            'tgl_faktur' => $this->tgl_faktur,
-            'tgl_berita_acara' => $this->tgl_berita_acara,
-            'tgl_pemeriksaan' => $this->tgl_pemeriksaan,
-        ]);
-
-        $query->andFilterWhere(['like', 'no_faktur', $this->no_faktur])
-                ->andFilterWhere(['like', 'no_berita_acara', $this->no_berita_acara])
-                ->andFilterWhere(['like', 'no_pemeriksaan', $this->no_pemeriksaan])
-                ->andFilterWhere(['like', 'keterangan', $this->keterangan])
-                ->orFilterWhere(['like', 'no_faktur', $this->cari])
-                ->orFilterWhere(['like', 'no_berita_acara', $this->cari])
-                ->orFilterWhere(['like', 'no_pemeriksaan', $this->cari])
-                ->orFilterWhere(['like', 'keterangan', $this->cari]);
+                ->orFilterWhere(['like', 'keterangan', $this->cari])
+                ->andFilterWhere(['>=', 'tgl_masuk', $this->createTimeStart])
+                ->andFilterWhere(['<', 'tgl_masuk', $this->createTimeEnd]);
 
         return $dataProvider;
     }

@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\KirimPesan;
+use app\models\KirimPesanSearch;
 
 /**
  * VendorController implements the CRUD actions for Vendor model.
@@ -75,6 +77,7 @@ class VendorController extends Controller {
     public function actionView($id) {
         return $this->render('view', [
                     'model' => $this->findModel($id),
+                    'kirimPesan' => $this->findDetails($id),
         ]);
     }
 
@@ -142,6 +145,11 @@ class VendorController extends Controller {
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    protected function findDetails($id) {
+        $kirimPesan = new KirimPesanSearch();
+        return $kirimPesan->search(['KirimPesanSearch' => ['id_vendor' => $id]]);
+    }
+
     /**
      * Creates a new Vendor model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -149,20 +157,61 @@ class VendorController extends Controller {
      */
     public function actionEmail($id) {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            Yii::$app->mailer->compose()
-                    ->setFrom('dharmaanugrah97@gmail.com')
-                    ->setTo($model->email)
-                    ->setSubject($model->judul)
-                    ->setHtmlBody($model->isi)
-                    ->send();
-            Yii::$app->getSession()->setFlash(
-                    'success', 'Berhasil mengirim pesan ke Vendor '.$model->nama
-            );
-            return $this->redirect(['index']);
+        $kirimPesan = new KirimPesan();
+
+        // proses isi post variabel
+        if ($kirimPesan->load(Yii::$app->request->post())) {
+            $kirimPesan->waktu_kirim = date('Y-m-d H:i:s');
+            $kirimPesan->id_vendor = $id;
+            if ($kirimPesan->validate()) {
+                //start db transaction
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    //simpan ke master record
+                    if ($flag = $model->save(false)) {
+                        if (!($flag = $kirimPesan->save(false))) {
+                            $transaction->rollBack();
+                            // break;
+                        }
+                    }
+                    if ($flag) {
+                        $berhasilSendEmail = Yii::$app->mailer->compose()
+                                ->setFrom('dharmaanugrah97@gmail.com')
+                                ->setTo($model->email)
+                                ->setSubject($kirimPesan->judul)
+                                ->setHtmlBody($kirimPesan->isi_pesan)
+                                ->send();
+                        if ($berhasilSendEmail) {
+                            Yii::$app->getSession()->setFlash(
+                                    'success', 'Berhasil mengirim pesan ke Vendor ' . $model->nama
+                            );
+                            //sukses comit db transaksi dan tampilkan hasilnya
+                            $transaction->commit();
+                        }
+                        return $this->redirect(['index']);
+                    } else {
+                        return $this->render('create-email', [
+                                    'model' => $model,
+                                    'kirimPesan' => $kirimPesan,
+                        ]);
+                    }
+                } catch (Exceptation $e) {
+                    //penyimpannan gagal, maka rollback db transaksi
+                    $transaksi->rollBack();
+                    throw $e;
+                }
+            } else {
+                return $this->render('create-email', [
+                            'model' => $model,
+                            'kirimPesan' => $kirimPesan,
+                ]);
+            }
         } else {
+//            $model->id = 0;
+            // render view
             return $this->render('create-email', [
                         'model' => $model,
+                        'kirimPesan' => (empty($kirimPesan)) ? [new KirimPesan] : $kirimPesan,
             ]);
         }
     }

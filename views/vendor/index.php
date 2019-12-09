@@ -37,26 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
-            [
-                'attribute' => 'nama',
-                'headerOptions' => ['style' => 'width:15%'],
-            ],
-            [
-                'attribute' => 'alamat',
-                'headerOptions' => ['style' => 'width:20%'],
-            ],
-            [
-                'attribute' => 'no_hp',
-                'headerOptions' => ['style' => 'width:15%'],
-            ],
-            [
-                'attribute' => 'email',
-                'headerOptions' => ['style' => 'width:15%'],
-            ],
-//            [
-//                'attribute' => 'keterangan',
-//                'headerOptions' => ['style' => 'width:15%'],
-//            ],
+            'nama',
+            'alamat',
+            'no_hp',
+            'email',
+            
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:20%, align:center;'],
                 'header' => 'Tindakan',

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Vendor */
@@ -28,19 +29,48 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> List Vendor'), ['index'], ['class' => 'btn btn-warning']) ?>
         <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-envelope"></span> Kirim'), ['email', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
     </p>
+    <div class="table-responsive">
+        <?=
+        DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                // 'id',
+                'nama',
+                'alamat:ntext',
+                'no_hp',
+                'email:email',
+                'keterangan:ntext',
+            ],
+        ])
+        ?>
+    </div>
 
-    <?=
-    DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            // 'id',
-            'nama',
-            'alamat:ntext',
-            'no_hp',
-            'email:email',
-            'keterangan:ntext',
-        ],
-    ])
-    ?>
+    <div class="item panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title pull-left"><i class="glyphicon glyphicon-history"></i> Riwayat Kirim Pesan</h3>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
 
+            <div class="table-responsive">
+                <?=
+                GridView::widget([
+                    'dataProvider' => $kirimPesan,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'judul',
+                        [
+                            'attribute' => 'isi_pesan',
+                            'format' => 'raw',
+                        ],
+                        [
+                            'attribute' => 'waktu_kirim',
+                            'format' => ['date', 'php: d-m-Y H:i:s'],
+                        ],
+                    ],
+                ]);
+                ?>
+            </div>
+        </div>
+    </div>
 </div>

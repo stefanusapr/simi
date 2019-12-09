@@ -40,17 +40,6 @@ if (Yii::$app->controller->action->id === 'login') {
         </head>
         <body class="hold-transition skin-blue-light sidebar-mini">
             <?php $this->beginBody() ?>
-
-
-            <?=
-            $this->render(
-                    'modal-vendor.php', ['directoryAsset' => $directoryAsset]
-            )
-            ?> <?=
-            $this->render(
-                    'modal-barang.php', ['directoryAsset' => $directoryAsset]
-            )
-            ?>
             <?=
             $this->render(
                     'header.php', ['directoryAsset' => $directoryAsset]

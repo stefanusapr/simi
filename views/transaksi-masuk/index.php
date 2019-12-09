@@ -15,15 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="transaksi-masuk-index">
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Transaksi Masuk', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <div class="row">
-        <div class="pull-left col-md-3">
+        <div class="col-md-12">
             <?= $this->render('_search', ['model' => $searchModel]); ?>
-        </div>
-<!--        <p class="pull-right col-md-3">
-        <?php //echo Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-primary']) ?>
-        </p>-->
+        </div>        
     </div>
 
     <?=

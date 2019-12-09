@@ -43,8 +43,8 @@ class PengajuanBarangSearch extends PengajuanBarang {
     public function search($params) {
         $query = PengajuanBarang::find();
         // add conditions that should always apply here
-        
-        
+
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -72,12 +72,11 @@ class PengajuanBarangSearch extends PengajuanBarang {
         return $dataProvider;
     }
 
-    public function searchRiwayat($params) {
+    public function searchReport($params) {
         $query = PengajuanBarang::find()
-                ->where(['status' => true])
-                ->orWhere(['status' => false]);
-
+                ->andWhere(['status' => true]);
         // add conditions that should always apply here
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -90,8 +89,6 @@ class PengajuanBarangSearch extends PengajuanBarang {
             // $query->where('0=1');
             return $dataProvider;
         }
-
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'id_barang' => $this->id_barang,
@@ -100,8 +97,6 @@ class PengajuanBarangSearch extends PengajuanBarang {
             'harga_satuan' => $this->harga_satuan,
             'status' => $this->status,
         ]);
-
-        $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
         return $dataProvider;
     }
