@@ -111,13 +111,27 @@ use app\models\TransaksiKeluarDetail;
                         ?>
                         <div class="col-md-4">
                             <?=
-                            $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
-                                'data' => ArrayHelper::map(Barang::getBarangAvailable(), 'id', 'nama'),
+                            $form->field($detail, "[{$i}]id_barang")
+                                    ->widget(Select2::classname(), [
+                                'data' => ArrayHelper::map(Barang::getBarangAvailable(), 'id', 'nama', 'merk'),
                             ]);
                             ?>
                         </div>
                         <div class="col-md-3">
-                            <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true]) ?>
+                            <?=
+                            $form->field($detail, "[{$i}]jumlah", [
+                                'template' => '
+                                                {label}
+                                                <div class="input-group">
+                                                   {input}
+                                                   <span class="input-group-addon">
+                                                      <span><b>Qty</b></span>
+                                                   </span>
+                                                </div>
+                                                {error}{hint}
+                                            '
+                            ])->textInput(['type' => 'number', 'min' => 0, 'maxlength' => true])
+                            ?>
                         </div>
                         <div class="col-md-4">
                             <?= $form->field($detail, "[{$i}]keterangan")->textarea() ?>

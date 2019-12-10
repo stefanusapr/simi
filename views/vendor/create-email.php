@@ -13,7 +13,8 @@ $this->params['breadcrumbs'][] = 'Kirim Pesan';
 <div class="vendor-create">
     <!-- 
         <h1><?= Html::encode($this->title) ?></h1> -->
-
+    <?= date_default_timezone_get(); ?>
+    <?= date('Y-m-d H:i:s'); ?>
     <?=
     $this->render('_formemail', [
         'model' => $model,

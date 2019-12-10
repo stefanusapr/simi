@@ -71,15 +71,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'lihat' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
                     },
-                    'hapus' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
-                                    'class' => 'btn btn-danger',
-                                    'data' => [
-                                        'confirm' => 'Anda yakin ingin menghapus?',
-                                        'method' => 'post',
-                                    ],
-                        ]);
-                    }
+//                    'hapus' => function($url, $model, $key) {
+//                        return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
+//                                    'class' => 'btn btn-danger',
+//                                    'data' => [
+//                                        'confirm' => 'Anda yakin ingin menghapus?',
+//                                        'method' => 'post',
+//                                    ],
+//                        ]);
+//                    }
                 ]
             ],
         ],

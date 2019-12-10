@@ -128,9 +128,10 @@ class TransaksiKeluarController extends Controller {
                     //simpan ke master record
                     if ($flag = $model->save(false)) {
                         //simpan details record
-                        foreach ($modelDetail as $modelDetail) {
-                            $modelDetail->id_transaksi_keluar = $model->id;
-                            if (!($flag = $modelDetail->save(false))) {
+                        foreach ($modelDetail as $i => $detail) {
+                            $detail->id_transaksi_keluar = $model->id;
+                            $detail->barang->stok -= Yii::$app->request->post()['TransaksiKeluarDetail'][$i]['jumlah'];
+                            if (!($flag = ( $detail->save(false) && $detail->barang->save(false) ))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -188,7 +189,18 @@ class TransaksiKeluarController extends Controller {
         $model = $this->findModel($id);
         $modelDetail = $model->transaksiKeluarDetails;
 
-        if ($model->load(Yii::$app->request->post())) {
+        if (Yii::$app->request->post()) {
+            foreach ($modelDetail as $i => $detail) {
+                //menambah stok barang
+                $result = Yii::$app->request->post()['TransaksiKeluarDetail'][$i]['jumlah'] - $detail->jumlah;
+                $detail->barang->stok += $result;
+
+                //simpan ke variable lain supaya ga kereplace
+                $varBarangStok[$i] = $detail->barang->stok;
+            }
+
+            $model->load(Yii::$app->request->post());
+            
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
             $modelDetail = Model::createMultiple(TransaksiKeluarDetail::classname(), $modelDetail);
             Model::loadMultiple($modelDetail, Yii::$app->request->post());
@@ -222,9 +234,10 @@ class TransaksiKeluarController extends Controller {
                             TransactionDetails::deleteAll(['id' => $hapusId]);
                         }
                         //selanjutnya simpan transaksi detail ke record
-                        foreach ($modelDetail as $detail) {
+                        foreach ($modelDetail as $i => $detail) {
                             $detail->id_transaksi_keluar = $model->id;
-                            if (!($flag = $detail->save(false))) {
+                            $detail->barang->stok = $varBarangStok[$i];
+                            if (!($flag = ( $detail->save(false) && $detail->barang->save(false) ))) {
                                 $transaction->rollBack();
                                 break;
                             }

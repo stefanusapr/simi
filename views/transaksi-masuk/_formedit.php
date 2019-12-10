@@ -8,13 +8,23 @@ use kidzen\dynamicform\DynamicFormWidget;
 use app\models\Barang;
 use app\models\Vendor;
 use yii\helpers\Url;
-
 use kartik\datecontrol\DateControl;
 use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TransaksiMasuk */
 /* @var $form yii\widgets\ActiveForm */
+$dispOptions = ['class' => 'form-control kv-monospace'];
+
+$saveOptions = [
+    'type' => 'text',
+    'label' => '<label>Saved Value: </label>',
+    'class' => 'kv-saved',
+    'readonly' => true,
+    'tabindex' => 1000
+];
+$saveCont = ['class' => 'kv-saved-cont'];
+
 $js = <<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
 
@@ -93,7 +103,11 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
             <!--btn nama vendor baru-->
             <div class="col-md-12" >
-                <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Vendor', ['create-vendor'], ['class' => 'btn btn-primary']) ?>
+                <?=
+                Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Vendor',
+                        ['create-vendor','id' => $model->id],
+                        ['class' => 'btn btn-primary'])
+                ?>
 
             </div>
         </div>
@@ -121,7 +135,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
             <!-- no faktur -->
             <div class="col-md-12">
-                <?= $form->field($model, 'no_faktur')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'no_faktur')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
 
@@ -148,7 +162,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
             <!-- no berita acara -->
             <div class="col-md-12">
-                <?= $form->field($model, 'no_berita_acara')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'no_berita_acara')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
 
@@ -175,14 +189,14 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
             <!-- no pemeriksaan -->
             <div class="col-md-12">
-                <?= $form->field($model, 'no_pemeriksaan')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'no_pemeriksaan')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-12">
-                <?= $form->field($model, "keterangan")->textarea() ?>
+<?= $form->field($model, "keterangan")->textarea() ?>
             </div>
         </div>
     </div>
@@ -212,14 +226,12 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                 <!--                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalBarang" id="myModalBarang">
                                     Tambah Barang Baru
                                 </button>-->
-                <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Barang', ['create-barang'], ['class' => 'btn btn-primary']) ?>
-
             </div>
         </div>
         <!-- panel body -->
         <div class="panel-body"> 
             <div class="container-item"><!-- widgetContainer -->
-                <?php foreach ($modelDetail as $i => $detail): ?>
+                    <?php foreach ($modelDetail as $i => $detail): ?>
                     <!-- row -->
                     <div class="item row">
                         <?php
@@ -248,7 +260,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                                 </div>
                                                 {error}{hint}
                                             '
-                            ])->textInput(['type' => 'number', 'min' => 0, 'maxlength' => true])
+                            ])->textInput(['type' => 'number', 'maxlength' => true])
                             ?>
                         </div>
                         <div class="col-md-2">
@@ -283,28 +295,28 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                             <?= $form->field($detail, "[{$i}]thn_produksi")->textInput(['maxlength' => true]) ?>
                         </div>
                         <div class="col-md-3">
-                            <?= $form->field($detail, "[{$i}]keterangan")->textarea() ?>
+    <?= $form->field($detail, "[{$i}]keterangan")->textarea() ?>
                         </div>
-                        <div class="col-md-1 item-action">
-                            <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> 
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-                            </div>
-                        </div>
+                        <!--                        <div class="col-md-1 item-action">
+                                                    <div class="pull-right">
+                                                        <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> 
+                                                        <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                                    </div>
+                                                </div>-->
                     </div>
                     <!-- .row -->
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </div>
 
-            <?php DynamicFormWidget::end(); ?>
+<?php DynamicFormWidget::end(); ?>
         </div> <!-- panel body -->
     </div> <!-- panel default -->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Simpan'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'List Transaksi Masuk'), ['index'], ['class' => 'btn btn-warning']) ?>     
+<?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan') : Yii::t('app', 'Simpan'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= Html::a(Yii::t('app', 'List Transaksi Masuk'), ['index'], ['class' => 'btn btn-warning']) ?>     
     </div>
 
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 </div>

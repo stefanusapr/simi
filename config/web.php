@@ -46,7 +46,7 @@ $config = [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
                 'username' => 'dharmaanugrah97@gmail.com',
-                'password' => "",
+                'password' => "****",
                 'port' => '465',
                 'encryption' => 'ssl',
             ],
@@ -75,6 +75,8 @@ $config = [
     ],
     'modules' => [
         'datecontrol' => [
+            'displayTimezone' => 'Asia/Jakarta',
+            'saveTimezone' => 'Asia/Jakarta',
             'class' => 'kartik\datecontrol\Module',
             // format settings for displaying each date attribute (ICU format example)
             'displaySettings' => [
@@ -103,8 +105,8 @@ $config = [
             ],
         ],
     ],
-    'params' => $params,
     'timeZone' => 'Asia/Jakarta',
+    'params' => $params,
 ];
 
 if (YII_ENV_DEV) {

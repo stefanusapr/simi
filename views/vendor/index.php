@@ -41,7 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'alamat',
             'no_hp',
             'email',
-            
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:20%, align:center;'],
                 'header' => 'Tindakan',
@@ -53,17 +52,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     'lihat' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
                     },
-                    'hapus' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
-                                    'class' => 'btn btn-danger',
-                                    'data' => [
-                                        'confirm' => 'Anda yakin ingin menghapus?',
-                                        'method' => 'post',
-                                    ],
-                        ]);
-                    },
+//                    'hapus' => function($url, $model, $key) {
+//                        return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
+//                                    'class' => 'btn btn-danger',
+//                                    'data' => [
+//                                        'confirm' => 'Anda yakin ingin menghapus?',
+//                                        'method' => 'post',
+//                                    ],
+//                        ]);
+//                    },
                     'kirim' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-envelope"></span> Kirim', ['email', 'id' => $model->id], ['class' => 'btn btn-info']);
+                        if ($model->email) {
+                            return Html::a('<span class="glyphicon glyphicon-envelope"></span> Kirim', ['email', 'id' => $model->id], ['class' => 'btn btn-info']);
+                        } else {
+                            return Html::a('<span class="glyphicon glyphicon-envelope"></span> Kirim', ['email', 'id' => $model->id], ['class' => 'btn btn-info active disabled']);
+                        }
                     },
                 ]
             ],

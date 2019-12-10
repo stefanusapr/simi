@@ -32,7 +32,7 @@ class TransaksiMasukDetail extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['id_barang', 'id_transaksi_masuk', 'jumlah'], 'required'],
-            [['id_barang', 'id_transaksi_masuk', 'jumlah', 'harga_satuan'], 'integer'],
+            [['id_barang', 'id_transaksi_masuk', 'jumlah', 'harga_satuan'], 'integer', 'min'=>0],
             [['keterangan'], 'string'],
             [['thn_produksi'], 'integer'],
             [['id_barang'], 'exist', 'skipOnError' => true, 'targetClass' => Barang::className(), 'targetAttribute' => ['id_barang' => 'id']],
@@ -49,7 +49,7 @@ class TransaksiMasukDetail extends \yii\db\ActiveRecord {
             'id_barang' => 'Nama Barang',
             'id_transaksi_masuk' => 'Kode Transaksi Masuk',
             'thn_produksi' => 'Tahun Produksi',
-            'jumlah' => 'Jumlah (satuan)',
+            'jumlah' => 'Jumlah',
             'harga_satuan' => 'Harga Satuan',
             'keterangan' => 'Keterangan',
         ];

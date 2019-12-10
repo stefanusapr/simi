@@ -17,14 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?=
-        Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Anda yakin ingin menghapus?',
-                'method' => 'post',
-            ],
-        ])
+        <?php
+//        Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
+//            'class' => 'btn btn-danger',
+//            'data' => [
+//                'confirm' => 'Anda yakin ingin menghapus?',
+//                'method' => 'post',
+//            ],
+//        ])
         ?>
         <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> List Vendor'), ['index'], ['class' => 'btn btn-warning']) ?>
         <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-envelope"></span> Kirim'), ['email', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
@@ -65,7 +65,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'waktu_kirim',
-                            'format' => ['date', 'php: d-m-Y H:i:s'],
                         ],
                     ],
                 ]);

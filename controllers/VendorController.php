@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\KirimPesan;
 use app\models\KirimPesanSearch;
+use yii\helpers\Url;
 
 /**
  * VendorController implements the CRUD actions for Vendor model.
@@ -62,6 +63,8 @@ class VendorController extends Controller {
 
         $dataProvider->pagination->pageSize = 10;
 
+        Url::remember(['vendor/index'], 'vendor-index');
+
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -90,6 +93,17 @@ class VendorController extends Controller {
         $model = new Vendor();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            // cek session dari halaman yg mana transaksi-masuk edit
+            if (Url::previous('tm-edit')) {
+                $var = Url::previous('tm-edit');
+                Yii::$app->session->remove('tm-edit');
+                return $this->redirect($var);
+            } else if (Url::previous('tm-create')) {
+                $var = Url::previous('tm-create');
+                Yii::$app->session->remove('tm-create');
+                return $this->redirect($var);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

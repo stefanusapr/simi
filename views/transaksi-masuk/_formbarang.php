@@ -16,8 +16,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($modelBarang, 'nama')->textInput(['maxlength' => true, 'placeholder' => 'Nama Barang']) ?>
 
-    <?= $form->field($modelBarang, 'stok')->textInput(['placeholder' => '100']) ?>
-
     <?= $form->field($modelBarang, 'merk')->textInput(['maxlength' => true, 'placeholder' => 'Merk Barang']) ?> 
 
     <?=

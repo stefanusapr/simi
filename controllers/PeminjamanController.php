@@ -103,7 +103,9 @@ class PeminjamanController extends Controller {
         $model = $this->findModel($id);
         
         $model['tgl_kembali'] = date('Y-m-d');
+        $model['barang']['stok'] += $model['jumlah'];
         $model->save();
+        $model['barang']->save();
         Yii::$app->getSession()->setFlash(
                 'success', 'Berhasil mengembalikan barang'
         );

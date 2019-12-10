@@ -14,6 +14,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\filters\AccessControl;
 use kartik\mpdf\Pdf;
 use app\models\Vendor;
@@ -130,9 +131,10 @@ class TransaksiMasukController extends Controller {
                     //simpan ke master record
                     if ($flag = $model->save(false)) {
                         //simpan details record
-                        foreach ($modelDetail as $modelDetail) {
-                            $modelDetail->id_transaksi_masuk = $model->id;
-                            if (!($flag = $modelDetail->save(false))) {
+                        foreach ($modelDetail as $i => $detail) {
+                            $detail->id_transaksi_masuk = $model->id;
+                            $detail->barang->stok += Yii::$app->request->post()['TransaksiMasukDetail'][$i]['jumlah'];
+                            if (!($flag = ( $detail->save(false) && $detail->barang->save(false) ))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -189,7 +191,17 @@ class TransaksiMasukController extends Controller {
         $model = $this->findModel($id);
         $modelDetail = $model->transaksiMasukDetails;
 
-        if ($model->load(Yii::$app->request->post())) {
+        if (Yii::$app->request->post()) {
+            foreach ($modelDetail as $i => $detail) {
+                //menambah stok barang
+                $result = Yii::$app->request->post()['TransaksiMasukDetail'][$i]['jumlah'] - $detail->jumlah;
+                $detail->barang->stok += $result;
+
+                //simpan ke variable lain(mas yudha) supaya ga kereplace
+                $varBarangStok[$i] = $detail->barang->stok;
+            }
+
+            $model->load(Yii::$app->request->post());
 
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
             $modelDetail = Model::createMultiple(TransaksiMasukDetail::classname(), $modelDetail);
@@ -224,9 +236,15 @@ class TransaksiMasukController extends Controller {
                             TransactionDetails::deleteAll(['id' => $hapusId]);
                         }
                         //selanjutnya simpan transaksi detail ke record
-                        foreach ($modelDetail as $detail) {
+                        foreach ($modelDetail as $i => $detail) {
                             $detail->id_transaksi_masuk = $model->id;
-                            if (!($flag = $detail->save(false))) {
+
+                            // replace stok dengan hasil kalkulasi
+                            // mas yudha bilang ke ibu (info terbaru)
+                            $detail->barang->stok = $varBarangStok[$i];
+
+                            //setelah && ibu nulis data terbaru
+                            if (!($flag = ( $detail->save(false) && $detail->barang->save(false) ))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -336,7 +354,7 @@ class TransaksiMasukController extends Controller {
         $content = $this->renderPartial('report', [
             'modelDetails' => $details,
         ]);
-        
+
 //        Yii::$app->response->headers->set($name, $value)
         $pdf = new Pdf([
             // set to use core fonts only
@@ -369,28 +387,27 @@ class TransaksiMasukController extends Controller {
         return $pdf->render();
     }
 
-    public function actionCreateVendor() {
-        $modelVendor = new Vendor();
-        
-        if ($modelVendor->load(Yii::$app->request->post()) && $modelVendor->save()) {
-            Yii::$app->getSession()->setFlash(
-                                    'success', 'Berhasil tambah vendor'
-                            );
-            return $this->redirect(['create']);
+    public function actionCreateVendor($id = null) {
+
+        if ($id == null) {
+            Url::remember(['transaksi-masuk/create'], 'tm-create');
+        } else {
+            Url::remember(['transaksi-masuk/update', 'id' => $id], 'tm-edit');
         }
 
-        return $this->render('create-vendor', [
-                    'modelVendor' => $modelVendor,
-        ]);
+        return $this->redirect(['vendor/create']);
     }
-    
+
     public function actionCreateBarang() {
         $modelBarang = new Barang();
-        
-        if ($modelBarang->load(Yii::$app->request->post()) && $modelBarang->save()) {
-            Yii::$app->getSession()->setFlash(
-                                    'success', 'Berhasil tambah vendor'
-                            );
+
+        if ($modelBarang->load(Yii::$app->request->post())) {
+            $modelBarang->stok = 0;
+            if ($modelBarang->save()) {
+                Yii::$app->getSession()->setFlash(
+                        'success', 'Berhasil tambah vendor'
+                );
+            }
             return $this->redirect(['create']);
         }
 
