@@ -1,11 +1,17 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
+
 <aside class="main-sidebar">
 
     <section class="sidebar">
 
-        <!-- Sidebar user panel -->
-        <div class="user-panel">
+       <!-- Sidebar user panel -->
+        <div class="user-panel fixed">
             <div class="pull-left image">
-                <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                <img src="<?= Url::to('@web/img/logo_sma.png'); ?>" alt="User Image"/>
             </div>
             <div class="pull-left info">
                 <p>Wakil Kepala Sarpras</p>

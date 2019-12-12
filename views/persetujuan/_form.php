@@ -7,10 +7,7 @@ use kartik\select2\Select2;
 use kidzen\dynamicform\DynamicFormWidget;
 use kartik\datecontrol\DateControl;
 use app\models\Barang;
-use app\models\Pengajuan;
-use app\models\PengajuanBarang;
-use app\models\PengajuanBarangSearch;
-use app\controllers\PengajuanController;
+use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pengajuan */
@@ -130,7 +127,7 @@ use app\controllers\PengajuanController;
                             echo Html::activeHiddenInput($detail, "[{$i}]id");
                         }
                         ?>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama'),
@@ -141,8 +138,22 @@ use app\controllers\PengajuanController;
                         <div class="col-md-2">
                             <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true, 'disabled' => 'true']) ?>
                         </div>
-                        <div class="col-md-2">
-                            <?= $form->field($detail, "[{$i}]harga_satuan")->textInput(['maxlength' => true, 'disabled' => 'true']) ?>
+                        <div class="col-md-3">
+                            <?=
+                                    $form->field($detail, "[{$i}]harga_satuan", [
+                                        'enableClientValidation' => false,
+                                        'template' => '
+                                            {label}
+                                                <div class="input-group">
+                                                   <span class="input-group-addon">
+                                                      <span><b>Rp</b></span>
+                                                   </span>
+                                                   {input}
+                                                </div>
+                                                {error}{hint}
+                                            '])
+                                    ->textInput(['type' => 'number', 'disabled' => 'true']);
+                            ?>
                         </div>
                         <div class="col-md-3">
                             <?= $form->field($detail, "[{$i}]keterangan")->textarea(['disabled' => 'true']) ?>

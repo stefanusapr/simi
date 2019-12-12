@@ -94,9 +94,19 @@ class BarangController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id) {
+        $searchModel = new BarangSearch();
+        
+        $dataProviderTM = $searchModel->searchTMByID(Yii::$app->request->queryParams,$id);
+        $dataProviderTK = $searchModel->searchTKByID(Yii::$app->request->queryParams,$id);
+        
+        $dataProviderTM->pagination->pageSize = 5;
+        $dataProviderTK->pagination->pageSize = 5;
+        
+        
         return $this->render('view', [
                     'model' => $this->findModel($id),
-//                    'dataProvider' => $dataProvider,
+                    'dataProviderTM' => $dataProviderTM,
+                    'dataProviderTK' => $dataProviderTK,
         ]);
     }
 

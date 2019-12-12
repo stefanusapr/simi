@@ -75,5 +75,72 @@ class BarangSearch extends Barang {
 
         return $dataProvider;
     }
+    
+    
+    public function searchTMByID($params, $id_ = null) {
+        $query = TransaksiMasukDetail::find()
+                ->joinWith(['transaksiMasuk'])
+                ->where(['id_barang'=>$id_])
+                ->orderBy(['transaksi_masuk.tgl_masuk' => SORT_DESC])
+                ;
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        return $dataProvider;
+    }
+    
+    public function searchTKByID($params, $id_ = null) {
+        $query = TransaksiKeluarDetail::find()
+                ->joinWith(['transaksiKeluar'])
+                ->where(['id_barang'=>$id_])
+                ->orderBy(['transaksi_keluar.tgl_keluar' => SORT_DESC])
+                ;
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+//        $query->andFilterWhere([
+//            'id' => $this->id,
+//            'stok' => $this->stok,
+//        ]);
+//
+//        $query->andFilterWhere(['like', 'nama', $this->nama])
+//                ->andFilterWhere(['like', 'merk', $this->merk])
+//                ->andFilterWhere(['like', 'jenis', $this->jenis])
+//                ->andFilterWhere(['like', 'kode_barang', $this->kode_barang])
+//                ->andFilterWhere(['like', 'keterangan', $this->keterangan])
+//                ->orFilterWhere(['like', 'nama', $this->cari])
+//                ->orFilterWhere(['like', 'merk', $this->cari])
+//                ->orFilterWhere(['like', 'jenis', $this->cari])
+//                ->orFilterWhere(['like', 'kode_barang', $this->cari])
+//                ->orFilterWhere(['like', 'keterangan', $this->cari]);
+//        ;
+
+        return $dataProvider;
+    }
 
 }
