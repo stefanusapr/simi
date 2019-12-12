@@ -208,7 +208,7 @@ class TransaksiKeluarController extends Controller {
         if (Yii::$app->request->post()) {
             foreach ($modelDetail as $i => $detail) {
                 //menambah stok barang
-                $result = Yii::$app->request->post()['TransaksiKeluarDetail'][$i]['jumlah'] - $detail->jumlah;
+                $result = $detail->jumlah - Yii::$app->request->post()['TransaksiKeluarDetail'][$i]['jumlah'];
                 $detail->barang->stok += $result;
 
                 //simpan ke variable lain supaya ga kereplace
