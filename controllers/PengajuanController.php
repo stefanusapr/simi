@@ -41,9 +41,11 @@ class PengajuanController extends Controller {
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
-                            return (
-                                    Yii::$app->user->identity->AuthKey == 'test100key'
-                                    );
+                            if (Yii::$app->user->isGuest) {
+                                return Yii::$app->response->redirect(['site/login']);
+                            } else {
+                                return Yii::$app->user->identity->AuthKey == 'test100key';
+                            }
                         }
                     ],
                 ],

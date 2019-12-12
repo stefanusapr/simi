@@ -2,6 +2,16 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+
+//foreach ($modelDetails->models as $detail) {
+//    var_dump($detail->tgl_keluar);
+//    foreach ($detail->transaksiKeluarDetails as $j) {
+//        var_dump($j->transaksiKeluar->tgl_keluar);
+//    }
+//    echo "<br>";
+//}
+//exit;
 ?>
 
 <div class="pdf-report container">
@@ -51,32 +61,34 @@ use yii\helpers\Url;
                         <th>Keterangan</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     <tr>
                         <?php
                         for ($i = 0; $i < 8; $i++):
-                        ?>
-                        <td>
-                            <?= $i+1; ?>
-                        </td>
-                        <?php endfor;?>
+                            ?>
+                            <td>
+                                <?= $i + 1; ?>
+                            </td>
+                        <?php endfor; ?>
                     </tr>
                     <?php
                     $no = 0;
                     foreach ($modelDetails->models as $detail):
-                        ?>
-                        <tr>
-                            <td><?= ++$no; ?></td>
-                            <td><?= Yii::$app->formatter->asDate($detail->transaksiKeluar->tgl_keluar) ?></td>
-                            <td><?= Yii::$app->formatter->asDate($detail->transaksiKeluar->tgl_surat) ?></td>
-                            <td><?= $detail->transaksiKeluar->nama_penerima ?></td>
-                            <td><?= $detail->barang->nama ?></td>
-                            <td><?= $detail->barang->merk ?></td>                 
-                            <td><?= $detail->jumlah ?></td>
-                            <td><?= $detail->keterangan ?></td>
-                    </tr>
-                <?php endforeach ?>
+                        foreach ($detail->transaksiKeluarDetails as $detailTKD):
+                            ?>
+                            <tr>
+                                <td><?= ++$no; ?></td>
+                                <td><?= Yii::$app->formatter->asDate($detailTKD->transaksiKeluar->tgl_keluar) ?></td>
+                                <td><?= Yii::$app->formatter->asDate($detailTKD->transaksiKeluar->tgl_surat) ?></td>
+                                <td><?= $detailTKD->transaksiKeluar->nama_penerima ?></td>
+                                <td><?= $detailTKD->barang->nama ?></td>
+                                <td><?= $detailTKD->barang->merk ?></td>                 
+                                <td><?= $detailTKD->jumlah ?></td>
+                                <td><?= $detailTKD->keterangan ?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </div>

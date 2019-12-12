@@ -46,9 +46,11 @@ class TransaksiMasukController extends Controller {
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
-                            return (
-                                    Yii::$app->user->identity->AuthKey == 'test100key'
-                                    );
+                            if (Yii::$app->user->isGuest) {
+                                return Yii::$app->response->redirect(['site/login']);
+                            } else {
+                                return Yii::$app->user->identity->AuthKey == 'test100key';
+                            }
                         }
                     ],
                 ],
@@ -71,6 +73,22 @@ class TransaksiMasukController extends Controller {
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $dataProvider->pagination->pageSize = 10;
+        
+        $session = Yii::$app->session;
+        // check if a session is already open
+        if (!$session->isActive) {
+            $session->open(); // open a session
+        }
+        // save query here
+        $session['repquery'] = Yii::$app->request->queryParams;
+        
+//        var_dump(Yii::$app->request->queryParams['TransaksiMasukSearch']['cari']);exit;
+//                
+//        if (Yii::$app->request->queryParams['TransaksiMasukSearch']['createTimeRange'] || Yii::$app->request->queryParams['sort']) {
+////            $searchModel->createTimeRange = Yii::$app->request->queryParams['TransaksiMasukSearch']['createTimeRange'];
+//        } else {
+//            $searchModel->createTimeRange = $searchModel->createTimeRange = date('Y').'-01-01 - ' . date('Y-m-d');
+//        }
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
@@ -348,8 +366,8 @@ class TransaksiMasukController extends Controller {
     }
 
     public function actionReport() {
-        $searchModel = new TransaksiMasukDetailSearch();
-        $details = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new TransaksiMasukSearch();
+        $details = $searchModel->search(Yii::$app->session->get('repquery'));
 
         $content = $this->renderPartial('report', [
             'modelDetails' => $details,
@@ -399,21 +417,10 @@ class TransaksiMasukController extends Controller {
     }
 
     public function actionCreateBarang() {
-        $modelBarang = new Barang();
 
-        if ($modelBarang->load(Yii::$app->request->post())) {
-            $modelBarang->stok = 0;
-            if ($modelBarang->save()) {
-                Yii::$app->getSession()->setFlash(
-                        'success', 'Berhasil tambah vendor'
-                );
-            }
-            return $this->redirect(['create']);
-        }
+        Url::remember(['transaksi-masuk/create'], 'tm-create');
 
-        return $this->render('create-barang', [
-                    'modelBarang' => $modelBarang,
-        ]);
+        return $this->redirect(['barang/create']);
     }
 
 }

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PengajuanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Daftar Persetujuan';
+$this->title = 'Riwayat Persetujuan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengajuan-index">

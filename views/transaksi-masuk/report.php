@@ -74,26 +74,28 @@ use yii\helpers\Url;
                     <?php
                     $no = 0;
                     foreach ($modelDetails->models as $detail):
-                        ?>
-                        <tr>
-                            <td><?= ++$no; ?></td>
-                            <td><?= Yii::$app->formatter->asDate($detail->transaksiMasuk->tgl_masuk) ?></td>
-                            <td><?= Yii::$app->formatter->asDate($detail->transaksiMasuk->tgl_spk) ?></td>
-                            <td><?= $detail->transaksiMasuk->vendor->nama ?></td>
-                            <td><?= $detail->transaksiMasuk->no_faktur ?></td>
-                            <td><?= Yii::$app->formatter->asDate($detail->transaksiMasuk->tgl_faktur) ?></td>
-                            <td><?= $detail->barang->nama ?></td>
-                            <td><?= $detail->barang->merk ?></td>                
-                            <td><?= $detail->jumlah ?></td>
-                            <td><?= Yii::$app->formatter->asCurrency($detail->harga_satuan) ?></td>
-                            <td><?= Yii::$app->formatter->asCurrency($detail->jumlah * $detail->harga_satuan) ?></td>
-                            <td><?= $detail->thn_produksi ?></td>
-                            <td><?= $detail->transaksiMasuk->no_berita_acara ?></td>
-                            <td><?= Yii::$app->formatter->asDate($detail->transaksiMasuk->tgl_berita_acara) ?></td>
-                            <td><?= $detail->transaksiMasuk->no_pemeriksaan ?></td>
-                            <td><?= Yii::$app->formatter->asDate($detail->transaksiMasuk->tgl_pemeriksaan) ?></td>
-                            <td><?= $detail->keterangan ?></td>
-                        </tr>
+                        foreach ($detail->transaksiMasukDetails as $detailTMD):
+                            ?>
+                            <tr>
+                                <td><?= ++$no; ?></td>
+                                <td><?= Yii::$app->formatter->asDate($detailTMD->transaksiMasuk->tgl_masuk) ?></td>
+                                <td><?= Yii::$app->formatter->asDate($detailTMD->transaksiMasuk->tgl_spk) ?></td>
+                                <td><?= $detailTMD->transaksiMasuk->vendor->nama ?></td>
+                                <td><?= $detailTMD->transaksiMasuk->no_faktur ?></td>
+                                <td><?= Yii::$app->formatter->asDate($detailTMD->transaksiMasuk->tgl_faktur) ?></td>
+                                <td><?= $detailTMD->barang->nama ?></td>
+                                <td><?= $detailTMD->barang->merk ?></td>                
+                                <td><?= $detailTMD->jumlah ?></td>
+                                <td><?= Yii::$app->formatter->asCurrency($detailTMD->harga_satuan) ?></td>
+                                <td><?= Yii::$app->formatter->asCurrency($detailTMD->jumlah * $detailTMD->harga_satuan) ?></td>
+                                <td><?= $detailTMD->thn_produksi ?></td>
+                                <td><?= $detailTMD->transaksiMasuk->no_berita_acara ?></td>
+                                <td><?= Yii::$app->formatter->asDate($detailTMD->transaksiMasuk->tgl_berita_acara) ?></td>
+                                <td><?= $detailTMD->transaksiMasuk->no_pemeriksaan ?></td>
+                                <td><?= Yii::$app->formatter->asDate($detailTMD->transaksiMasuk->tgl_pemeriksaan) ?></td>
+                                <td><?= $detailTMD->keterangan ?></td>
+                            </tr>
+                        <?php endforeach ?>
                     <?php endforeach ?>
                 </tbody>
             </table>

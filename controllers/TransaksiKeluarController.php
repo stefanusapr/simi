@@ -41,9 +41,11 @@ class TransaksiKeluarController extends Controller {
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
-                            return (
-                                    Yii::$app->user->identity->AuthKey == 'test100key'
-                                    );
+                            if (Yii::$app->user->isGuest) {
+                                return Yii::$app->response->redirect(['site/login']);
+                            } else {
+                                return Yii::$app->user->identity->AuthKey == 'test100key';
+                            }
                         }
                     ],
                 ],
@@ -64,6 +66,20 @@ class TransaksiKeluarController extends Controller {
     public function actionIndex() {
         $searchModel = new TransaksiKeluarSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        $session = Yii::$app->session;
+        // check if a session is already open
+        if (!$session->isActive) {
+            $session->open(); // open a session
+        }
+        // save query here
+        $session['repquery'] = Yii::$app->request->queryParams;
+        
+        if (Yii::$app->request->queryParams) {
+            $searchModel->createTimeRange = Yii::$app->request->queryParams['TransaksiKeluarSearch']['createTimeRange'];
+        } else {
+            $searchModel->createTimeRange = $searchModel->createTimeRange = date('Y').'-01-01 - ' . date('Y-m-d');
+        }
 
         $dataProvider->pagination->pageSize = 10;
 
@@ -200,7 +216,7 @@ class TransaksiKeluarController extends Controller {
             }
 
             $model->load(Yii::$app->request->post());
-            
+
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
             $modelDetail = Model::createMultiple(TransaksiKeluarDetail::classname(), $modelDetail);
             Model::loadMultiple($modelDetail, Yii::$app->request->post());
@@ -332,8 +348,8 @@ class TransaksiKeluarController extends Controller {
     }
 
     public function actionReport() {
-        $searchModel = new TransaksiKeluarDetailSearch();
-        $details = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new TransaksiKeluarSearch();
+        $details = $searchModel->search(Yii::$app->session->get('repquery'));
 
         $content = $this->renderPartial('report', [
             'modelDetails' => $details,

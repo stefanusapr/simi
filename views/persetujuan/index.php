@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PengajuanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Daftar Pengajuan';
+$this->title = 'Menunggu Persetujuan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengajuan-index">
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
                     },
                     'edit' => function($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary',]);
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span> Periksa', ['update', 'id' => $model->id], ['class' => 'btn btn-primary',]);
                     },
                 ]
             ],

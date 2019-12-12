@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this yii\web\View */
 /* @var $name string */
 /* @var $message string */
@@ -8,6 +7,9 @@
 use yii\helpers\Html;
 
 $this->title = $name;
+if (Yii::$app->user->isGuest) {
+    return Yii::$app->response->redirect(['site/login']);
+}
 ?>
 <div class="site-error">
 

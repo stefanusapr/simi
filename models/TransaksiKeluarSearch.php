@@ -5,21 +5,37 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\TransaksiKeluar;
+use kartik\daterange\DateRangeBehavior;
 
 /**
  * TransaksiKeluarSearch represents the model behind the search form of `app\models\TransaksiKeluar`.
  */
 class TransaksiKeluarSearch extends TransaksiKeluar {
 
+    public $createTimeRange;
+    public $createTimeStart;
+    public $createTimeEnd;
     public $cari;
 
     /**
      * {@inheritdoc}
      */
+    public function behaviors() {
+        return [
+            [
+                'class' => DateRangeBehavior::className(),
+                'attribute' => 'createTimeRange',
+                'dateStartAttribute' => 'createTimeStart',
+                'dateEndAttribute' => 'createTimeEnd',
+            ]
+        ];
+    }
+
     public function rules() {
         return [
             [['id'], 'integer'],
             [['tgl_keluar', 'tgl_surat', 'nama_penerima', 'keterangan', 'cari'], 'safe'],
+            [['createTimeRange'], 'match', 'pattern' => '/^.+\s\-\s.+$/'],
         ];
     }
 
@@ -42,6 +58,9 @@ class TransaksiKeluarSearch extends TransaksiKeluar {
         $query = TransaksiKeluar::find();
 
         // add conditions that should always apply here
+        $this->createTimeStart = strtotime($this->createTimeStart);
+        $this->createTimeEnd = strtotime(date('Y-m-d'));
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -67,7 +86,9 @@ class TransaksiKeluarSearch extends TransaksiKeluar {
                 ->orFilterWhere(['like', 'tgl_keluar', $this->cari])
                 ->orFilterWhere(['like', 'tgl_surat', $this->cari]);
 
+        $query->andFilterWhere(['>=', 'tgl_keluar', date('Y-m-d', ($this->createTimeStart))])
+                ->andFilterWhere(['<=', 'tgl_keluar', date('Y-m-d', ($this->createTimeEnd))]);
+
         return $dataProvider;
     }
-
 }

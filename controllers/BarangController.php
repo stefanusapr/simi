@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
 use kartik\mpdf\Pdf;
+use yii\helpers\Url;
 
 /**
  * BarangController implements the CRUD actions for Barang model.
@@ -37,9 +38,11 @@ class BarangController extends Controller {
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
-                            return (
-                                    Yii::$app->user->identity->AuthKey == 'test100key'
-                                    );
+                            if (Yii::$app->user->isGuest) {
+                                return Yii::$app->response->redirect(['site/login']);
+                            } else {
+                                return Yii::$app->user->identity->AuthKey == 'test100key';
+                            }
                         }
                     ],
                     [
@@ -50,9 +53,11 @@ class BarangController extends Controller {
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
-                            return (
-                                    Yii::$app->user->identity->AuthKey == 'test101key'
-                                    );
+                            if (Yii::$app->user->isGuest) {
+                                return Yii::$app->response->redirect(['site/login']);
+                            } else {
+                                return Yii::$app->user->identity->AuthKey == 'test101key';
+                            }
                         }
                     ],
                 ],
@@ -132,20 +137,27 @@ class BarangController extends Controller {
     public function actionCreate() {
         $model = new Barang();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
             $model->stok = 0;
+
             if ($model->save()) {
-                Yii::$app->getSession()->setFlash(
-                        'success', 'Berhasil tambah vendor'
-                );
+                if (Url::previous('tm-create')) {
+                    $var = Url::previous('tm-create');
+                    Yii::$app->session->remove('tm-create');
+                    Yii::$app->getSession()->setFlash(
+                            'success', 'Berhasil menambahkan barang : <b>' . $model->nama
+                    );
+                    return $this->redirect($var);
+                } else {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
+        } else {
+            return $this->render('create', [
+                        'model' => $model,
+            ]);
         }
-        return $this->render('create', [
-                    'model' => $model,
-        ]);
-//        return $this->renderAjax('_form', [
-//                    'model' => $model,
-//        ]);
     }
 
     /**
@@ -193,9 +205,9 @@ class BarangController extends Controller {
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    
+
     public function actionReport() {
-        $searchModel = new Barang();
+        $searchModel = new BarangSearch();
         $details = $searchModel->search(Yii::$app->request->queryParams);
 
         $content = $this->renderPartial('report', [
@@ -233,7 +245,7 @@ class BarangController extends Controller {
         ]);
         return $pdf->render();
     }
-    
+
     //cetak info barang yang di dalam report-detail setelah klik view
     public function actionReportDetails($id) {
         $searchModel = new BarangSearch();

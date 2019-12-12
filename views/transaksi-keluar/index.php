@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 
 //use kartik\grid\GridView;
@@ -11,18 +12,24 @@ use yii\grid\GridView;
 
 $this->title = 'Transaksi Keluar';
 $this->params['breadcrumbs'][] = $this->title;
+
+//var_dump($dataProvider);exit;
+
 ?>
 <div class="transaksi-keluar-index">
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Transaksi Keluar', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-primary']) ?>
+        <?=
+        Html::a('<span class="glyphicon glyphicon-print"></span> Cetak',
+                ['report'], [
+            'data-method' => 'POST',
+            'data-params' => ['param1' => $dataProvider],
+            'class' => 'btn btn-primary',
+        ])
+        ?>
     </p>
 
-    <div class="row">
-        <div class="col-md-12">
-            <?= $this->render('_search', ['model' => $searchModel]); ?>
-        </div>        
-    </div>
+    <?= $this->render('_search', ['model' => $searchModel]); ?>
 
     <?=
     GridView::widget([
@@ -59,7 +66,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'nama_penerima',
                 'headerOptions' => ['style' => 'width:15%'],
             ],
-           
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',
@@ -85,6 +91,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
-
-
 </div>

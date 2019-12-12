@@ -37,9 +37,11 @@ class VendorController extends Controller {
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
-                            return (
-                                    Yii::$app->user->identity->AuthKey == 'test100key'
-                                    );
+                            if (Yii::$app->user->isGuest) {
+                                return Yii::$app->response->redirect(['site/login']);
+                            } else {
+                                return Yii::$app->user->identity->AuthKey == 'test100key';
+                            }
                         }
                     ],
                 ],
@@ -98,10 +100,16 @@ class VendorController extends Controller {
             if (Url::previous('tm-edit')) {
                 $var = Url::previous('tm-edit');
                 Yii::$app->session->remove('tm-edit');
+                Yii::$app->getSession()->setFlash(
+                        'success', 'Berhasil menambahkan Vendor : <b>' . $model->nama
+                );
                 return $this->redirect($var);
             } else if (Url::previous('tm-create')) {
                 $var = Url::previous('tm-create');
                 Yii::$app->session->remove('tm-create');
+                Yii::$app->getSession()->setFlash(
+                        'success', 'Berhasil menambahkan Vendor : <b>' . $model->nama
+                );
                 return $this->redirect($var);
             }
             return $this->redirect(['view', 'id' => $model->id]);

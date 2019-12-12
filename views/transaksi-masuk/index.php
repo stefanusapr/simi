@@ -18,11 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-primary']) ?>
     </p>
 
-    <div class="row">
-        <div class="col-md-12">
-            <?= $this->render('_search', ['model' => $searchModel]); ?>
-        </div>        
-    </div>
+    <?= $this->render('_search', ['model' => $searchModel]); ?>
 
     <?=
     GridView::widget([
@@ -52,10 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tgl_spk',
                 'format' => ['date', 'php: d-m-Y'],
             ],
-            [
-                'attribute' => 'vendor.nama',
-                'header' => 'Nama Vendor',
-            ],
+            'vendor.nama',
             'no_faktur',
             [
                 'attribute' => 'tgl_faktur',

@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use kidzen\dynamicform\DynamicFormWidget;
 use kartik\datecontrol\DateControl;
+use yii\widgets\MaskedInput;
 
 use app\models\Barang;
 
@@ -92,12 +93,30 @@ use app\models\Barang;
                         </div>
                         <div class="col-md-3">
                             <?=
-                            $form->field($detail, "[{$i}]harga_satuan")->widget(NumberControl::classname(), [
-                                'attribute' => 'currency',
-                                'maskedInputOptions' => [
-                                    'prefix' => 'Rp ',
-                                ],
-                            ]);
+                                    $form->field($detail, "[{$i}]harga_satuan", [
+                                        'enableClientValidation' => false,
+                                        'template' => '
+                                            {label}
+                                                <div class="input-group">
+                                                   <span class="input-group-addon">
+                                                      <span><b>Rp</b></span>
+                                                   </span>
+                                                   {input}
+                                                </div>
+                                                {error}{hint}
+                                            '])
+                                    ->textInput(['type' => 'number', 'data-default' => ''])
+                                    ->widget(MaskedInput::classname(), [
+                                        'clientOptions' => [
+                                            'alias' => 'decimal',
+                                            'groupSeparator' => '.',
+                                            "digits" => 0,
+                                            "autoGroup" => true,
+                                            "removeMaskOnSubmit" => true,
+                                            "rightAlign" => false,
+                                            'allowMinus' => false,
+                                        ],
+                                    ])
                             ?>
                         </div>
                         <div class="col-md-3">
