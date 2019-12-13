@@ -233,7 +233,7 @@ class BarangController extends Controller {
             // A4 paper format
             'format' => Pdf::FORMAT_A4,
             // portrait orientation
-            'orientation' => Pdf::ORIENT_LANDSCAPE,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
             // stream to browser inline
             'destination' => Pdf::DEST_BROWSER,
             'marginTop' => 5,
@@ -260,6 +260,11 @@ class BarangController extends Controller {
     public function actionReportDetails($id) {
         $searchModel = new BarangSearch();
         $details = $searchModel->search(Yii::$app->request->queryParams);
+        
+        $searchModel = new BarangSearch();
+        
+        $dataProviderTM = $searchModel->searchTMByID(Yii::$app->request->queryParams,$id);
+        $dataProviderTK = $searchModel->searchTKByID(Yii::$app->request->queryParams,$id);
 
         $content = $this->renderPartial('report-details', [
             'modelDetails' => $details,
