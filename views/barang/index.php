@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Barang', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-primary']) ?>
-    
+
     </p>
     <div class="row">
         <div class="col-md-3">
@@ -85,15 +85,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'lihat' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
                     },
-//                    'hapus' => function($url, $model, $key) {
-//                        return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
-//                                    'class' => 'btn btn-danger',
-//                                    'data' => [
-//                                        'confirm' => 'Anda yakin ingin menghapus?',
-//                                        'method' => 'post',
-//                                    ],
-//                        ]);
-//                    }
+                    'hapus' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Anda yakin ingin menghapus?',
+                                        'method' => 'post',
+                                    ],
+                        ]);
+                    }
                 ]
             ],
         ],

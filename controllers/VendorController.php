@@ -147,8 +147,27 @@ class VendorController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id) {
-        $this->findModel($id)->delete();
+        try {
+            $model = $this->findModel($id);
+            $model->delete();
+            $msg = 'Vendor: <b>' . $model->nama . '</b>, Alamat: <b>' . $model->alamat . '</b> berhasil dihapus';
+            Yii::$app->getSession()->setFlash('success', $msg);
+        } catch (\yii\db\IntegrityException $ex) {
+            if (1451 == $ex->errorInfo[1]) {
+                // Your message goes here
+                $msg = 'Vendor: <b>' . $model->nama . '</b>, Alamat: <b>' . $model->alamat . '</b> Gagal dihapus karena memiliki relasi';
+            } else {
+                $msg = 'Gagal menghapus vendor';
+            }
 
+            if (isset($_GET['ajax'])) {
+                throw new HttpException(400, $msg);
+            } else {
+                Yii::$app->getSession()->setFlash(
+                        'error', $msg
+                );
+            }
+        }
         return $this->redirect(['index']);
     }
 

@@ -33,7 +33,7 @@ class Barang extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['nama', 'merk', 'jenis', 'kode_barang'], 'required'],
-            [['stok'], 'integer', 'min'=>0],
+            [['stok'], 'integer', 'min' => 0],
             [['nama', 'merk', 'jenis', 'kode_barang', 'keterangan'], 'string', 'max' => 255],
             [['kode_barang'], 'unique'],
         ];
@@ -80,16 +80,16 @@ class Barang extends \yii\db\ActiveRecord {
                 ->where(['>', 'stok', '0'])
                 ->all();
     }
-    
-    public function getCountStock(){
+
+    public function getCountStock() {
         $query = Barang::find()
                 ->joinWith('transaksiMasukDetail')
                 ->joinWith('transaksiKeluarDetail')
-               ;
+        ;
     }
-    
+
     public function hitungBarang() {
-        //query kartu stok master barang
+        // query kartu stok master barang
         $sql_list = " SELECT t.id AS id_transaksi_masuk, "
                 . "tanggal AS tgl_masuk, "
                 . "d.id_detail AS id, "

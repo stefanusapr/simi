@@ -65,7 +65,20 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index');
+        $searchModelBarang = new \app\models\BarangSearch();
+        $countBarang = $searchModelBarang->search(null)->TotalCount;
+        
+        $searchModelTM = new \app\models\TransaksiMasukSearch();
+        $countTM = $searchModelTM->search(null)->TotalCount;
+        
+        $searchModelTK = new \app\models\TransaksiKeluarSearch();
+        $countTK = $searchModelTK->search(null)->TotalCount;
+        
+        return $this->render('index', [
+            'countBarang' => $countBarang,
+            'countTM' => $countTM,
+            'countTK' => $countTK,
+        ]);
     }
 
     /**

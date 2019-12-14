@@ -44,6 +44,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => 'StatusLabel',
             ],
+            [
+                'label' => 'Barang',
+                'value' => function($dataProvider) {
+                    return join(', ', yii\helpers\ArrayHelper::map($dataProvider->pengajuanBarangs, 'id_barang', 'barang.nama'));
+                },
+            ],
+//            [
+//                'header' => 'Barang - Barang',
+//                'headerOptions' => ['style' => 'width:15%'],
+//                'value' => function ($dataProvider) {
+//                    foreach ($dataProvider->models as $s) {
+//                        foreach ($s->pengajuanBarangs as $j) {
+//                            $return+=$j->barang->nama.' - ';
+//                        }
+//                    }
+//                    return $j;
+//                }
+//            ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',
@@ -60,5 +78,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
-    
+
 </div>

@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?php
+        <?=
         Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -28,46 +28,70 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> List Transaksi'), ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
 
-    <?=
-    DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            // 'id',
-            [
-                'attribute' => 'tgl_masuk',
-                'format' => ['date', 'php: d-m-Y'],
-                'labelColOptions' => ['style' => 'width:30%; text-align:right;']
-            ],
-            [
-                'attribute' => 'tgl_spk',
-                'format' => ['date', 'php: d-m-Y'],
-                'labelColOptions' => ['style' => 'width:30%; text-align:right;']
-            ],
-            [
-                'label' => 'Nama Vendor',
-                'attribute' => 'vendor.nama',
-            ],
-            'no_faktur',
-            [
-                'attribute' => 'tgl_faktur',
-                'format' => ['date', 'php: d-m-Y'],
-                'labelColOptions' => ['style' => 'width:30%; text-align:right;']
-            ],
-            'no_berita_acara',
-            [
-                'attribute' => 'tgl_berita_acara',
-                'format' => ['date', 'php: d-m-Y'],
-                'labelColOptions' => ['style' => 'width:30%; text-align:right;']
-            ],
-            'no_pemeriksaan',
-            [
-                'attribute' => 'tgl_pemeriksaan',
-                'format' => ['date', 'php: d-m-Y'],
-                'labelColOptions' => ['style' => 'width:30%; text-align:right;']
-            ],
-        ],
-    ])
-    ?>
+    <div class="row">
+        <div class="col-md-12">
+            <?=
+            DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    [
+                        'attribute' => 'tgl_masuk',
+                        'format' => ['date', 'php: d-m-Y'],
+                    ],
+                ],
+            ]);
+            ?>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <?=
+            DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    // 'id',
+                    [
+                        'attribute' => 'tgl_spk',
+                        'format' => ['date', 'php: d-m-Y'],
+                        'labelColOptions' => ['style' => 'width:30%; text-align:right;']
+                    ],
+                    [
+                        'label' => 'Nama Vendor',
+                        'attribute' => 'vendor.nama',
+                    ],
+                    'no_faktur',
+                    [
+                        'attribute' => 'tgl_faktur',
+                        'format' => ['date', 'php: d-m-Y'],
+                        'labelColOptions' => ['style' => 'width:30%; text-align:right;']
+                    ],
+                ],
+            ])
+            ?>
+        </div>
+        <div class="col-md-6">
+            <?=
+            DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'no_berita_acara',
+                    [
+                        'attribute' => 'tgl_berita_acara',
+                        'format' => ['date', 'php: d-m-Y'],
+                        'labelColOptions' => ['style' => 'width:30%; text-align:right;']
+                    ],
+                    'no_pemeriksaan',
+                    [
+                        'attribute' => 'tgl_pemeriksaan',
+                        'format' => ['date', 'php: d-m-Y'],
+                        'labelColOptions' => ['style' => 'width:30%; text-align:right;']
+                    ],
+                ],
+            ])
+            ?>
+        </div>
+    </div>
 
     <div class="item panel panel-info">
         <div class="panel-heading">

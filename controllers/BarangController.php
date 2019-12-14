@@ -95,14 +95,14 @@ class BarangController extends Controller {
      */
     public function actionView($id) {
         $searchModel = new BarangSearch();
-        
-        $dataProviderTM = $searchModel->searchTMByID(Yii::$app->request->queryParams,$id);
-        $dataProviderTK = $searchModel->searchTKByID(Yii::$app->request->queryParams,$id);
-        
+
+        $dataProviderTM = $searchModel->searchTMByID(Yii::$app->request->queryParams, $id);
+        $dataProviderTK = $searchModel->searchTKByID(Yii::$app->request->queryParams, $id);
+
         $dataProviderTM->pagination->pageSize = 5;
         $dataProviderTK->pagination->pageSize = 5;
-        
-        
+
+
         return $this->render('view', [
                     'model' => $this->findModel($id),
                     'dataProviderTM' => $dataProviderTM,
@@ -197,8 +197,25 @@ class BarangController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id) {
-        $this->findModel($id)->delete();
+        try {
+            $model = $this->findModel($id);
+            $model->delete();
+        } catch (\yii\db\IntegrityException $ex) {
+            if (1451 == $ex->errorInfo[1]) {
+                // Your message goes here
+                $msg = 'Barang: <b>' . $model->nama . '</b>, Merk : <b>' . $model->merk .'</b> Gagal dihapus karena memiliki relasi';
+            } else {
+                $msg = 'Gagal menghapus barang';
+            }
 
+            if (isset($_GET['ajax'])) {
+                throw new HttpException(400, $msg);
+            } else {
+                Yii::$app->getSession()->setFlash(
+                        'error', $msg
+                );
+            }
+        }
         return $this->redirect(['index']);
     }
 
@@ -260,11 +277,11 @@ class BarangController extends Controller {
     public function actionReportDetails($id) {
         $searchModel = new BarangSearch();
         $details = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         $searchModel = new BarangSearch();
-        
-        $dataProviderTM = $searchModel->searchTMByID(Yii::$app->request->queryParams,$id);
-        $dataProviderTK = $searchModel->searchTKByID(Yii::$app->request->queryParams,$id);
+
+        $dataProviderTM = $searchModel->searchTMByID(Yii::$app->request->queryParams, $id);
+        $dataProviderTK = $searchModel->searchTKByID(Yii::$app->request->queryParams, $id);
 
         $content = $this->renderPartial('report-details', [
             'modelDetails' => $details,

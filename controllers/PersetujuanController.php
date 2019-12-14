@@ -67,9 +67,10 @@ class PersetujuanController extends Controller {
         $searchModel = new PengajuanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $countData = $searchModel->search(Yii::$app->request->queryParams)->count;
         $dataProvider->pagination->pageSize = 10;
-
+        
+        $countData = $searchModel->search(null)->count; 
+        
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
