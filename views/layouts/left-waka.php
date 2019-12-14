@@ -8,7 +8,7 @@ use yii\helpers\Url;
 
     <section class="sidebar">
 
-       <!-- Sidebar user panel -->
+        <!-- Sidebar user panel -->
         <div class="user-panel fixed">
             <div class="pull-left image">
                 <img src="<?= Url::to('@web/img/logo_sma.png'); ?>" alt="User Image"/>
@@ -34,11 +34,13 @@ use yii\helpers\Url;
         dmstr\widgets\Menu::widget(
                 [
                     'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
+                    'encodeLabels' => false,
                     'items' => [
                         ['label' => 'Inventaris Barang', 'options' => ['class' => 'header']],
                         ['label' => 'Dashboard', 'icon' => 'fas fa-dashboard', 'url' => ['/site/index']],
                         ['label' => 'Master Barang', 'icon' => 'fas fa-table', 'url' => ['barang/index-waka']],
-                        ['label' => 'Menunggu Persetujuan', 'icon' => 'fas fa-edit', 'url' => ['/persetujuan/index']],
+                        ['label' => 'Menunggu Persetujuan<span class="label label-danger pull-right">'.$dataCount.'</span>'
+                            , 'icon' => 'fas fa-edit', 'url' => ['/persetujuan/index']],
                         ['label' => 'Riwayat Persetujuan', 'icon' => 'fas fa-check-square-o', 'url' => ['/persetujuan/index-persetujuan']],
                         ['label' => 'Pengaturan Akun', 'icon' => 'fas fa-user', 'url' => ['/site/akun']],
                         ['label' => 'Keluar', 'icon' => 'fas fa-sign-out-alt', 'url' => ['site/logout'],

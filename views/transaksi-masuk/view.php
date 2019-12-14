@@ -17,13 +17,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?php
-//        Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
-//            'class' => 'btn btn-danger',
-//            'data' => [
-//                'confirm' => 'Anda yakin ingin menghapus?',
-//                'method' => 'post',
-//            ],
-//        ])
+        Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Anda yakin ingin menghapus?',
+                'method' => 'post',
+            ],
+        ])
         ?>
         <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> List Transaksi'), ['index'], ['class' => 'btn btn-warning']) ?>
     </p>

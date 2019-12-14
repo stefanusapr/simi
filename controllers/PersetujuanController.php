@@ -15,7 +15,6 @@ use app\models\PengajuanSearch;
 use app\models\PengajuanBarang;
 use app\models\PengajuanBarangSearch;
 use app\models\Model;
-
 use kartik\mpdf\Pdf;
 
 /**
@@ -42,9 +41,11 @@ class PersetujuanController extends Controller {
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
-                            return (
-                                    Yii::$app->user->identity->AuthKey == 'test101key'
-                                    );
+                            if (Yii::$app->user->isGuest) {
+                                return Yii::$app->response->redirect(['site/login']);
+                            } else {
+                                return Yii::$app->user->identity->AuthKey == 'test101key';
+                            }
                         }
                     ],
                 ],
@@ -66,11 +67,13 @@ class PersetujuanController extends Controller {
         $searchModel = new PengajuanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $countData = $searchModel->search(Yii::$app->request->queryParams)->count;
         $dataProvider->pagination->pageSize = 10;
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
+                    'countData' => $countData,
         ]);
     }
 

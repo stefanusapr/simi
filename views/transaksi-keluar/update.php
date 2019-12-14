@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = 'Edit';
 ?>
 <div class="transaksi-keluar-update">
     <?=
-    $this->render('_form', [
+    $this->render('_formedit', [
         'model' => $model,
         'modelDetail' => $modelDetail,
     ])

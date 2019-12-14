@@ -312,6 +312,8 @@ class TransaksiKeluarController extends Controller {
         try {
             //hapus dahulu pd transaksi detailnya
             foreach ($modelDetail as $detail) {
+                $detail->barang->stok+=$detail->jumlah;
+                $detail->barang->save();
                 $detail->delete();
             }
             //kemudian hapus ke transaksi yg besar

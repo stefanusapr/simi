@@ -26,6 +26,7 @@ if (Yii::$app->controller->action->id === 'login') {
     dmstr\web\AdminLteAsset::register($this);
 
     $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
+    $dataCount = $this->params['countData'];
     ?>
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -49,7 +50,7 @@ if (Yii::$app->controller->action->id === 'login') {
 
             <?=
             $this->render(
-                    'left-waka.php', ['directoryAsset' => $directoryAsset]
+                    'left-waka.php', ['directoryAsset' => $directoryAsset, 'dataCount' => $dataCount]
             )
             ?>
 

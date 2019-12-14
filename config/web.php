@@ -2,6 +2,8 @@
 
 use \kartik\datecontrol\Module;
 
+use app\models\PengajuanSearch;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -17,6 +19,11 @@ $config = [
     'on beforeRequest' => function ($event) {
         if (!Yii::$app->user->isGuest) {
             if (Yii::$app->user->identity->AuthKey == 'test101key') {
+                $searchModel = new PengajuanSearch();
+                $dataProvider = $searchModel->search(null)->count;
+                
+                Yii::$app->view->params['countData'] = $dataProvider;
+                
                 Yii::$app->layout = '@app/views/layouts/main-waka.php';
             }
             if (Yii::$app->user->identity->AuthKey == 'test100key') {
