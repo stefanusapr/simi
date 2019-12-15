@@ -11,7 +11,6 @@ use yii\helpers\ArrayHelper;
 //    }
 //    echo "<br>";
 //}
-//
 //exit;
 ?>
 
@@ -43,59 +42,29 @@ use yii\helpers\ArrayHelper;
     <div class="box box-info" style="overflow-x: auto;">
         <div class="row">
             <div class="col-md-12">
-                <p style="font-size:18px" class="text-center"><b><u>DETAIL MASTER BARANG</u></b></p>
+                <p style="font-size:18px" class="text-center"><b><u>LAPORAN INVENTARIS BARANG</u></b></p>
                 <br>
             </div>
-        </div>
-
-        <div class="box box-info" style="overflow-x: auto; padding: 15px;">
-            <table>
-                <tr>
-                    <th>Nama Barang</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <td>:</td>
-                    <td>phpnya ambil data untuk nama barang</td> 
-                </tr>
-                <tr>
-                    <th>Kode Barang</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <td>:</td>
-                    <td>untuk kode barang</td>
-                </tr>
-            </table>
-            <br>
-            <p style="font-size:14px" >Berikut ini merupakan rincian transaksi pada barang (php nama barang): </p>
         </div>
 
         <div class="box box-info" style="overflow-x: auto; padding: 15px;">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th rowspan="2">No.</th>
-                        <th colspan="4"></th>
-                        <th colspan="4"></th>
-                    </tr>
-                    <tr>
                         <th>No.</th>
-                        <th>Tanggal</th>
-                        <th>Pemasok</th>
-                        <th>Jumlah</th>
+                        <th>Kode Barang </th>
+                        <th>Nama Barang </th>
+                        <th>Jumlah Barang</th>
+                        <th>Merk Barang</th>
+                        <th>Jenis Barang</th>        
                         <th>Keterangan</th>
-                        <th>Tanggal</th>        
-                        <th>Nama Penerima</th>
-                        <th>Jumlah/th>
-                        <th>Keterangan/th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
                         <?php
-                        for ($i = 0; $i < 9; $i++):
+                        for ($i = 0; $i < 6; $i++):
                             ?>
                             <td>
                                 <?= $i + 1; ?>
@@ -108,14 +77,12 @@ use yii\helpers\ArrayHelper;
                         ?>
                         <tr>
                             <td><?= ++$no; ?></td>
-                            <td><?= $detail->tgl_masuk ?></td>
-                            <td><?= $detail->vendor->nama ?></td>
-                            <td><?= $detail->jumlah ?></td>
-                            <td><?= $detail->keterangan ?></td>
-                            <td><?= $detail->tgl_keluar ?></td>
-                            <td><?= $detail->nama_penerima ?></td>                               
-                            <td><?= $detail->jumlah ?></td>   
-                            <td><?= $detail->keterangan ?></td>   
+                            <td><?= $detail->kode_barang ?></td>
+                            <td><?= $detail->nama ?></td>
+                            <td><?= $detail->stok ?></td>
+                            <td><?= $detail->merk ?></td>
+                            <td><?= $detail->jenis ?></td>
+                            <td><?= $detail->keterangan ?></td>    
                         </tr>
                     <?php endforeach ?> 
                 </tbody>

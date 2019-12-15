@@ -236,6 +236,7 @@ class BarangController extends Controller {
     public function actionReport() {
         $searchModel = new BarangSearch();
         $details = $searchModel->search(Yii::$app->request->queryParams);
+        
 
         $content = $this->renderPartial('report', [
             'modelDetails' => $details,
@@ -278,13 +279,14 @@ class BarangController extends Controller {
         $searchModel = new BarangSearch();
         $details = $searchModel->search(Yii::$app->request->queryParams);
 
-        $searchModel = new BarangSearch();
-
         $dataProviderTM = $searchModel->searchTMByID(Yii::$app->request->queryParams, $id);
         $dataProviderTK = $searchModel->searchTKByID(Yii::$app->request->queryParams, $id);
 
         $content = $this->renderPartial('report-details', [
+            'model' => $this->findModel($id),
             'modelDetails' => $details,
+            'dataProviderTM' => $dataProviderTM,
+            'dataProviderTK' => $dataProviderTK,
         ]);
 
 //        Yii::$app->response->headers->set($name, $value)
