@@ -70,9 +70,10 @@ class TransaksiMasukSearch extends TransaksiMasuk {
             'asc' => ['vendor.nama' => SORT_ASC],
             'desc' => ['vendor.nama' => SORT_DESC],
         ];
-        
+                
         $query->joinWith(['vendor']); 
-
+        
+        
         $this->load($params);
         if (!$this->validate()) {
             $query->where('0=1');

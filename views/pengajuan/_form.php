@@ -66,6 +66,10 @@ use app\models\Barang;
             <h4 class="panel-title pull-left" style="padding-top: 7.5px;"><i class="glyphicon glyphicon-th-list"></i> Detail Pengajuan</h4>
             <div class="btn-group pull-right">
                 <!-- Button trigger modal -->
+                <!--                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalBarang" id="myModalBarang">
+                                    Tambah Barang Baru
+                                </button>-->
+                <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Barang', ['create-barang'], ['class' => 'btn btn-primary']) ?>
 
             </div>
         </div>
@@ -84,12 +88,25 @@ use app\models\Barang;
                         <div class="col-md-3">
                             <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
-                                'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama'),
+                                'data' => ArrayHelper::map(Barang::getBarangAvailable(), 'id', 'nama', 'merk'),
                             ]);
                             ?>
                         </div>
                         <div class="col-md-2">
-                            <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true]) ?>
+                            <?=
+                            $form->field($detail, "[{$i}]jumlah", [
+                                'template' => '
+                                                {label}
+                                                <div class="input-group">
+                                                   {input}
+                                                   <span class="input-group-addon">
+                                                      <span><b>Qty</b></span>
+                                                   </span>
+                                                </div>
+                                                {error}{hint}
+                                            '
+                            ])->textInput(['type' => 'number', 'min' => 0, 'maxlength' => true])
+                            ?>
                         </div>
                         <div class="col-md-3">
                             <?=

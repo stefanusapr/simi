@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="transaksi-masuk-index">
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Transaksi Masuk', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-info']) ?>
     </p>
 
     <?= $this->render('_search', ['model' => $searchModel]); ?>
@@ -44,20 +44,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tgl_masuk',
                 'format' => ['date', 'php: d-m-Y'],
             ],
+                        'vendor.nama',
             [
-                'attribute' => 'tgl_spk',
-                'format' => ['date', 'php: d-m-Y'],
+                'label' => 'Barang',
+                'value' => function($dataProvider) {
+                    return join(', ', yii\helpers\ArrayHelper::map($dataProvider->transaksiMasukDetails, 'id_barang', 'barang.nama'));
+                },
             ],
-            'vendor.nama',
-            'no_faktur',
-            [
-                'attribute' => 'tgl_faktur',
-                'format' => ['date', 'php: d-m-Y'],
-            ],
-            //'no_berita_acara',
-            //  'tgl_berita_acara',
-            // 'no_pemeriksaan',
-            //'tgl_pemeriksaan',
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',

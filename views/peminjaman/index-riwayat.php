@@ -52,29 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tgl_kembali',
                 'format' => ['date', 'php: d-m-Y'],
             ],
-            [
-                'attribute' => 'id_transaksi_keluar',
-                'value' => 'transaksiKeluar.nama_penerima',
-                'header' => 'Nama Peminjam',
-            ],
-            [
-                'attribute' => 'id_barang',
-                'value' => 'barang.kode_barang',
-                'header' => 'Kode Barang',
-            ],
-            [
-                'attribute' => 'id_barang',
-                'value' => 'barang.nama',
-                'header' => 'Nama Barang',
-            ],
-            [
-                'attribute' => 'jumlah',
-                'header' => 'Jumlah',
-            ],
-            [
-                'attribute' => 'keterangan',
-                'header' => 'Keterangan',
-            ],
+            'transaksiKeluar.nama_penerima',
+            'barang.nama',
+            'jumlah',
+            'keterangan',
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',

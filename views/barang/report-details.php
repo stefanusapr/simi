@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
-foreach ($dataProviderTM->models as $key => $j) {
-    var_dump($key);
-    var_dump($j->harga_satuan);
-}
-echo"<br><br>";
-    var_dump($dataProviderTM->models);
-
-exit;
+//foreach ($dataProviderTM->models as $key => $j) {
+//    var_dump($key);
+//    var_dump($j->harga_satuan);
+//}
+//echo"<br><br>";
+//    var_dump($dataProviderTM->models);
+//
+//exit;
 ?>
 
 <div class="pdf-report container">
@@ -67,17 +67,58 @@ exit;
         <div class="box box-info" style="overflow-x: auto; padding: 15px;">
             <table class="table table-bordered">
                 <thead>
-<!--                    <tr>
-                        <th colspan="4"></th>
-                        <th colspan="4"></th>
-                        <th colspan="4"></th>
-                    </tr>-->
                     <tr>
-                        <th>No.</th>
+                        <th rowspan="2">No.</th>                        
+                        <th colspan="7">Transaksi Masuk</th>
+                    </tr>
+                    <tr>
                         <th>Tanggal</th>
                         <th>Pemasok</th>
                         <th>Jumlah</th>
+                        <th>Harga Satuan</th>                        
+                        <th>Total Harga</th>                                                
+                        <th>Tahun</th>
                         <th>Keterangan</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <?php
+                        for ($i = 0; $i < 8; $i++):
+                            ?>
+                            <td>
+                                <?= $i + 1; ?>
+                            </td>
+                        <?php endfor; ?>
+                    </tr>
+                    <?php
+                    $no = 0;
+                    foreach ($dataProviderTM->models as $detail):
+                        ?>
+                        <tr>
+                            <td><?= ++$no; ?></td>
+                            <td><?= $detail->transaksiMasuk->tgl_masuk ?></td>
+                            <td><?= $detail->transaksiMasuk->vendor->nama ?></td>
+                            <td><?= $detail->jumlah ?></td>
+                            <td><?= Yii::$app->formatter->asCurrency($detail->harga_satuan) ?></td>
+                            <td><?= Yii::$app->formatter->asCurrency($detail->jumlah * $detail->harga_satuan) ?></td>
+                            <td><?= $detail->thn_produksi ?></td> 
+                            <td><?= $detail->keterangan ?></td>
+                        <?php endforeach ?> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="box box-info" style="overflow-x: auto; padding: 15px;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th rowspan="2">No.</th>
+                        <th colspan="4">Transaksi Keluar</th>
+                    </tr>
+                    <tr>
                         <th>Tanggal</th>        
                         <th>Nama Penerima</th>
                         <th>Jumlah</th>
@@ -87,37 +128,26 @@ exit;
 
                 <tbody>
                     <tr>
-                    <?php
-                    for ($i = 0; $i < 9; $i++):
-                        ?>
-                            <td>
-                            <?= $i + 1; ?>
-                            </td>
-                            <?php endfor; ?>
-                    </tr>
                         <?php
-                        $no = 0;
-                        foreach ($dataProviderTM->models as $detail):
+                        for ($i = 0; $i < 5; $i++):
                             ?>
+                            <td>
+                                <?= $i + 1; ?>
+                            </td>
+                        <?php endfor; ?>
+                    </tr>
+                    <?php
+                    $no = 0;
+                    foreach ($dataProviderTK->models as $detail):
+                        ?>
                         <tr>
                             <td><?= ++$no; ?></td>
-                            <td><?= $detail->transaksiMasuk->tgl_masuk ?></td>
-                            <td><?= $detail->transaksiMasuk->vendor->nama ?></td>
-                            <td><?= $detail->jumlah ?></td>
-                            <td><?= $detail->keterangan ?></td>
-                        
-                        <?php endforeach ?> 
-                        
-                        <?php
-                        foreach ($dataProviderTK->models as $detail):
-                            ?>
-                        
                             <td><?= $detail->transaksiKeluar->tgl_keluar ?></td>
                             <td><?= $detail->transaksiKeluar->nama_penerima ?></td>
                             <td><?= $detail->jumlah ?></td>
                             <td><?= $detail->keterangan ?></td> 
-                        </tr>
-                        <?php endforeach ?> 
+                        <?php endforeach ?>  
+                    </tr>
                 </tbody>
             </table>
         </div>

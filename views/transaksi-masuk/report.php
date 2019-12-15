@@ -32,7 +32,7 @@ use yii\helpers\Url;
     <div class="box box-info" style="overflow-x: auto;">
         <div class="row">
             <div class="col-md-12">
-                <p style="font-size:18px" class="text-center"><b><u>LAPORAN PENGELUARAN BARANG SARANA DAN PRASARANA</u></b></p>
+                <p style="font-size:18px" class="text-center"><b><u>LAPORAN PEMASUKAN BARANG SARANA DAN PRASARANA</u></b></p>
                 <br>
             </div>
         </div>
@@ -41,23 +41,30 @@ use yii\helpers\Url;
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th rowspan="2">No.</th>                        
+                        <th colspan="2">Transaksi Masuk</th>                                         
+                        <th colspan="3">Pemasok</th>
+                        <th colspan="6">Barang</th>                        
+                        <th colspan="2">Berita Acara</th>         
+                        <th colspan="2">Bukti Penerimaan</th>
+                        <th rowspan="2">Keterangan</th>
+                    </tr>
+                    <tr>
                         <th>Tanggal Masuk</th>
                         <th>Tanggal SPK</td>
-                        <th>Nama Vendor</td>
+                        <th>Nama</td>
                         <th>Nomor Faktur</th>
                         <th>Tanggal Faktur</th>
-                        <th>Nama Barang</th>
+                        <th>Nama</th>
                         <th>Merk</th>
                         <th>Jumlah</th>
                         <th>Harga Satuan</th>
                         <th>Total Harga</th>
                         <th>Tahun Pembuatan</th>
-                        <th>Nomor Berita Acara Pemeriksaan</th>
-                        <th>Tanggal Berita Acara Pemeriksaan</th>
-                        <th>Nomor Bukti Penerimaan</th>
-                        <th>Tanggal Bukti Penerimaan</th>
-                        <th>Keterangan</th>
+                        <th>Nomor</th>
+                        <th>Tanggal</th>
+                        <th>Nomor</th>
+                        <th>Tanggal</th>
                     </tr>
                 </thead>
 

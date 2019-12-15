@@ -96,10 +96,11 @@ class PeminjamanController extends Controller {
      * actionSelesai digunakan untuk tombol pengembalian barang
      * dg jenis barang tidak habis pakai
      * di saat pengguna pilih tombol kembali
-     * maka kolom tgl_kembali pada model: transaksi detail masuk
+     * maka kolom tgl_kembali pada model: transaksi detail keluar
      * akan diisi dengan tanggal ketika tombol kembali di klik
      * kemudian tgl tersebut akan di isi ke kolom tgl_kembali
      * sebagai pengembalian barang
+     * dan ketika sudah selesai dikembalikan, mak stok pada master barang bertambah sesuai dg jumlah yang dipinjam
      */
     public function actionSelesai($id) {
         $model = $this->findModel($id);

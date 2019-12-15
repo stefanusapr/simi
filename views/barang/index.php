@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="barang-index">
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Barang', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-info']) ?>
 
     </p>
     <div class="row">
@@ -77,13 +77,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',
-                'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
+                'template' => '{lihat} &nbsp {edit} &nbsp {cetak} &nbsp {hapus}',
                 'buttons' => [
                     'edit' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary',]);
                     },
                     'lihat' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view', 'id' => $model->id], ['class' => 'btn btn-success',]);
+                    },
+                    'cetak' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report-details', 'id' => $model->id], ['class' => 'btn btn-info']);
                     },
                     'hapus' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span> Hapus', ['delete', 'id' => $model->id], [

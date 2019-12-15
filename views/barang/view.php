@@ -2,9 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use kidzen\dynamicform\DynamicFormWidget;
-use app\models\TransaksiMasuk;
-use app\models\TransaksiMasukDetail;
 use yii\grid\GridView;
 
 //use yii\grid\GridView;
@@ -87,6 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             'transaksiMasuk.vendor.nama',
                             'jumlah',
+                            'thn_produksi',
                             'keterangan',
                         ],
                     ]);

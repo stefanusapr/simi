@@ -136,7 +136,20 @@ use yii\widgets\MaskedInput;
                             ?>
                         </div>
                         <div class="col-md-2">
-                            <?= $form->field($detail, "[{$i}]jumlah")->textInput(['maxlength' => true, 'disabled' => 'true']) ?>
+                            <?=
+                            $form->field($detail, "[{$i}]jumlah", [
+                                'template' => '
+                                                {label}
+                                                <div class="input-group">
+                                                   {input}
+                                                   <span class="input-group-addon">
+                                                      <span><b>Qty</b></span>
+                                                   </span>
+                                                </div>
+                                                {error}{hint}
+                                            '
+                            ])->textInput(['type' => 'number', 'min' => 0, 'maxlength' => true, 'disabled' => 'true'])
+                            ?>
                         </div>
                         <div class="col-md-3">
                             <?=

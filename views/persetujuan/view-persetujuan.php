@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengajuan-view">
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', '<span class="glyphicon glyphicon-list"></span> Daftar Pengajuan'), ['index-persetujuan'], ['class' => 'btn btn-warning']) ?>
     </p>  
 

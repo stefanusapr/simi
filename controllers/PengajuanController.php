@@ -16,6 +16,7 @@ use app\models\PengajuanBarang;
 use app\models\PengajuanBarangSearch;
 use app\models\Model;
 use kartik\mpdf\Pdf;
+use yii\helpers\Url;
 
 /**
  * PengajuanController implements the CRUD actions for Pengajuan model.
@@ -38,6 +39,7 @@ class PengajuanController extends Controller {
                             'view',
                             'view-persetujuan',
                             'report',
+                            'create-barang',
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
@@ -197,6 +199,13 @@ class PengajuanController extends Controller {
                         'modelDetail' => (empty($modelDetail)) ? [new PengajuanBarang] : $modelDetail,
             ]);
         }
+    }
+
+   public function actionCreateBarang() {
+
+        Url::remember(['pengajuan/create'], 'p-create');
+
+        return $this->redirect(['barang/create']);
     }
 
     /**

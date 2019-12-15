@@ -52,12 +52,12 @@ use yii\helpers\ArrayHelper;
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Tanggal Keluar </th>
+                        <th>Tanggal Keluar</th>
                         <th>Tanggal SPK</th>
                         <th>Nama Penerima</th>
-                        <th>Nama Barang</th>
-                        <th>Merk Barang</th>
-                        <th>Jumlah Barang</th>             
+                        <th>Barang</th>
+                        <th>Merk</th>
+                        <th>Jumlah</th>             
                         <th>Keterangan</th>
                     </tr>
                 </thead>

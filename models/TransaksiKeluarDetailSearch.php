@@ -50,17 +50,30 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $dataProvider->sort->attributes['transaksiKeluar.nama_penerima'] = [
+            'asc' => ['transaksiKeluar.nama_penerima' => SORT_ASC],
+            'desc' => ['transaksiKeluar.nama_penerima' => SORT_DESC],
+        ];
 
+        $dataProvider->sort->attributes['transaksiKeluar.tgl_keluar'] = [
+            'asc' => ['transaksiKeluar.tgl_keluar' => SORT_ASC],
+            'desc' => ['transaksiKeluar.tgl_keluar' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['barang.nama'] = [
+            'asc' => ['barang.nama' => SORT_ASC],
+            'desc' => ['barang.nama' => SORT_DESC],
+        ];
+
+        $query->joinWith(['transaksiKeluar']);
+
+        $this->load($params);
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            $query->where('0=1');
             return $dataProvider;
         }
 
         // grid filtering conditions
-
-
         $query->andFilterWhere([
             'id' => $this->id,
             'id_barang' => $this->id_barang,
@@ -70,7 +83,8 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
         ]);
 
         $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
-                ->orFilterWhere(['like', 'keterangan', $this->cari]);
+                ->orFilterWhere(['like', 'keterangan', $this->cari])
+                ->orFilterWhere(['like', 'transaksiKeluar.nama_penerima', $this->cari]);
 
         return $dataProvider;
     }
@@ -86,6 +100,11 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+        $dataProvider->sort->attributes['barang.nama'] = [
+            'asc' => ['barang.nama' => SORT_ASC],
+            'desc' => ['barang.nama' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -107,7 +126,8 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
         ]);
 
         $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
-                ->orFilterWhere(['like', 'keterangan', $this->cari]);
+                ->orFilterWhere(['like', 'keterangan', $this->cari])
+                ->orFilterWhere(['like', 'barang.nama', $this->cari]);
 
         return $dataProvider;
     }

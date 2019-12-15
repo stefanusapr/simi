@@ -61,7 +61,6 @@ class TransaksiKeluarSearch extends TransaksiKeluar {
         $this->createTimeStart = strtotime($this->createTimeStart);
         $this->createTimeEnd = strtotime(date('Y-m-d'));
 
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

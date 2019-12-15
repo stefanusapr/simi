@@ -67,17 +67,33 @@ class SiteController extends Controller {
     public function actionIndex() {
         $searchModelBarang = new \app\models\BarangSearch();
         $countBarang = $searchModelBarang->search(null)->TotalCount;
-        
+
         $searchModelTM = new \app\models\TransaksiMasukSearch();
         $countTM = $searchModelTM->search(null)->TotalCount;
-        
+
         $searchModelTK = new \app\models\TransaksiKeluarSearch();
         $countTK = $searchModelTK->search(null)->TotalCount;
-        
+
+        $searchModelPinjam = new \app\models\TransaksiKeluarDetailSearch();
+        $countPinjam = $searchModelPinjam->searchPeminjaman(null)->TotalCount;
+
+        $searchModelVendor = new \app\models\TransaksiKeluarDetailSearch();
+        $countVendor = $searchModelVendor->search(null)->TotalCount;
+
+        $searchModelPengajuan = new \app\models\PengajuanSearch();
+        $countPengajuan = $searchModelPengajuan->search(null)->TotalCount;
+
+        $searchModelPersetujuan = new \app\models\PengajuanSearch();
+        $countPersetujuan = $searchModelPersetujuan->searchRiwayat(null)->TotalCount;
+
         return $this->render('index', [
-            'countBarang' => $countBarang,
-            'countTM' => $countTM,
-            'countTK' => $countTK,
+                    'countBarang' => $countBarang,
+                    'countTM' => $countTM,
+                    'countTK' => $countTK,
+                    'countPinjam' => $countPinjam,
+                    'countVendor' => $countVendor,
+                    'countPengajuan' => $countPengajuan,
+                    'countPersetujuan' => $countPersetujuan,  
         ]);
     }
 

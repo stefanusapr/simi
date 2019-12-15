@@ -52,7 +52,7 @@ class PengajuanBarang extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'Kode',
-            'id_barang' => 'Kode Barang',
+            'id_barang' => 'Nama Barang',
             'id_pengajuan' => 'Kode Pengajuan',
             'jumlah' => 'Jumlah (satuan)',
             'harga_satuan' => 'Harga Satuan',
@@ -80,5 +80,5 @@ class PengajuanBarang extends \yii\db\ActiveRecord
     public function getStatusLabel() {
         return $this->status ? 'Setuju pembelian' : 'Tunda pembelian';
     }
-    
+        
 }

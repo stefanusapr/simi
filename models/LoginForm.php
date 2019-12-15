@@ -33,7 +33,17 @@ class LoginForm extends Model
             ['password', 'validatePassword'],
         ];
     }
-
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels() {
+        return [
+            'username' => 'Nama pengguna',
+            'password' => 'Kata Sandi',
+            'rememberMe' => 'Ingat saya',
+        ];
+    }
     /**
      * Validates the password.
      * This method serves as the inline validation for password.

@@ -43,33 +43,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'TK-' . $dataProvider->transaksiKeluar->id;
                 }
             ],
+            'transaksiKeluar.nama_penerima',
+            'barang.nama',
+            'jumlah',
+            'keterangan',
             [
-                'attribute' => 'id_transaksi_keluar',
-                'value' => 'transaksiKeluar.nama_penerima',
-                'header' => 'Nama Peminjam',
-            ],
-            [
-                'attribute' => 'id_barang',
-                'value' => 'barang.kode_barang',
-                'header' => 'Kode Barang',
-            ],
-            [
-                'attribute' => 'id_barang',
-                'value' => 'barang.nama',
-                'header' => 'Nama Barang',
-            ],
-            [
-                'attribute' => 'jumlah',
-                'header' => 'Jumlah',
-            ],
-            [
-                'attribute' => 'keterangan',
-                'header' => 'Keterangan',
-            ],
-            [
-                'attribute' => 'tgl_keluar',
-                'value' => 'transaksiKeluar.tgl_keluar',
+                'attribute' => 'transaksiKeluar.tgl_keluar',
                 'format' => ['date', 'php: d-m-Y'],
+                'header' => 'Tanggal peminjaman',
             ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],

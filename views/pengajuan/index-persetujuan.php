@@ -51,19 +51,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => 'StatusLabel',
             ],
+            [
+                'label' => 'Barang yg disetujui yg muncul',
+                'value' => function($dataProvider) {
+                    return join(', ', yii\helpers\ArrayHelper::map($dataProvider->pengajuanBarangs, 'id_barang', 'barang.nama'));
+                },
+            ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',
-                'template' => '{lihat} &nbsp {edit} &nbsp {hapus}',
+                'template' => '{lihat} &nbsp {cetak} &nbsp {hapus}',
                 'buttons' => [
                     'lihat' => function($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Lihat', ['view-persetujuan', 'id' => $model->id], ['class' => 'btn btn-success',]);
-                    }
+                    },
+                    'cetak' => function($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report', 'id' => $model->id], ['class' => 'btn btn-info']);
+                    },
                 ]
             ],
         ],
     ]);
     ?>
-    
+
 </div>
 

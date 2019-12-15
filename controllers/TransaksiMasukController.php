@@ -400,7 +400,7 @@ class TransaksiMasukController extends Controller {
             //'options' => ['title' => 'Customer Invoice'],
             // call mPDF methods on the fly
             'methods' => [
-                //   'SetHeader'=>['Krajee Report Header'], 
+                'SetHeader'=>[''], 
                 'SetFooter' => ['Halaman {PAGENO}'],
             ]
         ]);

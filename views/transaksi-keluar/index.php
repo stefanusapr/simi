@@ -14,17 +14,15 @@ $this->title = 'Transaksi Keluar';
 $this->params['breadcrumbs'][] = $this->title;
 
 //var_dump($dataProvider);exit;
-
 ?>
 <div class="transaksi-keluar-index">
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Transaksi Keluar', ['create'], ['class' => 'btn btn-success']) ?>
         <?=
-        Html::a('<span class="glyphicon glyphicon-print"></span> Cetak',
-                ['report'], [
+        Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], [
             'data-method' => 'POST',
             'data-params' => ['param1' => $dataProvider],
-            'class' => 'btn btn-primary',
+            'class' => 'btn btn-info',
         ])
         ?>
     </p>
@@ -58,13 +56,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => ['date', 'php: d-m-Y'],
             ],
             [
-                'attribute' => 'tgl_surat',
-                'format' => ['date', 'php: d-m-Y'],
+                'attribute' => 'nama_penerima',
                 'headerOptions' => ['style' => 'width:15%'],
             ],
             [
-                'attribute' => 'nama_penerima',
-                'headerOptions' => ['style' => 'width:15%'],
+                'label' => 'Barang',
+                'value' => function($dataProvider) {
+                    return join(', ', yii\helpers\ArrayHelper::map($dataProvider->transaksiKeluarDetails, 'id_barang', 'barang.nama'));
+                },
             ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
