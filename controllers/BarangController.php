@@ -169,6 +169,8 @@ class BarangController extends Controller {
                             'success', 'Berhasil menambahkan barang : <b>' . $model->nama
                     );
                     return $this->redirect($var);
+                } else {
+                    return $this->redirect(['view', 'id' => $model->id]);
                 }
                 if (Url::previous('p-create')) {
                     $vari = Url::previous('p-create');
@@ -285,7 +287,7 @@ class BarangController extends Controller {
             //'options' => ['title' => 'Customer Invoice'],
             // call mPDF methods on the fly
             'methods' => [
-                'SetHeader'=>[], 
+                'SetHeader' => [],
                 'SetFooter' => ['Halaman {PAGENO}'],
             ]
         ]);
