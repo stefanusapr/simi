@@ -34,7 +34,7 @@ use kartik\datecontrol\Module;
             ?>
 
         </div>   
-        <div class="col-md-3 col-md-offset-4">
+        <div class="col-md-4 col-md-offset-4">
             <div class="drp-container">
                 <div class="input-group">
                     <?=
@@ -53,6 +53,7 @@ use kartik\datecontrol\Module;
                     ?>
                     <div class="input-group-btn">
                         <?= Html::submitButton('', ['class' => 'btn btn-primary glyphicon glyphicon-search']) ?>
+                        <?= Html::a('Reset', ['index'], ['class' => 'btn btn-default']); ?>
                     </div>
                 </div>
             </div>

@@ -90,4 +90,5 @@ class TransaksiKeluarSearch extends TransaksiKeluar {
 
         return $dataProvider;
     }
+
 }

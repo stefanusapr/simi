@@ -40,7 +40,7 @@ class LoginForm extends Model
     public function attributeLabels() {
         return [
             'username' => 'Nama pengguna',
-            'password' => 'Kata Sandi',
+            'password' => 'Kata sandi',
             'rememberMe' => 'Ingat saya',
         ];
     }
@@ -57,7 +57,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Username atau kata sandi salah.');
+                $this->addError($attribute, 'Nama pengguna atau Kata sandi salah.');
             }
             
         }

@@ -14,8 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="peminjaman-index">
     <div class="row">
-        <div class="col-md-3">
-            <?= $this->render('_search', ['model' => $searchModel]); ?>
+        <div class="col-md-12">
+            <?=  $this->render('_search', ['model' => $searchModel]); ?>
         </div>
         <!-- <div class="col-md-4">
                     <p>

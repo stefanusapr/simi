@@ -69,7 +69,7 @@ use yii\helpers\ArrayHelper;
                 <thead>
                     <tr>
                         <th rowspan="2">No.</th>                        
-                        <th colspan="7">Transaksi Masuk</th>
+                        <th colspan="7">Transaksi Peminjaman</th>
                     </tr>
                     <tr>
                         <th>Tanggal</th>
@@ -98,7 +98,7 @@ use yii\helpers\ArrayHelper;
                         ?>
                         <tr>
                             <td><?= ++$no; ?></td>
-                            <td><?= $detail->transaksiMasuk->tgl_masuk ?></td>
+                            <td><?= Yii::$app->formatter->asDate($detail->transaksiMasuk->tgl_masuk) ?></td>
                             <td><?= $detail->transaksiMasuk->vendor->nama ?></td>
                             <td><?= $detail->jumlah ?></td>
                             <td><?= Yii::$app->formatter->asCurrency($detail->harga_satuan) ?></td>
@@ -142,7 +142,7 @@ use yii\helpers\ArrayHelper;
                         ?>
                         <tr>
                             <td><?= ++$no; ?></td>
-                            <td><?= $detail->transaksiKeluar->tgl_keluar ?></td>
+                            <td><?= Yii::$app->formatter->asDate($detail->transaksiKeluar->tgl_keluar) ?></td>
                             <td><?= $detail->transaksiKeluar->nama_penerima ?></td>
                             <td><?= $detail->jumlah ?></td>
                             <td><?= $detail->keterangan ?></td> 

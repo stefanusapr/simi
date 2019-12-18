@@ -34,7 +34,8 @@ class Vendor extends \yii\db\ActiveRecord
         return [
             [['nama'], 'required'],
             [['alamat', 'keterangan'], 'string'],
-            [['nama', 'no_hp', 'email'], 'string', 'max' => 255],
+            [['nama', 'email'], 'string', 'max' => 255],
+            [['no_hp'], 'integer'],
         ];
     }
 

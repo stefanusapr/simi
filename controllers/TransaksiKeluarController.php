@@ -75,11 +75,11 @@ class TransaksiKeluarController extends Controller {
         // save query here
         $session['repquery'] = Yii::$app->request->queryParams;
         
-        if (Yii::$app->request->queryParams) {
-            $searchModel->createTimeRange = Yii::$app->request->queryParams['TransaksiKeluarSearch']['createTimeRange'];
-        } else {
-            $searchModel->createTimeRange = $searchModel->createTimeRange = date('Y').'-01-01 - ' . date('Y-m-d');
-        }
+//        if (Yii::$app->request->queryParams) {
+//            $searchModel->createTimeRange = Yii::$app->request->queryParams['TransaksiKeluarSearch']['createTimeRange'];
+//        } else {
+//            $searchModel->createTimeRange = $searchModel->createTimeRange = date('Y').'-01-01 - ' . date('Y-m-d');
+//        }
 
         $dataProvider->pagination->pageSize = 10;
 

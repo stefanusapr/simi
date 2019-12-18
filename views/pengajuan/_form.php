@@ -7,7 +7,6 @@ use kartik\select2\Select2;
 use kidzen\dynamicform\DynamicFormWidget;
 use kartik\datecontrol\DateControl;
 use yii\widgets\MaskedInput;
-
 use app\models\Barang;
 
 /* @var $this yii\web\View */
@@ -85,10 +84,10 @@ use app\models\Barang;
                             echo Html::activeHiddenInput($detail, "[{$i}]id");
                         }
                         ?>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
-                                'data' => ArrayHelper::map(Barang::getBarangAvailable(), 'id', 'nama', 'merk'),
+                                'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama', 'merk'),
                             ]);
                             ?>
                         </div>

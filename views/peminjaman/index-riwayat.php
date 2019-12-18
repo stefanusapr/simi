@@ -14,15 +14,18 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="peminjaman-index">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-12">
             <?= $this->render('_search', ['model' => $searchModel]); ?>
         </div>
-        <!-- <div class="col-md-4">
-                    <p>
-        <?php // Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['#'], ['class' => 'btn btn-info']) ?>
-                    </p>
-                </div>-->
     </div>
+    
+    <div class="row">
+            <div class="col-md-4">
+                <p>
+                    <?= Html::a('<span class="glyphicon glyphicon-print"></span> Cetak', ['report'], ['class' => 'btn btn-info']) ?>
+                </p>
+            </div>
+        </div>
 
     <?=
     GridView::widget([
@@ -47,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tgl_keluar',
                 'value' => 'transaksiKeluar.tgl_keluar',
                 'format' => ['date', 'php: d-m-Y'],
+                'header' => 'Tanggal Peminjaman',
             ],
             [
                 'attribute' => 'tgl_kembali',

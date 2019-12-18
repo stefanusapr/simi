@@ -3,20 +3,14 @@
 namespace app\controllers;
 
 use Yii;
-use DateTime;
 use app\models\TransaksiKeluar;
-use app\models\TransaksiKeluarSearch;
 use app\models\TransaksiKeluarDetail;
 use app\models\TransaksiKeluarDetailSearch;
-use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
-use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
 use yii\filters\AccessControl;
-
+use kartik\mpdf\Pdf;
 /**
  * TransaksiKeluarController implements the CRUD actions for TransaksiKeluar model.
  */
@@ -36,6 +30,7 @@ class PeminjamanController extends Controller {
                             'view',
                             'selesai',
                             'index-riwayat',
+                            'report',
                         ],
                         'allow' => true,
                         'matchCallback' => function() {
@@ -153,6 +148,47 @@ class PeminjamanController extends Controller {
                     'model' => $this->findModelKeluar($id),
                     'modelDetail' => $this->findDetails($id),
         ]);
+    }
+    
+    public function actionReport() {
+        $searchModel = new TransaksiKeluarDetailSearch();
+        $details = $searchModel->searchRiwayatPeminjaman(Yii::$app->request->queryParams);
+
+
+        $content = $this->renderPartial('report', [
+            'modelDetails' => $details,
+        ]);
+
+//        Yii::$app->response->headers->set($name, $value)
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+            //Name for the file
+            'filename' => 'Laporan_Peminjaman',
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            'marginTop' => 5,
+            'marginLeft' => 5,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            // set mPDF properties on the fly
+            //'options' => ['title' => 'Customer Invoice'],
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetHeader' => [],
+                'SetFooter' => ['Halaman {PAGENO} {DATETIME}'],
+            ]
+        ]);
+        return $pdf->render();
     }
 
 }

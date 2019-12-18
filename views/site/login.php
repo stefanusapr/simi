@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body login-card-body">
 
             <div class="login-logo">
-                <a href="../../index2.html"><?= Html::encode($this->title) ?></a>
+                <?= Html::encode($this->title) ?>
             </div>
 
             <?php
@@ -30,25 +30,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'password')->label(false)->input('password', ['placeholder' => 'Kata Sandi']) ?>
             </div>
             <div class="mb-8">
-<!--                <div class="icheck-primary">
-                    <?pjp //echo 
-                    $form->field($model, 'rememberMe')->checkbox([
-                        'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                        'label' => "Ingat saya",
-                    ])
-                    ?>
-                </div>-->
+                <!--                <div class="icheck-primary">
+                                    <?pjp //echo 
+                                    $form->field($model, 'rememberMe')->checkbox([
+                                        'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+                                        'label' => "Ingat saya",
+                                    ])
+                                    ?>
+                                </div>-->
                 <!-- /.col -->
                 <div class="col-6">
-                    <?= Html::submitButton('Masuk', [
+                    <?=
+                    Html::submitButton('Masuk', [
                         'class' => 'btn btn-primary',
                         'name' => 'login-button'
-                        ])
+                    ])
                     ?>
                 </div>
                 <!-- /.col -->
             </div>
-            <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
         </div>
         <!-- /.login-card-body -->
