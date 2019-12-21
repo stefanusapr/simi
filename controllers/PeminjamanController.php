@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use kartik\mpdf\Pdf;
+
 /**
  * TransaksiKeluarController implements the CRUD actions for TransaksiKeluar model.
  */
@@ -72,12 +73,20 @@ class PeminjamanController extends Controller {
      * 
      * @return 
      * actionRiwayat untuk menampilkan data transaksi keluar dg jenis barang tidak habis pakai
-     * yang pelu di kembalikan barangnya
+     * yang perlu dikembalikan barangnya
      * dengan menampilkan riwayat pengembalian barang
      */
     public function actionIndexRiwayat() {
         $searchModel = new TransaksiKeluarDetailSearch();
         $dataProvider = $searchModel->searchRiwayatPeminjaman(Yii::$app->request->queryParams);
+
+        $session = Yii::$app->session;
+        // check if a session is already open
+        if (!$session->isActive) {
+            $session->open(); // open a session
+        }
+        // save query here
+        $session['repquery'] = Yii::$app->request->queryParams;
 
         $dataProvider->pagination->pageSize = 10;
 
@@ -99,7 +108,7 @@ class PeminjamanController extends Controller {
      */
     public function actionSelesai($id) {
         $model = $this->findModel($id);
-        
+
         $model['tgl_kembali'] = date('Y-m-d');
         $model['barang']['stok'] += $model['jumlah'];
         $model->save();
@@ -149,11 +158,10 @@ class PeminjamanController extends Controller {
                     'modelDetail' => $this->findDetails($id),
         ]);
     }
-    
+
     public function actionReport() {
         $searchModel = new TransaksiKeluarDetailSearch();
-        $details = $searchModel->searchRiwayatPeminjaman(Yii::$app->request->queryParams);
-
+        $details = $searchModel->searchRiwayatPeminjaman(Yii::$app->session->get('repquery'));
 
         $content = $this->renderPartial('report', [
             'modelDetails' => $details,

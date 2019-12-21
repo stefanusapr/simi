@@ -77,7 +77,7 @@ class SiteController extends Controller {
         $searchModelPinjam = new \app\models\TransaksiKeluarDetailSearch();
         $countPinjam = $searchModelPinjam->searchPeminjaman(null)->TotalCount;
 
-        $searchModelVendor = new \app\models\TransaksiKeluarDetailSearch();
+        $searchModelVendor = new \app\models\VendorSearch();
         $countVendor = $searchModelVendor->search(null)->TotalCount;
 
         $searchModelPengajuan = new \app\models\PengajuanSearch();

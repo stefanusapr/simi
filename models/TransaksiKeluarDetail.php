@@ -65,6 +65,6 @@ class TransaksiKeluarDetail extends \yii\db\ActiveRecord {
      */
     public function getTransaksiKeluar() {
         return $this->hasOne(TransaksiKeluar::className(), ['id' => 'id_transaksi_keluar']);
-    }  
+    }
 
 }

@@ -12,7 +12,7 @@ use kartik\daterange\DateRangeBehavior;
  */
 class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
 
-     public $createTimeRange;
+    public $createTimeRange;
     public $createTimeStart;
     public $createTimeEnd;
     public $cari;
@@ -37,6 +37,7 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
     public function rules() {
         return [
             [['id', 'id_barang', 'id_transaksi_keluar'], 'integer'],
+            [['createTimeRange'], 'match', 'pattern' => '/^.+\s\-\s.+$/'],
             [['keterangan', 'jumlah', 'tgl_kembali', 'cari'], 'safe'],
         ];
     }
@@ -63,31 +64,32 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
                 ->where(['barang.jenis' => 'Tidak Habis Pakai'])
                 ->andWhere(['tgl_kembali' => null])
         ;
-        
+
+        $query->joinWith(['transaksiKeluar']);
+
         // add conditions that should always apply here
         $this->createTimeStart = strtotime($this->createTimeStart);
         $this->createTimeEnd = strtotime(date('Y-m-d'));
 
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $dataProvider->sort->attributes['transaksiKeluar.nama_penerima'] = [
-            'asc' => ['nama_penerima' => SORT_ASC],
-            'desc' => ['nama_penerima' => SORT_DESC],
-        ];
-
-        $dataProvider->sort->attributes['transaksiKeluar.tgl_keluar'] = [
-            'asc' => ['tgl_keluar' => SORT_ASC],
-            'desc' => ['tgl_keluar' => SORT_DESC],
-        ];
 
         $dataProvider->sort->attributes['barang.nama'] = [
             'asc' => ['barang.nama' => SORT_ASC],
             'desc' => ['barang.nama' => SORT_DESC],
         ];
 
-        $query->joinWith(['transaksiKeluar']);
+        $dataProvider->sort->attributes['transaksiKeluar.nama_penerima'] = [
+            'asc' => ['transaksi_keluar.nama_penerima' => SORT_ASC],
+            'desc' => ['transaksi_keluar.nama_penerima' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['transaksiKeluar.tgl_keluar'] = [
+            'asc' => ['transaksi_keluar.tgl_keluar' => SORT_ASC],
+            'desc' => ['transaksi_keluar.tgl_keluar' => SORT_DESC],
+        ];
 
         $this->load($params);
         if (!$this->validate()) {
@@ -104,9 +106,11 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
             'tgl_kembali' => $this->tgl_kembali,
         ]);
 
-        $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
-                ->orFilterWhere(['like', 'keterangan', $this->cari])
-                ->orFilterWhere(['like', 'transaksiKeluar.nama_penerima', $this->cari]);
+        $query->andFilterWhere(['like', 'transaksi_keluar.nama_penerima', $this->cari])
+                ->orFilterWhere(['like', 'barang.nama', $this->cari]);
+
+        $query->andFilterWhere(['>=', 'transaksi_keluar.tgl_keluar', date('Y-m-d', ($this->createTimeStart))])
+                ->andFilterWhere(['<=', 'transaksi_keluar.tgl_keluar', date('Y-m-d', ($this->createTimeEnd))]);
 
         return $dataProvider;
     }
@@ -115,10 +119,11 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
 
         $query = TransaksiKeluarDetail::find()
                 ->joinWith('barang')
-                //->where(['barang.jenis' => 'Tidak Habis Pakai'])
                 ->andWhere(['not', ['tgl_kembali' => null]])
         ;
-        
+
+        $query->joinWith(['transaksiKeluar']);
+
         // add conditions that should always apply here
         $this->createTimeStart = strtotime($this->createTimeStart);
         $this->createTimeEnd = strtotime(date('Y-m-d'));
@@ -126,18 +131,21 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        
+
         $dataProvider->sort->attributes['transaksiKeluar.nama_penerima'] = [
             'asc' => ['nama_penerima' => SORT_ASC],
             'desc' => ['nama_penerima' => SORT_DESC],
         ];
-        
+
+        $dataProvider->sort->attributes['transaksiKeluar.tgl_keluar'] = [
+            'asc' => ['transaksi_keluar.tgl_keluar' => SORT_ASC],
+            'desc' => ['transaksi_keluar.tgl_keluar' => SORT_DESC],
+        ];
+
         $dataProvider->sort->attributes['barang.nama'] = [
             'asc' => ['barang.nama' => SORT_ASC],
             'desc' => ['barang.nama' => SORT_DESC],
         ];
-        
-        $query->joinWith(['transaksiKeluar']);
 
         $this->load($params);
 
@@ -158,13 +166,11 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
             'tgl_kembali' => $this->tgl_kembali,
         ]);
 
-        $query->orFilterWhere(['like', 'keterangan', $this->keterangan])                
-                ->orFilterWhere(['like', 'transaksiKeluar.nama_penerima', $this->cari]);
-//                ->orFilterWhere(['like', 'keterangan', $this->cari])
-//                ->orFilterWhere(['like', 'barang.nama', $this->cari]);
-        
-         $query->andFilterWhere(['>=', 'tgl_keluar', date('Y-m-d', ($this->createTimeStart))])
-                ->andFilterWhere(['<=', 'tgl_keluar', date('Y-m-d', ($this->createTimeEnd))]);
+        $query->andFilterWhere(['like', 'transaksi_keluar.nama_penerima', $this->cari])
+                ->orFilterWhere(['like', 'barang.nama', $this->cari]);
+
+        $query->andFilterWhere(['>=', 'tgl_kembali', date('Y-m-d', ($this->createTimeStart))])
+                ->andFilterWhere(['<=', 'tgl_kembali', date('Y-m-d', ($this->createTimeEnd))]);
 
         return $dataProvider;
     }
@@ -199,9 +205,6 @@ class TransaksiKeluarDetailSearch extends TransaksiKeluarDetail {
 
         $query->andFilterWhere(['like', 'keterangan', $this->keterangan])
                 ->orFilterWhere(['like', 'keterangan', $this->cari]);
-        
-         $query->andFilterWhere(['>=', 'tgl_keluar', date('Y-m-d', ($this->createTimeStart))])
-                ->andFilterWhere(['<=', 'tgl_keluar', date('Y-m-d', ($this->createTimeEnd))]);
 
         return $dataProvider;
     }

@@ -19,7 +19,7 @@ use kartik\datecontrol\Module;
 
     <?php
     $form = ActiveForm::begin([
-                'action' => ['index'],
+                'action' => $action,
                 'method' => 'get',
     ]);
     ?>
@@ -53,7 +53,7 @@ use kartik\datecontrol\Module;
                     ?>
                     <div class="input-group-btn">
                         <?= Html::submitButton('', ['class' => 'btn btn-primary glyphicon glyphicon-search']) ?>
-                        <?= Html::a('Reset', ['index'], ['class' => 'btn btn-default']); ?>
+                        <?= Html::a('Reset', [$action], ['class' => 'btn btn-default']); ?>
                     </div>
                 </div>
             </div>

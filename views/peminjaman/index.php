@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="peminjaman-index">
     <div class="row">
         <div class="col-md-12">
-            <?=  $this->render('_search', ['model' => $searchModel]); ?>
+            <?=  $this->render('_search', ['model' => $searchModel, 'action' => 'index']); ?>
         </div>
         <!-- <div class="col-md-4">
                     <p>
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'transaksiKeluar.tgl_keluar',
                 'format' => ['date', 'php: d-m-Y'],
-                'header' => 'Tanggal peminjaman',
+                'label' => 'Tanggal peminjaman',
             ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],

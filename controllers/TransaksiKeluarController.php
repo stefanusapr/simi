@@ -66,7 +66,7 @@ class TransaksiKeluarController extends Controller {
     public function actionIndex() {
         $searchModel = new TransaksiKeluarSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         $session = Yii::$app->session;
         // check if a session is already open
         if (!$session->isActive) {
@@ -74,7 +74,7 @@ class TransaksiKeluarController extends Controller {
         }
         // save query here
         $session['repquery'] = Yii::$app->request->queryParams;
-        
+
 //        if (Yii::$app->request->queryParams) {
 //            $searchModel->createTimeRange = Yii::$app->request->queryParams['TransaksiKeluarSearch']['createTimeRange'];
 //        } else {
@@ -135,7 +135,7 @@ class TransaksiKeluarController extends Controller {
             $validQty = Model::validateMultipleQty($modelDetail);
 
             $valid = $valid1 && $valid2 && $validQty;
-
+            
             //jika valid, mulai proses menyimpan
             if ($valid) {
                 //start db transaction
@@ -237,7 +237,9 @@ class TransaksiKeluarController extends Controller {
             //validasi semua model
             $valid1 = $model->validate();
             $valid2 = Model::validateMultiple($modelDetail);
-            $valid = $valid1 && $valid2;
+            $validQty = Model::validateMultipleQty($modelDetail);
+            
+            $valid = $valid1 && $valid2 && $validQty;
 
             //jika valid semua modelnya, maka proses untuk menyimpan
             if ($valid) {
@@ -312,7 +314,7 @@ class TransaksiKeluarController extends Controller {
         try {
             //hapus dahulu pd transaksi detailnya
             foreach ($modelDetail as $detail) {
-                $detail->barang->stok+=$detail->jumlah;
+                $detail->barang->stok += $detail->jumlah;
                 $detail->barang->save();
                 $detail->delete();
             }
