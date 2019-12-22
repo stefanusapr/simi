@@ -5,47 +5,93 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Pengaturan Akun';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
-
-<div class="changepassword">
-
-    <?php
-    $form = ActiveForm::begin([
-                'id' => 'changepassword-form',
-                'options' => ['class' => 'form-horizontal'],
-                'fieldConfig' => [
-                    'template' => "{label}\n<div class=\"col-md-3\">
-                        {input}</div>\n<div class=\"col-md-5\">
+<div class="item panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title pull-left"><i class="glyphicon glyphicon-cog"></i></h3>
+        <div class="clearfix"></div>
+    </div>
+    <div class="row panel-body">
+        <div class="col-md-5">
+            <?php
+            $form = ActiveForm::begin([
+                        'id' => 'changepassword-form',
+                        'options' => ['class' => 'form-horizontal'],
+                        'fieldConfig' => [
+                            'template' => "{label}\n<div class=\"col-md-7\">
+                        {input}</div>\n<div class=\"col-md-7 pull-right\">
                         {error}</div>",
-                    'labelOptions' => ['class' => 'col-md-2 control-label'],
-                ],
-    ]);
-    ?>
-    <?=
-    $form->field($model, 'password_old', ['inputOptions' => [
-            'placeholder' => 'Kata sandi lama']])->passwordInput()
-    ?>
-
-    <?=
-    $form->field($model, 'password_new', ['inputOptions' => [
-            'placeholder' => 'Kata sandi baru']])->passwordInput()
-    ?>
-
-    <?=
-    $form->field($model, 'password_repeat', ['inputOptions' => [
-            'placeholder' => 'Ulangi kata sandi baru']])->passwordInput()
-    ?>
-
-    <div class="form-group">
-        <div class="col-lg-offset-2 col-lg-11">
-            <?=
-            Html::submitButton('Ganti kata sandi', [
-                'class' => 'btn btn-primary'
-            ])
+                            'labelOptions' => ['class' => 'col-md-5 control-label'],
+                        ],
+            ]);
             ?>
+            <?=
+            $form->field($model, 'password_old', ['inputOptions' => [
+                    'placeholder' => 'Kata sandi lama']])->passwordInput()
+            ?>
+
+            <?=
+            $form->field($model, 'password_new', ['inputOptions' => [
+                    'placeholder' => 'Kata sandi baru']])->passwordInput()
+            ?>
+
+            <?=
+            $form->field($model, 'password_repeat', ['inputOptions' => [
+                    'placeholder' => 'Ulangi kata sandi baru']])->passwordInput()
+            ?>
+
+            <div class="form-group">
+                <div class="pull-right">
+                    <?=
+                    Html::submitButton('Ganti kata sandi', [
+                        'class' => 'btn btn-primary',
+                        'style' => 'margin-right: 15px',
+                    ])
+                    ?>
+                </div>
+            </div>
+            <?php ActiveForm::end(); ?>
+        </div>
+
+        <div class="col-md-5">
+            <?php if (Yii::$app->user->identity->AuthKey == 'test100key'): ?>
+                <br>
+                <br>
+                <?php
+                $form = ActiveForm::begin([
+                            'id' => 'changeemail-form',
+                            'action' => ['change-mail'],
+                            'options' => ['class' => 'form-horizontal'],
+                            'fieldConfig' => [
+                                'template' => "{label}\n<div class = \"col-md-7\">
+                            {input}</div>\n<div class=\"col-md-7 pull-right\">
+                            {error}</div>",
+                                'labelOptions' => ['class' => 'col-md-5 control-label'],
+                            ],
+                ]);
+                ?>
+                <?=
+                $form->field($model, 'email', ['inputOptions' => [
+                        'placeholder' => 'Ganti email baru']])
+                ?>
+
+                <?=
+                $form->field($model, 'password_old', ['inputOptions' => [
+                        'placeholder' => 'Konfirmasi Password']])->passwordInput()
+                ?>
+
+                <div class="form-group">
+                    <div class="pull-right">
+                        <?=
+                        Html::submitButton('Ganti email', [
+                            'class' => 'btn btn-primary',
+                            'style' => 'margin-right: 15px',
+                        ])
+                        ?>
+                    </div>
+                </div>
+                <?php ActiveForm::end(); ?>
+            <?php endif ?>
         </div>
     </div>
-    <?php ActiveForm::end(); ?>
 </div>
-

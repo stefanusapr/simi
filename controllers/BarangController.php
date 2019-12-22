@@ -102,7 +102,6 @@ class BarangController extends Controller {
         $dataProviderTM->pagination->pageSize = 5;
         $dataProviderTK->pagination->pageSize = 5;
 
-
         return $this->render('view', [
                     'model' => $this->findModel($id),
                     'dataProviderTM' => $dataProviderTM,
@@ -162,23 +161,13 @@ class BarangController extends Controller {
             $model->stok = 0;
 
             if ($model->save()) {
-                if (Url::previous('tm-create')) {
-                    $var = Url::previous('tm-create');
-                    Yii::$app->session->remove('tm-create');
+                if (Url::previous('b-create')) {
+                    $var = Url::previous('b-create');
+                    Yii::$app->session->remove('b-create');
                     Yii::$app->getSession()->setFlash(
                             'success', 'Berhasil menambahkan barang : <b>' . $model->nama
                     );
                     return $this->redirect($var);
-                } else {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-                if (Url::previous('p-create')) {
-                    $vari = Url::previous('p-create');
-                    Yii::$app->session->remove('p-create');
-                    Yii::$app->getSession()->setFlash(
-                            'success', 'Berhasil menambahkan barang : <b>' . $model->nama
-                    );
-                    return $this->redirect($vari);
                 } else {
                     return $this->redirect(['view', 'id' => $model->id]);
                 }

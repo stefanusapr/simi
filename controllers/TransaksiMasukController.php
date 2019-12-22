@@ -410,7 +410,7 @@ class TransaksiMasukController extends Controller {
     public function actionCreateVendor($id = null) {
 
         if ($id == null) {
-            Url::remember(['transaksi-masuk/create'], 'tm-create');
+            Url::remember(['transaksi-masuk/create'], 'b-create');
         } else {
             Url::remember(['transaksi-masuk/update', 'id' => $id], 'tm-edit');
         }
@@ -420,7 +420,7 @@ class TransaksiMasukController extends Controller {
 
     public function actionCreateBarang() {
 
-        Url::remember(['transaksi-masuk/create'], 'tm-create');
+        Url::remember(['transaksi-masuk/create'], 'b-create');
 
         return $this->redirect(['barang/create']);
     }

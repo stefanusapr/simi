@@ -201,9 +201,9 @@ class PengajuanController extends Controller {
         }
     }
 
-   public function actionCreateBarang() {
+    public function actionCreateBarang() {
 
-        Url::remember(['pengajuan/create'], 'p-create');
+        Url::remember(['pengajuan/create'], 'b-create');
 
         return $this->redirect(['barang/create']);
     }

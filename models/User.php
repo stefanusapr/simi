@@ -21,6 +21,7 @@ use yii\web\IdentityInterface;
  * @property string $password_old
  * @property string $password_new
  * @property string $password_repeat
+ * @property string $email_new
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
 

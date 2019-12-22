@@ -20,11 +20,11 @@ class SiteController extends Controller {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'create', 'update', 'view'],
+                'only' => ['index', 'create', 'update', 'view', 'akun'],
                 'rules' => [
-// deny all POST requests
+                    // allow all POST requests
                     [
-                        'allow' => false,
+                        'allow' => true,
                         'verbs' => ['POST']
                     ],
                     // allow authenticated users
@@ -93,7 +93,7 @@ class SiteController extends Controller {
                     'countPinjam' => $countPinjam,
                     'countVendor' => $countVendor,
                     'countPengajuan' => $countPengajuan,
-                    'countPersetujuan' => $countPersetujuan,  
+                    'countPersetujuan' => $countPersetujuan,
         ]);
     }
 
@@ -154,8 +154,49 @@ class SiteController extends Controller {
      *
      * @return string
      */
-    public function actionAbout() {
-        return $this->render('about');
+    public function actionChangeMail() {
+        $id = Yii::$app->user->identity->id;
+        $model = User::findIdentity($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                try {
+                    if ($model->validatePassword($_POST['User']['password_old'])) {
+                        $model->email = $_POST['User']['email'];
+                        if ($model->save()) {
+                            Yii::$app->getSession()->setFlash(
+                                    'success', 'Perubahan email telah disimpan'
+                            );
+                        }
+                    } else {
+                        Yii::$app->getSession()->setFlash(
+                                'error', 'Konfirmasi password salah!'
+                        );
+                    }
+
+                    return $this->redirect(['akun']);
+                } catch (Exception $e) {
+                    Yii::$app->getSession()->setFlash(
+                            'error', "{$e->getMessage()}"
+                    );
+                    return $this->render('akun', [
+                                'model' => $model
+                    ]);
+                }
+            } else {
+                return $this->render('akun', [
+                            'model' => $model
+                ]);
+            }
+        } else {
+            $model->password_old = '';
+            $model->password_new = '';
+            $model->password_repeat = '';
+            $model->email = '';
+            return $this->render('akun', [
+                        'model' => $model
+            ]);
+        }
     }
 
     public function actionAkun() {
@@ -195,6 +236,7 @@ class SiteController extends Controller {
             $model->password_old = '';
             $model->password_new = '';
             $model->password_repeat = '';
+            $model->email = '';
             return $this->render('akun', [
                         'model' => $model
             ]);
