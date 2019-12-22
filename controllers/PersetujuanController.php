@@ -171,6 +171,13 @@ class PersetujuanController extends Controller {
                         }
                     }
                     if ($flag) {
+                        //kirim surel sebagai pemberitahuan ke operator
+                        Yii::$app->mailer->compose()
+                                ->setFrom('dharmaanugrah97@gmail.com')
+                                ->setTo('a.p.stefanus97@gmail.com')
+                                ->setSubject('SIMI SMAN 2 MALANG - Pemberitahuan Persetujuan')
+                                ->setHtmlBody('Status pengajuan anda telah diperiksa. Terima Kasih!')
+                                ->send();
                         //sukses, commit ke db transaksi
                         //kemudian tampilkan hasilnya
                         //update nilai setuju

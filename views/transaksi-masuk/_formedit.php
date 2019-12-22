@@ -244,6 +244,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                             <?=
                             $form->field($detail, "[{$i}]id_barang")->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(Barang::find()->all(), 'id', 'nama', 'merk'),
+                                'disabled' => 'true',
                             ]);
                             ?>
                         </div>
