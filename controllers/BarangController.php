@@ -251,7 +251,7 @@ class BarangController extends Controller {
             'modelDetails' => $details,
         ]);
 
-//        Yii::$app->response->headers->set($name, $value)
+//        Yii::$app->response->headers->set($name, $value);
         $pdf = new Pdf([
             // set to use core fonts only
             'mode' => Pdf::MODE_UTF8,
@@ -273,7 +273,7 @@ class BarangController extends Controller {
             // any css to be embedded if required
             'cssInline' => '.kv-heading-1{font-size:18px}',
             // set mPDF properties on the fly
-            //'options' => ['title' => 'Customer Invoice'],
+//            'options' => ['title' => 'Customer Invoice'],
             // call mPDF methods on the fly
             'methods' => [
                 'SetHeader' => [],
@@ -298,7 +298,8 @@ class BarangController extends Controller {
             'dataProviderTK' => $dataProviderTK,
         ]);
 
-//        Yii::$app->response->headers->set($name, $value)
+//        Yii::$app->response->headers->set($name, $value);
+
         $pdf = new Pdf([
             // set to use core fonts only
             'mode' => Pdf::MODE_UTF8,
@@ -320,10 +321,10 @@ class BarangController extends Controller {
             // any css to be embedded if required
             'cssInline' => '.kv-heading-1{font-size:18px}',
             // set mPDF properties on the fly
-            //'options' => ['title' => 'Customer Invoice'],
+//            'options' => ['title' => 'Customer Invoice'],
             // call mPDF methods on the fly
             'methods' => [
-                //   'SetHeader'=>['Krajee Report Header'], 
+//                'SetHeader'=>['Krajee Report Header'], 
                 'SetFooter' => ['Halaman {PAGENO}'],
             ]
         ]);

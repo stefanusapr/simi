@@ -16,6 +16,8 @@ use app\models\PengajuanBarang;
 use app\models\PengajuanBarangSearch;
 use app\models\Model;
 use kartik\mpdf\Pdf;
+use app\models\User;
+
 
 /**
  * PengajuanController implements the CRUD actions for Pengajuan model.
@@ -126,7 +128,9 @@ class PersetujuanController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         $modelDetail = $model->pengajuanBarangs;
-
+        
+        $modelUser = User::findIdentity(100);
+        
         if ($model->load(Yii::$app->request->post())) {
             $idLama = ArrayHelper::map($modelDetail, 'id', 'id');
             $modelDetail = Model::createMultiple(PengajuanBarang::classname(), $modelDetail);
@@ -173,8 +177,8 @@ class PersetujuanController extends Controller {
                     if ($flag) {
                         //kirim surel sebagai pemberitahuan ke operator
                         Yii::$app->mailer->compose()
-                                ->setFrom('dharmaanugrah97@gmail.com')
-                                ->setTo('purbaningshanti@gmail.com')
+                                ->setFrom('sman2mlg.simi@gmail.com')
+                                ->setTo($modelUser->email)
                                 ->setSubject('SIMI SMAN 2 MALANG - Pemberitahuan Persetujuan')
                                 ->setHtmlBody('Status pengajuan TP-'.$model->id.' anda telah diperiksa. Terima Kasih!')
                                 ->send();

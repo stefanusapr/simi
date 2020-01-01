@@ -32,20 +32,26 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
         return 'user';
     }
 
+    public $old_password;
+    public $repeat_password;
+    
+    
+    public $new_password;
+    public $new_email;
     /**
      * {@inheritdoc}
      */
     public function rules() {
         return [
-            [['password_old', 'password_new', 'password_repeat'], 'required'],
-            [['username', 'password', 'email', 'role', 'password_old', 'password_new', 'password_repeat'], 'string', 'max' => 255],
+            [['new_email', 'old_password'], 'required', 'on' => 'change-mail'],
+            [['new_password','old_password', 'repeat_password'], 'required', 'on' => 'akun'],
+            [['username', 'password', 'email', 'role', 'old_password', 'new_password', 'repeat_password'], 'string', 'max' => 255],
             [['authKey', 'accessToken'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
         ];
     }
 
-    
     /**
      * {@inheritdoc}
      */
@@ -58,9 +64,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
             'email' => 'Email',
             'accessToken' => 'Access Token',
             'role' => 'Role',
-            'password_old' => 'Kata sandi lama',
-            'password_new' => 'Kata sandi baru',
-            'password_repeat' => 'Ulangi kata sandi baru',
+            'new_password' => 'Kata sandi baru',
+            'new_email' => 'Email baru',
+            'old_password' => 'Kata sandi lama',
+            'repeat_password' => 'Ulangi kata sandi baru',
         ];
     }
 
@@ -129,9 +136,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
      * @return bool if password provided is valid for current user
      */
     public function validatePassword($password) {
-        //return $this->password === $password;
 
-        return $this->password === $password;
+        return $this->password === md5($password);
     }
 
     public function setPassword($password) {
@@ -157,15 +163,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
      */
     public function removePasswordResetToken() {
         $this->password_reset_token = null;
-    }
-
-    public function findPasswords($attribute, $params) {
-        $user = User::find()->where([
-                    'username' => Yii::$app->user->identity->username
-                ])->one();
-        $password = $user->password;
-        if ($password != $this->password_old)
-            $this->addError($attribute, 'Kata sandi lama salah');
     }
 
     /**

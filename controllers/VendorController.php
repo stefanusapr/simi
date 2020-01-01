@@ -217,7 +217,7 @@ class VendorController extends Controller {
                     }
                     if ($flag) {
                         $berhasilSendEmail = Yii::$app->mailer->compose()
-                                ->setFrom('dharmaanugrah97@gmail.com')
+                                ->setFrom('sman2mlg.simi@gmail.com')
                                 ->setTo($model->email)
                                 ->setSubject($kirimPesan->judul)
                                 ->setHtmlBody($kirimPesan->isi_pesan)

@@ -161,7 +161,7 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 try {
-                    if ($model->validatePassword($_POST['User']['password_old'])) {
+                    if ($model->validatePassword($_POST['User']['old_password'])) {
                         $model->email = $_POST['User']['email'];
                         if ($model->save()) {
                             Yii::$app->getSession()->setFlash(
@@ -189,10 +189,6 @@ class SiteController extends Controller {
                 ]);
             }
         } else {
-            $model->password_old = '';
-            $model->password_new = '';
-            $model->password_repeat = '';
-            $model->email = '';
             return $this->render('akun', [
                         'model' => $model
             ]);
@@ -206,16 +202,22 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 try {
-                    if ($model->validatePassword($_POST['User']['password_old'])) {
-                        $model->password = $_POST['User']['password_new'];
-                        if ($model->save()) {
+                    if ($model->validatePassword($_POST['User']['old_password'])) {
+                        if ($_POST['User']['new_password'] == $_POST['User']['repeat_password']) {
+                            $model->password = md5($_POST['User']['new_password']);
+                            if ($model->save()) {
+                                Yii::$app->getSession()->setFlash(
+                                        'success', 'Kata sandi berhasil diubah'
+                                );
+                            }
+                        } else {
                             Yii::$app->getSession()->setFlash(
-                                    'success', 'Kata sandi berhasil diubah'
+                                    'error', 'Password baru anda tidak valid!'
                             );
                         }
                     } else {
                         Yii::$app->getSession()->setFlash(
-                                'error', 'Kata sandi tidak berubah'
+                                'error', 'Password lama anda salah!'
                         );
                     }
                     return $this->redirect(['akun']);
@@ -233,10 +235,6 @@ class SiteController extends Controller {
                 ]);
             }
         } else {
-            $model->password_old = '';
-            $model->password_new = '';
-            $model->password_repeat = '';
-            $model->email = '';
             return $this->render('akun', [
                         'model' => $model
             ]);

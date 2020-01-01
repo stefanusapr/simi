@@ -26,17 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ]);
             ?>
             <?=
-            $form->field($model, 'password_old', ['inputOptions' => [
+            $form->field($model, 'old_password', ['inputOptions' => [
                     'placeholder' => 'Kata sandi lama']])->passwordInput()
             ?>
 
             <?=
-            $form->field($model, 'password_new', ['inputOptions' => [
+            $form->field($model, 'new_password', ['inputOptions' => [
                     'placeholder' => 'Kata sandi baru']])->passwordInput()
             ?>
 
             <?=
-            $form->field($model, 'password_repeat', ['inputOptions' => [
+            $form->field($model, 'repeat_password', ['inputOptions' => [
                     'placeholder' => 'Ulangi kata sandi baru']])->passwordInput()
             ?>
 
@@ -71,12 +71,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
                 ?>
                 <?=
-                $form->field($model, 'email', ['inputOptions' => [
+                $form->field($model, 'new_email', ['inputOptions' => [
                         'placeholder' => 'Ganti email baru']])
                 ?>
 
                 <?=
-                $form->field($model, 'password_old', ['inputOptions' => [
+                $form->field($model, 'old_password', ['inputOptions' => [
                         'placeholder' => 'Konfirmasi Password']])->passwordInput()
                 ?>
 

@@ -9,7 +9,7 @@ use yii\helpers\Url;
     <section class="sidebar">
 
         <!-- Sidebar user panel -->
-        <div class="user-panel fixed">
+        <div class="user-panel">
             <div class="pull-left image">
                 <img src="<?= Url::to('@web/img/logo_sma.png'); ?>" alt="User Image"/>
             </div>
