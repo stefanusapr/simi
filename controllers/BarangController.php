@@ -303,7 +303,7 @@ class BarangController extends Controller {
             // set to use core fonts only
             'mode' => Pdf::MODE_UTF8,
             //Name for the file
-            'filename' => 'Laporan Barang Detail',
+            'filename' => 'Laporan_Barang_Detail',
             // A4 paper format
             'format' => Pdf::FORMAT_A4,
             // portrait orientation

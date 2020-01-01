@@ -69,7 +69,7 @@ use yii\helpers\ArrayHelper;
                 <thead>
                     <tr>
                         <th rowspan="2">No.</th>                        
-                        <th colspan="7">Transaksi Peminjaman</th>
+                        <th colspan="7">Transaksi Masuk</th>
                     </tr>
                     <tr>
                         <th>Tanggal</th>

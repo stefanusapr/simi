@@ -254,7 +254,7 @@ class PengajuanController extends Controller {
             // set to use core fonts only
             'mode' => Pdf::MODE_UTF8,
             //Name for the file
-            'filename' => 'Pengajuan',
+            'filename' => 'Pengajuan_TP-'.$pengajuan->id,
             // A4 paper format
             'format' => Pdf::FORMAT_A4,
             // portrait orientation
@@ -280,5 +280,4 @@ class PengajuanController extends Controller {
         ]);
         return $pdf->render();
     }
-
 }

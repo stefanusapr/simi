@@ -108,13 +108,19 @@ use yii\helpers\Url;
 
             <div class="col-md-12">
                 <p>&nbsp;</p>
-                <table style="font-size:14px" width="100%">
-                    <tr><td></td><td>
-                            Malang, 
-                        </td></tr>
-                    <tr>
-                        <td width="65%">Wakil Kepala Sekolah <br> Sarana dan Prasarana<br/><br/><br/><br/><br/>Drs. Abd. Rahman<br>NIP. 19660307 200312 1 002</td>
-                        <td width="35%">Petugas <br> Sarana dan Prasarana<br/><br/><br/><br/><br/>Deny Prasojo<br>NIP. ____________________</td>
+                <table style="font-size:18px" width="100%" >
+                    <tr style="align-items: center">
+                        <td width="100%">
+                            Malang, <?= Yii::$app->formatter->asDate(date('Y-m-d')) ?>
+                            <br>
+                            Mengetahui, <br>
+                            Wakil Kepala Sekolah <br>
+                            Sarana dan Prasarana
+                            <br>
+                            <img src= "<?= Url::to('@web/img/ttd_waka.png'); ?>" style="width: 100px; height:100px;">
+                            <br><br>
+                            Drs. Abd. Rahman<br>NIP. 19660307 200312 1 002
+                        </td>
                     </tr>
                 </table>
             </div>

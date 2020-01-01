@@ -174,9 +174,9 @@ class PersetujuanController extends Controller {
                         //kirim surel sebagai pemberitahuan ke operator
                         Yii::$app->mailer->compose()
                                 ->setFrom('dharmaanugrah97@gmail.com')
-                                ->setTo('a.p.stefanus97@gmail.com')
+                                ->setTo('purbaningshanti@gmail.com')
                                 ->setSubject('SIMI SMAN 2 MALANG - Pemberitahuan Persetujuan')
-                                ->setHtmlBody('Status pengajuan anda telah diperiksa. Terima Kasih!')
+                                ->setHtmlBody('Status pengajuan TP-'.$model->id.' anda telah diperiksa. Terima Kasih!')
                                 ->send();
                         //sukses, commit ke db transaksi
                         //kemudian tampilkan hasilnya
@@ -243,7 +243,7 @@ class PersetujuanController extends Controller {
         $detailModel = new PengajuanBarangSearch();
         return $detailModel->searchReport(['PengajuanBarangSearch' => ['id_pengajuan' => $id]]);
     }
-
+/**
     public function actionReport($id) {
         $pengajuan = $this->findModel($id);
         $details = $this->findDetailsReport($id);
@@ -257,7 +257,7 @@ class PersetujuanController extends Controller {
             // set to use core fonts only
             'mode' => Pdf::MODE_UTF8,
             //Name for the file
-            'filename' => 'Pengajuan',
+            'filename' => 'Pengajuan TP-'.$pengajuan->id,
             // A4 paper format
             'format' => Pdf::FORMAT_A4,
             // portrait orientation
@@ -283,5 +283,5 @@ class PersetujuanController extends Controller {
         ]);
         return $pdf->render();
     }
-
+*/
 }

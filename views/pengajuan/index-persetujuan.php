@@ -51,12 +51,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => 'StatusLabel',
             ],
-            [
-                'label' => 'Barang yg disetujui yg muncul',
-                'value' => function($dataProvider) {
-                    return join(', ', yii\helpers\ArrayHelper::map($dataProvider->pengajuanBarangs, 'id_barang', 'barang.nama'));
-                },
-            ],
+//            [
+//                'label' => 'Barang yg disetujui yg muncul',
+//                'value' => function($dataProvider) {
+//                    return join(', ', yii\helpers\ArrayHelper::map($dataProvider->pengajuanBarangs, 'id_barang', 'barang.nama'));
+//                },
+//            ],
             ['class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'widget:100px, align:center;'],
                 'header' => 'Tindakan',
